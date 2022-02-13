@@ -1,0 +1,29 @@
+.Signin_wrapper {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-color: #f8f9fe;
+}
+.Signin {
+    padding: 48px;
+    border-radius: 4px;
+    background-color: #fff;
+    -webkit-transform-origin: center;
+    transform-origin: center;
+    display: flex;
+    flex-direction: column;
+    font-family: Roboto,sans-serif;
+    color: #858e9e;
+}
+.formGroup_item {
+    margin-bottom: 12px;
+}
+.form {
+    width: 350px;
+}
