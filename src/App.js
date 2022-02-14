@@ -7,16 +7,20 @@ import Login from './components/login/Login';
 import SideBar from "./components/sidebar/SideBar";
 import Topbar from "./components/sidebar/TopBar";
 import { PrivateRoute } from './utils/PrivateRoute';
+import Content from './components/content/Content';
 import './App.css'
+
+import "bootstrap/dist/css/bootstrap.min.css";
+
 function App() {
   const [sidebarIsOpen, setSidebarOpen] = useState(true);
   const toggleSidebar = () => setSidebarOpen(!sidebarIsOpen);
   return (
     <div className="App">
       <SideBar toggle={toggleSidebar} isOpen={sidebarIsOpen} />
-      <Topbar toggleSidebar={toggleSidebar} />
+      <Content toggleSidebar={toggleSidebar} sidebarIsOpen={sidebarIsOpen} />
       <Routes>
-        <Route path="/" element={<PrivateRoute><h1>/</h1></PrivateRoute>}/>
+        {/* <Route path="/" element={<PrivateRoute>yrty</PrivateRoute>}/> */}
         <Route path="/login" element={<Login />}/>
       </Routes>
     </div>
