@@ -59,8 +59,8 @@ const SideBar = ({ isOpen, toggle }) => (
 const submenus = [
   [
     {
-      title: "Home 1",
-      target: "Home-1",
+      title: "Bosh Sahifa",
+      target: "home",
     },
     {
       title: "Home 2",
