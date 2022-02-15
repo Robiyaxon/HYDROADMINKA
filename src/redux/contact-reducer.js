@@ -58,3 +58,11 @@ export const upDateContactHeaderText = (title_uz) => (dispatch) => {
             console.log(res);
         });
 }
+
+export const upDateContactHeaderPhoto = (photo) => (dispatch) => {
+    dispatch(upDateContactHeaderPhotoUrlAC(photo))
+    // return globalAPI.uploadImage(photo)
+        // .then(res => {
+            // console.log(res);
+        // });
+}

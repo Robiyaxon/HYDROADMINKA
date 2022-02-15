@@ -5,6 +5,7 @@ import { Button, Modal, Table } from 'antd';
 import { EditOutlined } from '@ant-design/icons';
 import { useDispatch, useSelector } from 'react-redux';
 import { getContactHeaderImageUpdate } from '../../redux/contact-reducer';
+import { GetPhoto } from './GetPhoto';
 
 export const Contact = (props) => {
   useEffect(() => {
@@ -38,6 +39,12 @@ export const Contact = (props) => {
     debugger
     props.upDateContactHeaderText(text)
   }
+  const ChangePhoto = (e) => {
+    let text = e.target.files[0]
+    console.log(text);
+    debugger
+    props.upDateContactHeaderPhoto(text)
+  }
 
   const columns = [
     { title: 'Name', dataIndex: 'name', key: 'name' },
@@ -56,6 +63,7 @@ export const Contact = (props) => {
           onCancel={handleCancel}
         >
           <input type="text" value={props.title_uz} onChange={ChangeData} />
+          <GetPhoto photoUrl={props.photoUrl}/>
         </Modal>
         <Button type="primary" onClick={showModal}><EditOutlined /></Button>
       </>,
