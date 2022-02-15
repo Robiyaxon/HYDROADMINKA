@@ -11,6 +11,7 @@ import Content from './components/content/Content';
 import './App.css'
 
 import "bootstrap/dist/css/bootstrap.min.css";
+import Home from "./components/home/Home";
 
 function App() {
   const [sidebarIsOpen, setSidebarOpen] = useState(true);
@@ -22,6 +23,7 @@ function App() {
       <Routes>
         {/* <Route path="/" element={<PrivateRoute>yrty</PrivateRoute>}/> */}
         <Route path="/login" element={<Login />}/>
+        {/* <Route path="/home" element={<PrivateRoute><Home /></PrivateRoute>}/> */}
       </Routes>
     </div>
   );

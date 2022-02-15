@@ -10,7 +10,11 @@ function PrivateRoute( { children }) {
     const location = useLocation()
 
     return isLoggedIn ? (
-        <>{children}</>
+        <>
+            <div>
+                {children}
+            </div>
+        </>
     ) : (
         <Navigate
         replace={true}
