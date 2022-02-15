@@ -1,6 +1,6 @@
 import * as axios from "axios";
 
-const instance = axios.create({
+export const instance = axios.create({
     responseType: "json",
     withCredentials: true,
     baseURL: 'http://softcity.uz:9999/api/',
