@@ -31,15 +31,28 @@ export const usersAPI = {
 
 export const homeApi = {
     setCarousel() {
-        return instance.get(`homePanel1Carousel`)
+        return instance.get(`homePanel1CarouselAPI`)
             .then(async(response) => {
                 return await response.data;
             });
     },
+    setCreateImage(data) {
+        debugger
+        const { title_uz, description_uz, photoUrl } = data;
+        return instance.post(`homePanel1CarouselAPI`, { title_uz, description_uz, photoUrl })
+        .then(async(response) => {
+            return await response.data;
+        });
+    },
     setUpdateImage(data) {
         const { id, title_uz, description_uz, photoUrl, originalPath } = data;
-        debugger
         return instance.put(`homePanel1CarouselAPI/${id}`, { id, title_uz, description_uz, photoUrl: photoUrl ? photoUrl :  originalPath })
+        .then(async(response) => {
+            return await response.data;
+        });
+    },
+    setDeleteImage(id) {
+        return instance.delete(`homePanel1CarouselAPI/${id}`)
         .then(async(response) => {
             return await response.data;
         });

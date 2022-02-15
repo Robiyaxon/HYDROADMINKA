@@ -15,6 +15,7 @@ const Content = ({ sidebarIsOpen, toggleSidebar }) => (
     >
       <Topbar toggleSidebar={toggleSidebar} />
      <Routes>
+        <Route exact path="/" element={<PrivateRoute><Home /></PrivateRoute>} />
         <Route exact path="/home" element={<PrivateRoute><Home /></PrivateRoute>} />
         <Route exact path="/contact" element={<ContactContainer/>} />
 

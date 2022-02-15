@@ -4,14 +4,14 @@ import { useSelector, useDispatch } from 'react-redux'
 import BorderColorIcon from '@mui/icons-material/BorderColor'
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
 
-import { getCarouselImages, getCarouselImageUpdate } from '../../redux/home-reducer'
+import { getCarouselImageDelete, getCarouselImages, getCarouselImageUpdate, getCarouselImageCreate } from '../../redux/home-reducer'
 import { Button, Input, Modal, ModalBody, ModalFooter, ModalHeader, Table } from 'reactstrap'
 
 const Home = () => {
     const [modalOpen, setModalOpen] = useState(false);
     const [selectedImage,setSelectedImage] = useState(false);
     const [selectedI,setSelectedI] = useState(false);
-    const [imageId, setImageId] = useState(null)
+    const [imageId, setImageId] = useState(false)
     let images = null;
     images = useSelector(state => state.home ? state.home : null);
     const dispatch = useDispatch();
@@ -21,14 +21,17 @@ const Home = () => {
     }, []);
     const toggle = () => {
         setModalOpen(!modalOpen);
+        setImageId(null)
     }
     const onSubmit = (data) => {
-        // let a = selectedImage;
-        // debugger
+        !imageId ? dispatch(getCarouselImageCreate({ selectedImage, title_uz: data.title, description_uz: data.description })) : 
         dispatch(getCarouselImageUpdate({ selectedImage, title_uz: data.title, description_uz: data.description, id: imageId.id, originalPath: imageId.photoUrl, selectedI }));
         setImageId(null)
         setSelectedI(false);
         setModalOpen(false);
+    }
+    const deleteHandler = (id) => {
+        dispatch(getCarouselImageDelete(id))
     }
     return images && images.images && images.images.length > 0 && (
         <div>
@@ -37,13 +40,14 @@ const Home = () => {
                 <ModalBody>
                 <Form
                 onSubmit={onSubmit}
+                initialValues={imageId && { title: imageId && imageId.title_uz, description: imageId && imageId.description_uz }}
                 validate={values => {
                     const errors = {}
                     if (!values.title) {
-                        if (!values.title) { errors.title = 'Invalid e-mail address' }
+                        if (!values.title) { errors.title = 'Invalid title address' }
                     }
                     if (!values.description) {
-                        errors.description = 'Required'
+                        errors.description = 'Invalid description address'
                     }
                     return errors
                 }}
@@ -56,10 +60,8 @@ const Home = () => {
                                 <label>Image</label>
                                 <Input
                                     type="file"
-                                    // {...input}
                                     name="myImage"
                                     onChange={(event) => {
-                                        debugger
                                         const formData = new FormData();
                                         formData.append("selectedFile", event.target.files[0]);
                                         console.log(formData);
@@ -95,7 +97,7 @@ const Home = () => {
                         </Field>
                     </div>
                     
-                    <Button style={{width: '100%', marginTop: '20px'}} type='submit' disabled={submitting}>Sign in</Button>
+                    <Button style={{width: '100%', marginTop: '20px'}} type='submit' disabled={submitting}>Send</Button>
                 </form>
                 )} />
                 
@@ -108,7 +110,9 @@ const Home = () => {
                     <th>Images</th>
                     <th>Title</th>
                     <th>Description</th>
-                    <th>_________</th>
+                    <th><Button onClick={ () =>{
+                        setModalOpen(true)
+                    } }>Create</Button></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -123,7 +127,7 @@ const Home = () => {
                     <td><Button onClick={ () => {
                         setImageId(el)
                         setModalOpen(true)
-                    } }><BorderColorIcon/></Button> <Button><DeleteForeverIcon/></Button></td>
+                    } }><BorderColorIcon/></Button> <Button onClick={ () => deleteHandler(el.id) }><DeleteForeverIcon/></Button></td>
                 </tr>}) }
                 </tbody>
             </Table>
