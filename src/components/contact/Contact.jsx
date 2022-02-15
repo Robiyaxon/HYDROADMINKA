@@ -1,44 +1,43 @@
-
-// import React, { useEffect, useState } from 'react'
-// import { useDispatch } from 'react-redux';
-// import { getContactHeader } from '../../redux/contact-reducer';
-
-
-// export const Contact = (props) => {
-//     // const [title_uz, setTitle_uz] = useState('')
-//     // const [title_ru, setTitle_ru] = useState('')
-//     // const [title_en, setTitle_en] = useState('')
-//     // const [title_krl, setTitle_krl] = useState('')
-
-//     // useEffect(() => {
-//     //     setTitle_uz(props.title_uz),
-//     //     setTitle_ru(props.title_ru),
-//     //     setTitle_en(props.title_en),
-//     //     setTitle_krl(props.title_krl)
-//     // }, [])
-
-//     return (
-//         <div>
-//             <h1>{props.title_uz}</h1>
-//             <h1>{props.title_ru}</h1>
-//             <h1>{props.title_en}</h1>
-//             <h1>{props.title_krl}</h1>
-//         </div>
-//     )
-// }
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import 'antd/dist/antd.css';
-import { Table } from 'antd';
+import { Button, Modal, Table } from 'antd';
 
 import { EditOutlined } from '@ant-design/icons';
+import { useDispatch, useSelector } from 'react-redux';
+import { getContactHeaderImageUpdate } from '../../redux/contact-reducer';
 
 export const Contact = (props) => {
-  console.log(props.title_uz);
   useEffect(() => {
     props.getContactHeader()
-    
   }, [])
-  
+
+  const [visible, setVisible] = React.useState(false);
+  const [confirmLoading, setConfirmLoading] = React.useState(false);
+
+  const showModal = () => {
+    setVisible(true);
+  };
+
+  const handleOk = () => {
+    setConfirmLoading(true);
+    setTimeout(() => {
+      setVisible(false);
+      setConfirmLoading(false);
+    }, 2000);
+  };
+
+  const handleCancel = () => {
+    console.log('Clicked cancel button');
+    setVisible(false);
+
+  };
+
+  const ChangeData = (e) => {
+    let text = e.currentTarget.value
+    console.log(text);
+    debugger
+    props.upDateContactHeaderText(text)
+  }
 
   const columns = [
     { title: 'Name', dataIndex: 'name', key: 'name' },
@@ -48,7 +47,18 @@ export const Contact = (props) => {
       title: 'Action',
       dataIndex: '',
       key: 'x',
-      render: () => <a onClick={()=>alert('hi')}><EditOutlined /></a>,
+      render: () => <>
+        <Modal
+          title="Title"
+          visible={visible}
+          onOk={handleOk}
+          confirmLoading={confirmLoading}
+          onCancel={handleCancel}
+        >
+          <input type="text" value={props.title_uz} onChange={ChangeData} />
+        </Modal>
+        <Button type="primary" onClick={showModal}><EditOutlined /></Button>
+      </>,
     },
   ];
 
@@ -57,7 +67,7 @@ export const Contact = (props) => {
       key: 1,
       name: 'Contact Header picture',
       title: props.title_uz,
-      picture: '--------',
+      picture: props.photoUrl,
       description: 'Here you can customize the Contact title image title = title You must enter in Uzbek',
     },
     {

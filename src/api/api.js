@@ -13,7 +13,6 @@ export const instance = axios.create({
 
 export const globalAPI = {
     uploadImage(data) {
-        // debugger
         return instance.post(`UploadAPI`, data)
             .then(async(response) => {
                 return await response.data;
@@ -40,7 +39,7 @@ export const homeApi = {
     setUpdateImage(data) {
         const { id, title_uz, description_uz, photoUrl, originalPath } = data;
         debugger
-        return instance.put(`homePanel1Carousel/${id}`, { id, title_uz, description_uz, photoUrl: photoUrl ? photoUrl :  originalPath })
+        return instance.put(`homePanel1CarouselAPI/${id}`, { id, title_uz, description_uz, photoUrl: photoUrl ? photoUrl :  originalPath })
         .then(async(response) => {
             return await response.data;
         });

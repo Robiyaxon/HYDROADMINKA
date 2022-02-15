@@ -7,10 +7,9 @@ export const contactAPI = {
                 return await response.data;
             });
     },
-    upDateContactHeader(data) {
-        const { id, title_uz, description_uz, photoUrl, originalPath } = data;
+    upDateContactHeader(title_uz) {
         debugger
-        return instance.put(`contactHeaders/${id}`, { id, title_uz, description_uz, photoUrl: photoUrl ? photoUrl : originalPath })
+        return instance.put(`contactHeadersAPI/1/`, { id : 1, title_uz })
             .then(async (response) => {
                 return await response.data;
             });
