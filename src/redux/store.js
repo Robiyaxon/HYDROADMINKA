@@ -1,8 +1,9 @@
 import { applyMiddleware, combineReducers, createStore } from "redux";
 import authReducer from "./auth-reducer";
 import thunkMiddleware from "redux-thunk";
-import { ContactReducer } from './contact-reducer';
+// import { ContactReducer } from './contact-reducer';
 import homeReducer from "./home-reducer";
+import { ContactReducer } from './contact-reducer2';
 
 let reducers = combineReducers({
     auth: authReducer,

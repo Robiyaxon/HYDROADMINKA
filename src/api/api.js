@@ -32,7 +32,7 @@ export const usersAPI = {
 
 export const homeApi = {
     setCarousel() {
-        return instance.get(`homePanel1CarouselAPI`)
+        return instance.get(`homePanel1Carousel`)
             .then(async(response) => {
                 return await response.data;
             });
@@ -40,7 +40,7 @@ export const homeApi = {
     setUpdateImage(data) {
         const { id, title_uz, description_uz, photoUrl, originalPath } = data;
         debugger
-        return instance.put(`homePanel1CarouselAPI/${id}`, { id, title_uz, description_uz, photoUrl: photoUrl ? photoUrl :  originalPath })
+        return instance.put(`homePanel1Carousel/${id}`, { id, title_uz, description_uz, photoUrl: photoUrl ? photoUrl :  originalPath })
         .then(async(response) => {
             return await response.data;
         });

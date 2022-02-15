@@ -26,23 +26,29 @@
 //         </div>
 //     )
 // }
-import React from 'react';
+import React, { useEffect } from 'react';
 import 'antd/dist/antd.css';
 import { Table } from 'antd';
 
 import { EditOutlined } from '@ant-design/icons';
 
 export const Contact = (props) => {
+  console.log(props.title_uz);
+  useEffect(() => {
+    props.getContactHeader()
+    
+  }, [])
+  
 
   const columns = [
     { title: 'Name', dataIndex: 'name', key: 'name' },
     { title: 'Title', dataIndex: 'title', key: 'title' },
-    { title: 'Other', dataIndex: 'other', key: 'other' },
+    { title: 'Picture', dataIndex: 'picture', key: 'picture' },
     {
       title: 'Action',
       dataIndex: '',
       key: 'x',
-      render: () => <a><EditOutlined /></a>,
+      render: () => <a onClick={()=>alert('hi')}><EditOutlined /></a>,
     },
   ];
 
@@ -51,21 +57,21 @@ export const Contact = (props) => {
       key: 1,
       name: 'Contact Header picture',
       title: props.title_uz,
-      other: '--------',
+      picture: '--------',
       description: 'Here you can customize the Contact title image title = title You must enter in Uzbek',
     },
     {
       key: 2,
       name: 'Jim Green',
       title: 42,
-      other: 'London No. 1 Lake Park',
+      picture: 'London No. 1 Lake Park',
       description: 'My name is Jim Green, I am 42 years old, living in London No. 1 Lake Park.',
     },
     {
       key: 4,
       name: 'Joe Black',
       title: 32,
-      other: 'Sidney No. 1 Lake Park',
+      picture: 'Sidney No. 1 Lake Park',
       description: 'My name is Joe Black, I am 32 years old, living in Sidney No. 1 Lake Park.',
     },
   ];
