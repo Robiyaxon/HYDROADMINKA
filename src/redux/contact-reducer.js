@@ -5,7 +5,7 @@ const GET_CONTACT = '/contact/GET_CONTACT'
 const UPDATE_CONTACT_HEADER_TEXT = '/contact/UPDATE_CONTACT_HEADER_TEXT'
 const UPDATE_CONTACT_HEADER_PHOTO = '/contact/UPDATE_CONTACT_HEADER_PHOTO'
 
-const initialState = {
+let initialState = {
     title_uz: '',
     title_krl: '',
     title_ru: '',
@@ -30,6 +30,7 @@ export const ContactReducer = (state = initialState, action) => {
             return state
     }
 }
+// action creator
 
 export const setContactHeaderAC = (title_uz, title_en, title_krl, title_ru, photoUrl) => ({
     type: GET_CONTACT, payload:
@@ -43,10 +44,10 @@ export const upDateContactHeaderPhotoUrlAC = (photoUrl) => ({
 });
 
 
-export const getContactHeader = () => (dispatch) => {
-    return contactAPI.setContactHeader()
+export const getContactData = () => (dispatch) => {
+    return contactAPI.setContact()
         .then(res => {
-            dispatch(setContactHeaderAC(res[0].title_uz, res[0].title_en, res[0].title_krl, res[0].title_ru, res[0].photoUrl));
+            dispatch(setContactAllDataAC(res[0].title_uz, res[0].title_en, res[0].title_krl, res[0].title_ru, res[0].photoUrl));
             console.log(res[0]);
         });
 }

@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import { Contact } from './Contact';
-import { getContactHeader, upDateContactHeaderText, upDateContactHeaderPhoto } from '../../redux/contact-reducer';
+import { getContactData, upDateContactText } from '../../redux/contact-reducer';
 
 const mapStateToProps = (state) => ({
     title_uz: state.contactPage.title_uz,
@@ -10,4 +10,4 @@ const mapStateToProps = (state) => ({
     photoUrl: state.contactPage.photoUrl
 })
 
-export default connect(mapStateToProps, {getContactHeader, upDateContactHeaderText, upDateContactHeaderPhoto})(Contact)
+export default connect(mapStateToProps, { getContactData, upDateContactText})(Contact)

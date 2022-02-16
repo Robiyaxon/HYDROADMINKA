@@ -1,7 +1,7 @@
 import { instance } from './api'
 
 export const contactAPI = {
-    setContactHeader() {
+    setContact() {
         return instance.get(`contactHeaders`)
             .then(async (response) => {
                 return await response.data;

@@ -37,14 +37,9 @@ export const Contact = (props) => {
     let text = e.currentTarget.value
     console.log(text);
     debugger
-    props.upDateContactHeaderText(text)
+    props.upDateContactText(text)
   }
-  const ChangePhoto = (e) => {
-    let text = e.target.files[0]
-    console.log(text);
-    debugger
-    props.upDateContactHeaderPhoto(text)
-  }
+
 
   const columns = [
     { title: 'Name', dataIndex: 'name', key: 'name' },
@@ -63,7 +58,9 @@ export const Contact = (props) => {
           onCancel={handleCancel}
         >
           <input type="text" value={props.title_uz} onChange={ChangeData} />
-          <GetPhoto photoUrl={props.photoUrl}/>
+          {/* <input type="file" multiple value={props.photoUrl} onChange={ChangePhoto} /> */}
+
+          <GetPhoto />
         </Modal>
         <Button type="primary" onClick={showModal}><EditOutlined /></Button>
       </>,
@@ -94,12 +91,17 @@ export const Contact = (props) => {
     },
   ];
 
-  return <Table
-    columns={columns}
-    expandable={{
-      expandedRowRender: record => <p style={{ margin: 0 }}>{record.description}</p>,
-      rowExpandable: record => record.name !== 'Not Expandable',
-    }}
-    dataSource={data}
-  />
+
+
+  return <>
+
+    <Table
+      columns={columns}
+      expandable={{
+        expandedRowRender: record => <p style={{ margin: 0 }}>{record.description}</p>,
+        rowExpandable: record => record.name !== 'Not Expandable',
+      }}
+      dataSource={data}
+    />
+  </>
 }
