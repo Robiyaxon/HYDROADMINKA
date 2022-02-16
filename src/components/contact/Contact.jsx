@@ -1,107 +1,124 @@
-import React, { useEffect, useState } from 'react';
-import 'antd/dist/antd.css';
-import { Button, Modal, Table } from 'antd';
+import React, { useEffect, useState } from 'react'
+import { Field, Form } from 'react-final-form'
+import { useSelector, useDispatch } from 'react-redux'
+import BorderColorIcon from '@mui/icons-material/BorderColor'
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
 
-import { EditOutlined } from '@ant-design/icons';
-import { useDispatch, useSelector } from 'react-redux';
-import { getContactHeaderImageUpdate } from '../../redux/contact-reducer';
-import { GetPhoto } from './GetPhoto';
+import { Button, Input, Modal, ModalBody, ModalFooter, ModalHeader, Table } from 'reactstrap'
+import { getContactImageCreate, getContactImages, getContactImageUpdate } from './../../redux/contact-reducer';
 
-export const Contact = (props) => {
-  useEffect(() => {
-    props.getContactHeader()
-  }, [])
+export const Contact = () => {
+  debugger
+    const [modalOpen, setModalOpen] = useState(false);
+    const [selectedImage,setSelectedImage] = useState(false);
+    const [selectedI,setSelectedI] = useState(false);
+    const [imageId, setImageId] = useState(false)
+    let images = null;
+    images = useSelector(state => state.contactPage ? state.contactPage : null);
+    console.log(images);
 
-  const [visible, setVisible] = React.useState(false);
-  const [confirmLoading, setConfirmLoading] = React.useState(false);
+    const dispatch = useDispatch();
 
-  const showModal = () => {
-    setVisible(true);
-  };
-
-  const handleOk = () => {
-    setConfirmLoading(true);
-    setTimeout(() => {
-      setVisible(false);
-      setConfirmLoading(false);
-    }, 2000);
-  };
-
-  const handleCancel = () => {
-    console.log('Clicked cancel button');
-    setVisible(false);
-
-  };
-
-  const ChangeData = (e) => {
-    let text = e.currentTarget.value
-    console.log(text);
-    debugger
-    props.upDateContactText(text)
-  }
-
-
-  const columns = [
-    { title: 'Name', dataIndex: 'name', key: 'name' },
-    { title: 'Title', dataIndex: 'title', key: 'title' },
-    { title: 'Picture', dataIndex: 'picture', key: 'picture' },
-    {
-      title: 'Action',
-      dataIndex: '',
-      key: 'x',
-      render: () => <>
-        <Modal
-          title="Title"
-          visible={visible}
-          onOk={handleOk}
-          confirmLoading={confirmLoading}
-          onCancel={handleCancel}
-        >
-          <input type="text" value={props.title_uz} onChange={ChangeData} />
-          {/* <input type="file" multiple value={props.photoUrl} onChange={ChangePhoto} /> */}
-
-          <GetPhoto />
-        </Modal>
-        <Button type="primary" onClick={showModal}><EditOutlined /></Button>
-      </>,
-    },
-  ];
-
-  const data = [
-    {
-      key: 1,
-      name: 'Contact Header picture',
-      title: props.title_uz,
-      picture: props.photoUrl,
-      description: 'Here you can customize the Contact title image title = title You must enter in Uzbek',
-    },
-    {
-      key: 2,
-      name: 'Jim Green',
-      title: 42,
-      picture: 'London No. 1 Lake Park',
-      description: 'My name is Jim Green, I am 42 years old, living in London No. 1 Lake Park.',
-    },
-    {
-      key: 4,
-      name: 'Joe Black',
-      title: 32,
-      picture: 'Sidney No. 1 Lake Park',
-      description: 'My name is Joe Black, I am 32 years old, living in Sidney No. 1 Lake Park.',
-    },
-  ];
-
-
-
-  return <>
-
-    <Table
-      columns={columns}
-      expandable={{
-        expandedRowRender: record => <p style={{ margin: 0 }}>{record.description}</p>,
-        rowExpandable: record => record.name !== 'Not Expandable',
-      }}
-      dataSource={data}
-    />
-  </>
+    useEffect(() => {
+        dispatch(getContactImages())
+    }, []);
+    const toggle = () => {
+        setModalOpen(!modalOpen);
+        setImageId(null)
+    }
+    const onSubmit = (data) => {
+        !imageId ? dispatch(getContactImageCreate({ selectedImage, title_uz: data.title })) : 
+        dispatch(getContactImageUpdate({ selectedImage, title_uz: data.title, id: imageId.id, originalPath: imageId.photoUrl, selectedI }));
+        setImageId(null)
+        setSelectedI(false);
+        setModalOpen(false);
+    }
+    // debugger
+    return images && images.images && images.images.length > 0 && (
+        <div>
+            <Modal isOpen={modalOpen} toggle={toggle} >
+                <ModalHeader toggle={toggle}>Modal title</ModalHeader>
+                <ModalBody>
+                <Form
+                onSubmit={onSubmit}
+                initialValues={imageId && { title: imageId && imageId.title_uz }}
+                validate={values => {
+                    const errors = {}
+                    if (!values.title) {
+                        if (!values.title) { errors.title = 'Invalid title address' }
+                    }
+                    return errors
+                }}
+                render={({ handleSubmit, submitting }) => (
+                <form onSubmit={handleSubmit}>
+                    <div>
+                        <Field name="image" >
+                            {({ input, meta }) => (
+                            <div>
+                                <label>Image</label>
+                                <Input
+                                    type="file"
+                                    name="myImage"
+                                    onChange={(event) => {
+                                        const formData = new FormData();
+                                        formData.append("selectedFile", event.target.files[0]);
+                                        console.log(formData);
+                                        setSelectedImage(formData);
+                                        setSelectedI(true)
+                                    }}
+                                />
+                                {meta.error && meta.touched && <span style={{ color: '#fd4444' }}>{meta.error}</span>}
+                            </div>
+                            )}
+                        </Field>
+                    </div>
+                    <div>
+                        <Field name="title">
+                            {({ input, meta }) => (
+                            <div>
+                                <label>Title</label>
+                                <Input type='text' {...input} placeholder='Title'  />
+                                {meta.error && meta.touched && <span style={{ color: '#fd4444' }}>{meta.error}</span>}
+                            </div>
+                            )}
+                        </Field>
+                    </div>
+                    <div>
+                    </div>
+                    
+                    <Button style={{width: '100%', marginTop: '20px'}} type='submit' disabled={submitting}>
+                      Send
+                      </Button>
+                </form>
+                )} />
+                
+                </ModalBody>
+            </Modal>
+            <Table>
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Images</th>
+                    <th>Title</th>
+                    <th>-----</th>
+                </tr>
+                </thead>
+                <tbody>
+                { images && images.images.length > 0 && images.images.map((el, i) => {
+                    console.log(el + '-el', i + '-i');
+                    debugger
+                return <tr>
+                    <th scope="row">{ i + 1 }</th>
+                    <td><img style={{ width: '30px' }} src={ el.photoUrl } alt="" /></td>
+                    
+                    <td>{ el.title_uz }</td>
+                    <td><Button onClick={ () => {
+                        setImageId(el)
+                        setModalOpen(true)
+                    } }><BorderColorIcon/></Button></td>
+                </tr>}) }
+                </tbody>
+            </Table>
+        </div>
+    )
 }

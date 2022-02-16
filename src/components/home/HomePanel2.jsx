@@ -4,37 +4,36 @@ import { useSelector, useDispatch } from 'react-redux'
 import BorderColorIcon from '@mui/icons-material/BorderColor'
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
 
-import { getCarouselImageDelete, getCarouselImages, getCarouselImageUpdate, getCarouselImageCreate } from '../../redux/home-reducer'
+import { getHomePanel2Delete, getHomePanel2Data, getHomePanel2Update, getHomePanel2Create } from '../../redux/home-reducer'
 import { Button, Input, Modal, ModalBody, ModalFooter, ModalHeader, Table } from 'reactstrap'
 
-const Home = () => {
+const HomePanel2 = () => {
     const [modalOpen, setModalOpen] = useState(false);
     const [selectedImage,setSelectedImage] = useState(false);
     const [selectedI,setSelectedI] = useState(false);
     const [imageId, setImageId] = useState(false)
     let images = null;
-    images = useSelector(state => state.home ? state.home : null);
+    images = useSelector(state => state.home.homePanel2 ? state.home.homePanel2 : null);
     const dispatch = useDispatch();
-
+    
     useEffect(() => {
-        dispatch(getCarouselImages())
+        dispatch(getHomePanel2Data())
     }, []);
     const toggle = () => {
         setModalOpen(!modalOpen);
         setImageId(null)
     }
     const onSubmit = (data) => {
-        !imageId ? dispatch(getCarouselImageCreate({ selectedImage, title_uz: data.title, description_uz: data.description })) : 
-        dispatch(getCarouselImageUpdate({ selectedImage, title_uz: data.title, description_uz: data.description, id: imageId.id, originalPath: imageId.photoUrl, selectedI }));
+        !imageId ? dispatch(getHomePanel2Create({ selectedImage, title_uz: data.title, description_uz: data.description })) : 
+        dispatch(getHomePanel2Update({ selectedImage, title_uz: data.title, description_uz: data.description, id: imageId.id, originalPath: imageId.photoUrl, selectedI }));
         setImageId(null)
         setSelectedI(false);
         setModalOpen(false);
     }
     const deleteHandler = (id) => {
-        dispatch(getCarouselImageDelete(id))
+        dispatch(getHomePanel2Delete(id))
     }
-    // debugger
-    return images && images.images && images.images.length > 0 && (
+    return images && images.length > 0 && (
         <div>
             <Modal isOpen={modalOpen} toggle={toggle} >
                 <ModalHeader toggle={toggle}>Modal title</ModalHeader>
@@ -117,11 +116,11 @@ const Home = () => {
                 </tr>
                 </thead>
                 <tbody>
-                { images && images.images.length > 0 && images.images.map((el, i) => {
+                { images && images.length > 0 && images.map((el, i) => {
                     
                 return <tr>
                     <th scope="row">{ i + 1 }</th>
-                    <td><img style={{ width: '30px' }} src={ el.photoUrl } alt="" /></td>
+                    <td><img style={{ width: '30px' }} src={ el.iconLinkName } alt="" /></td>
                     
                     <td>{ el.title_uz }</td>
                     <td>{ el.description_uz }</td>
@@ -136,4 +135,4 @@ const Home = () => {
     )
 }
 
-export default Home
+export default HomePanel2;

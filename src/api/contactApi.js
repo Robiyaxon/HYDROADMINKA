@@ -2,16 +2,23 @@ import { instance } from './api'
 
 export const contactAPI = {
     setContact() {
-        return instance.get(`contactHeaders`)
-            .then(async (response) => {
+        return instance.get(`contactHeadersAPI`)
+            .then(async(response) => {
                 return await response.data;
             });
     },
-    upDateContactHeader(title_uz) {
-        debugger
-        return instance.put(`contactHeadersAPI/1/`, { id : 1, title_uz })
-            .then(async (response) => {
-                return await response.data;
-            });
+    setCreateContact(data) {
+        const { title_uz, photoUrl } = data;
+        return instance.post(`contactHeadersAPI`, { title_uz, photoUrl })
+        .then(async(response) => {
+            return await response.data;
+        });
+    },
+    setUpdateContact(data) {
+        const { id, title_uz, photoUrl, originalPath } = data;
+        return instance.put(`contactHeadersAPI/1`, { id, title_uz, photoUrl: photoUrl ? photoUrl :  originalPath })
+        .then(async(response) => {
+            return await response.data;
+        });
     }
 }

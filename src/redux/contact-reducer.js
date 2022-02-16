@@ -1,69 +1,59 @@
-import { globalAPI } from "../api/api"
-import { contactAPI } from '../api/contactApi';
+import { globalAPI, homeApi } from "../api/api";
+import { contactAPI } from './../api/contactApi';
 
-const GET_CONTACT = '/contact/GET_CONTACT'
-const UPDATE_CONTACT_HEADER_TEXT = '/contact/UPDATE_CONTACT_HEADER_TEXT'
-const UPDATE_CONTACT_HEADER_PHOTO = '/contact/UPDATE_CONTACT_HEADER_PHOTO'
+const SET_CONTACT_IMAGES = '/contact/SET_CONTACT_IMAGES';
 
 let initialState = {
-    title_uz: '',
-    title_krl: '',
-    title_ru: '',
-    title_en: '',
-    photoUrl: ''
-}
+    images: null,
+};
 
-export const ContactReducer = (state = initialState, action) => {
+
+export const contactReducer = (state = initialState, action) => {
     switch (action.type) {
-        case GET_CONTACT:
-
+        case SET_CONTACT_IMAGES:
             return {
                 ...state,
-                ...action.payload
+                images: action.images
             }
-        case UPDATE_CONTACT_HEADER_TEXT:
-            return { ...state, title_uz: action.title_uz }
-        case UPDATE_CONTACT_HEADER_PHOTO:
-            return { ...state, photoUrl: action.photoUrl }
-
         default:
-            return state
+            return state;
     }
 }
-// action creator
 
-export const setContactHeaderAC = (title_uz, title_en, title_krl, title_ru, photoUrl) => ({
-    type: GET_CONTACT, payload:
-        { title_uz, title_krl, title_en, title_ru, photoUrl }
-});
-export const upDateContactHeaderTextAC = (title_uz) => ({
-    type: UPDATE_CONTACT_HEADER_TEXT, title_uz
-});
-export const upDateContactHeaderPhotoUrlAC = (photoUrl) => ({
-    type: UPDATE_CONTACT_HEADER_PHOTO, photoUrl
-});
+export const setContactImagesData = (images) => ({ type: SET_CONTACT_IMAGES, images });
 
-
-export const getContactData = () => (dispatch) => {
+export const getContactImages = () => (dispatch) => {
     return contactAPI.setContact()
         .then(res => {
-            dispatch(setContactAllDataAC(res[0].title_uz, res[0].title_en, res[0].title_krl, res[0].title_ru, res[0].photoUrl));
-            console.log(res[0]);
+            dispatch(setContactImagesData(res));
         });
 }
-
-export const upDateContactHeaderText = (title_uz) => (dispatch) => {
-    dispatch(upDateContactHeaderTextAC(title_uz));
-    return contactAPI.upDateContactHeader(title_uz)
+export const getContactImageCreate = (data) => async (dispatch) => {
+    let image = await globalAPI.uploadImage(data.selectedImage)
         .then(res => {
-            console.log(res);
+            return res;
         });
-}
 
-export const upDateContactHeaderPhoto = (photo) => (dispatch) => {
-    dispatch(upDateContactHeaderPhotoUrlAC(photo))
-    // return globalAPI.uploadImage(photo)
-        // .then(res => {
-            // console.log(res);
-        // });
+    let path = image.dbPath && 'http://softcity.uz:9999' + image.dbPath;
+    data.photoUrl = path;
+
+    return await contactAPI.setCreateContact(data).then(res => {
+        dispatch(getContactImages());
+    });
+}
+export const getContactImageUpdate = (data) => async (dispatch) => {
+    let image = data.selectedI && await globalAPI.uploadImage(data.selectedImage)
+        .then(res => {
+            return res;
+        });
+
+    console.log(data.selectedImage);
+    debugger
+
+    let path = image.dbPath && 'http://softcity.uz:9999' + image.dbPath;
+    data.photoUrl = path;
+
+    return await contactAPI.setUpdateContact(data).then(res => {
+        dispatch(getContactImages());
+    });
 }

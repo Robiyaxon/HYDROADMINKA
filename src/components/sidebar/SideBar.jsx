@@ -67,8 +67,20 @@ const submenus = [
       target: "Home-2",
     },
     {
-      itle: "Home 3",
-      target: "Home-3",
+      title: "Home About",
+      target: "Home-about",
+    },
+    {
+      title: "Home Our Work",
+      target: "Home-our-work",
+    },
+    {
+      title: "Home Project Numbers",
+      target: "Home-project-numbers",
+    },
+    {
+      title: "Home Region",
+      target: "Home-region",
     },
   ],
   [

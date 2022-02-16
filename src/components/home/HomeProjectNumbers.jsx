@@ -4,51 +4,48 @@ import { useSelector, useDispatch } from 'react-redux'
 import BorderColorIcon from '@mui/icons-material/BorderColor'
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
 
-import { getCarouselImageDelete, getCarouselImages, getCarouselImageUpdate, getCarouselImageCreate } from '../../redux/home-reducer'
+import { getProjectNumbersImageDelete, getProjectNumbersImages, getProjectNumbersImageUpdate, getProjectNumbersImageCreate } from '../../redux/home-reducer'
 import { Button, Input, Modal, ModalBody, ModalFooter, ModalHeader, Table } from 'reactstrap'
 
-const Home = () => {
+const HomeProjectNumbers = () => {
     const [modalOpen, setModalOpen] = useState(false);
     const [selectedImage,setSelectedImage] = useState(false);
     const [selectedI,setSelectedI] = useState(false);
     const [imageId, setImageId] = useState(false)
     let images = null;
-    images = useSelector(state => state.home ? state.home : null);
+    images = useSelector(state => state.home.projectNumbers ? state.home.projectNumbers : null);
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(getCarouselImages())
+        dispatch(getProjectNumbersImages())
     }, []);
     const toggle = () => {
         setModalOpen(!modalOpen);
         setImageId(null)
     }
     const onSubmit = (data) => {
-        !imageId ? dispatch(getCarouselImageCreate({ selectedImage, title_uz: data.title, description_uz: data.description })) : 
-        dispatch(getCarouselImageUpdate({ selectedImage, title_uz: data.title, description_uz: data.description, id: imageId.id, originalPath: imageId.photoUrl, selectedI }));
+        !imageId ? dispatch(getProjectNumbersImageCreate({ selectedImage, title_uz: data.title })) : 
+        dispatch(getProjectNumbersImageUpdate({ selectedImage, title_uz: data.title, id: imageId.id, originalPath: imageId.photoUrl, selectedI }));
         setImageId(null)
         setSelectedI(false);
         setModalOpen(false);
     }
     const deleteHandler = (id) => {
-        dispatch(getCarouselImageDelete(id))
+        dispatch(getProjectNumbersImageDelete(id))
     }
     // debugger
-    return images && images.images && images.images.length > 0 && (
+    return images && images.length > 0 && (
         <div>
             <Modal isOpen={modalOpen} toggle={toggle} >
                 <ModalHeader toggle={toggle}>Modal title</ModalHeader>
                 <ModalBody>
                 <Form
                 onSubmit={onSubmit}
-                initialValues={imageId && { title: imageId && imageId.title_uz, description: imageId && imageId.description_uz }}
+                initialValues={imageId && { title: imageId && imageId.title_uz }}
                 validate={values => {
                     const errors = {}
                     if (!values.title) {
                         if (!values.title) { errors.title = 'Invalid title address' }
-                    }
-                    if (!values.description) {
-                        errors.description = 'Invalid description address'
                     }
                     return errors
                 }}
@@ -86,17 +83,6 @@ const Home = () => {
                             )}
                         </Field>
                     </div>
-                    <div>
-                        <Field name="description">
-                            {({ input, meta }) => (
-                            <div>
-                                <label>Description</label>
-                                <Input type='text' {...input} placeholder='Description'  />
-                                {meta.error && meta.touched && <span style={{ color: '#fd4444' }}>{meta.error}</span>}
-                            </div>
-                            )}
-                        </Field>
-                    </div>
                     
                     <Button style={{width: '100%', marginTop: '20px'}} type='submit' disabled={submitting}>Send</Button>
                 </form>
@@ -110,21 +96,19 @@ const Home = () => {
                     <th>#</th>
                     <th>Images</th>
                     <th>Title</th>
-                    <th>Description</th>
                     <th><Button onClick={ () =>{
                         setModalOpen(true)
                     } }>Create</Button></th>
                 </tr>
                 </thead>
                 <tbody>
-                { images && images.images.length > 0 && images.images.map((el, i) => {
+                { images && images.length > 0 && images.map((el, i) => {
                     
                 return <tr>
                     <th scope="row">{ i + 1 }</th>
                     <td><img style={{ width: '30px' }} src={ el.photoUrl } alt="" /></td>
                     
                     <td>{ el.title_uz }</td>
-                    <td>{ el.description_uz }</td>
                     <td><Button onClick={ () => {
                         setImageId(el)
                         setModalOpen(true)
@@ -136,4 +120,4 @@ const Home = () => {
     )
 }
 
-export default Home
+export default HomeProjectNumbers
