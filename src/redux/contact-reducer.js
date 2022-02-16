@@ -47,9 +47,6 @@ export const getContactImageUpdate = (data) => async (dispatch) => {
             return res;
         });
 
-    console.log(data.selectedImage);
-    debugger
-
     let path = image.dbPath && 'http://softcity.uz:9999' + image.dbPath;
     data.photoUrl = path;
 
