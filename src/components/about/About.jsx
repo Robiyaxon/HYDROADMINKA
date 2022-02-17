@@ -98,9 +98,7 @@ export const About = () => {
                 <tr>
                     <th>#</th>
                     <th>Images</th>
-                    <th>FullName</th>
-                    <th>Job</th>
-                    <th>Job</th>
+                    <th>Title</th>
                     <th>-----</th>
                 </tr>
                 </thead>
