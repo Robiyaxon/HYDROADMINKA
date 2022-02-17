@@ -199,9 +199,6 @@ export const getCarouselImageUpdate = (data) => async(dispatch) => {
         .then(response => {
             return response;
     });
-
-    console.log(data.selectedImage);
-    debugger
     
     let path = image.dbPath && 'http://softcity.uz:9999' + image.dbPath;
     data.photoUrl = path;
@@ -220,7 +217,6 @@ export const getCarouselImageDelete = (id) => (dispatch) => {
 //
 
 export const getHomePanel2Data = () => (dispatch) => {
-    debugger
     return homeApi.setHomePanel2()
         .then(response => {
             dispatch(setHomePanel2Data(response));

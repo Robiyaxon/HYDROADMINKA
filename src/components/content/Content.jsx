@@ -12,9 +12,12 @@ import HomeOurWork from "../home/HomeOurWork";
 import HomeProjectNumbers from "../home/HomeProjectNumbers";
 import HomeRegion from "../home/HomeRegion";
 import { Contact } from "../contact/Contact";
+import { Economic } from './../economic/Economic';
+import { EconomicChart } from './../economic/EconomicChart';
+import { EconomicHeader } from './../economic/EconomicHeader';
+import { OpenSourses } from './../economic/OpenSourses';
 
 const Content = ({ sidebarIsOpen, toggleSidebar }) => {
-  debugger
   return <Container
     fluid
     className={classNames("content", { "is-open": sidebarIsOpen })}
@@ -29,6 +32,10 @@ const Content = ({ sidebarIsOpen, toggleSidebar }) => {
       <Route exact path="/home-project-numbers" element={<PrivateRoute><HomeProjectNumbers /></PrivateRoute>} />
       <Route exact path="/home-region" element={<PrivateRoute><HomeRegion /></PrivateRoute>} />
       <Route exact path="/contact" element={<PrivateRoute><Contact /></PrivateRoute>} />
+      <Route exact path="/economic" element={<PrivateRoute><EconomicHeader /></PrivateRoute>} />
+      <Route exact path="/agreements" element={<PrivateRoute><Economic /></PrivateRoute>} />
+      <Route exact path="/chart" element={<PrivateRoute><EconomicChart /></PrivateRoute>} />
+      <Route exact path="/openSourses" element={<PrivateRoute><OpenSourses /></PrivateRoute>} />
 
     </Routes>
   </Container>

@@ -15,7 +15,7 @@ const SubMenu = (props) => {
         onClick={toggle}
         className={classNames({ "menu-open": !collapsed })}
       >
-        <NavLink className="dropdown-toggle">
+        <NavLink className="dropdown-toggle" id={props.id}>
           <FontAwesomeIcon icon={icon} className="mr-2" />
           {title}
         </NavLink>

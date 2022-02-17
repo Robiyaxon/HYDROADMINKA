@@ -2,20 +2,17 @@ import React, { useEffect, useState } from 'react'
 import { Field, Form } from 'react-final-form'
 import { useSelector, useDispatch } from 'react-redux'
 import BorderColorIcon from '@mui/icons-material/BorderColor'
-import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
 
 import { Button, Input, Modal, ModalBody, ModalFooter, ModalHeader, Table } from 'reactstrap'
 import { getContactImageCreate, getContactImages, getContactImageUpdate } from './../../redux/contact-reducer';
 
 export const Contact = () => {
-  debugger
     const [modalOpen, setModalOpen] = useState(false);
     const [selectedImage,setSelectedImage] = useState(false);
     const [selectedI,setSelectedI] = useState(false);
     const [imageId, setImageId] = useState(false)
     let images = null;
     images = useSelector(state => state.contactPage ? state.contactPage : null);
-    console.log(images);
 
     const dispatch = useDispatch();
 
@@ -33,7 +30,6 @@ export const Contact = () => {
         setSelectedI(false);
         setModalOpen(false);
     }
-    // debugger
     return images && images.images && images.images.length > 0 && (
         <div>
             <Modal isOpen={modalOpen} toggle={toggle} >
@@ -62,7 +58,6 @@ export const Contact = () => {
                                     onChange={(event) => {
                                         const formData = new FormData();
                                         formData.append("selectedFile", event.target.files[0]);
-                                        console.log(formData);
                                         setSelectedImage(formData);
                                         setSelectedI(true)
                                     }}
@@ -105,8 +100,6 @@ export const Contact = () => {
                 </thead>
                 <tbody>
                 { images && images.images.length > 0 && images.images.map((el, i) => {
-                    console.log(el + '-el', i + '-i');
-                    debugger
                 return <tr>
                     <th scope="row">{ i + 1 }</th>
                     <td><img style={{ width: '30px' }} src={ el.photoUrl } alt="" /></td>

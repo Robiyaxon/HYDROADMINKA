@@ -37,7 +37,6 @@ export const homeApi = {
             });
     },
     setCreateImage(data) {
-        debugger
         const { title_uz, description_uz, photoUrl } = data;
         return instance.post(`homePanel1CarouselAPI`, { title_uz, description_uz, photoUrl })
         .then(async(response) => {
@@ -100,7 +99,6 @@ export const homeApi = {
             });
     },
     setCreateAbout(data) {
-        debugger
         const { title_uz, description_uz, photoUrl } = data;
         return instance.post(`homePanel3AboutAPI`, { title_uz, description_uz, photoUrl })
         .then(async(response) => {
@@ -132,7 +130,6 @@ export const homeApi = {
             });
     },
     setCreateOurWork(data) {
-        debugger
         const { title_uz, photoUrl } = data;
         return instance.post(`homePanel4OurWorkAPI`, { title_uz, photoUrl })
         .then(async(response) => {
@@ -164,7 +161,6 @@ export const homeApi = {
             });
     },
     setCreateProjectNumbers(data) {
-        debugger
         const { title_uz, photoUrl } = data;
         return instance.post(`homePanel6ProjectNumbersAPI`, { title_uz, photoUrl })
         .then(async(response) => {

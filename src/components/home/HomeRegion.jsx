@@ -30,7 +30,6 @@ const HomeRegion = () => {
     const deleteHandler = (id) => {
         dispatch(getRegionImageDelete(id))
     }
-    // debugger
     return images && images.length > 0 && (
         <div>
             <Modal isOpen={modalOpen} toggle={toggle} >
@@ -95,7 +94,7 @@ const HomeRegion = () => {
                 <tbody>
                 { images && images.length > 0 && images.map((el, i) => {
                     
-                return <tr>
+                return <tr key={el.id}>
                     <th scope="row">{ i + 1 }</th>
                     <td><img style={{ width: '30px' }} src={ el.photoUrl } alt="" /></td>
                     

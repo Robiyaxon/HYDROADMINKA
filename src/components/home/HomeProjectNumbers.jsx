@@ -33,7 +33,6 @@ const HomeProjectNumbers = () => {
     const deleteHandler = (id) => {
         dispatch(getProjectNumbersImageDelete(id))
     }
-    // debugger
     return images && images.length > 0 && (
         <div>
             <Modal isOpen={modalOpen} toggle={toggle} >
@@ -62,7 +61,6 @@ const HomeProjectNumbers = () => {
                                     onChange={(event) => {
                                         const formData = new FormData();
                                         formData.append("selectedFile", event.target.files[0]);
-                                        console.log(formData);
                                         setSelectedImage(formData);
                                         setSelectedI(true)
                                     }}
@@ -104,7 +102,7 @@ const HomeProjectNumbers = () => {
                 <tbody>
                 { images && images.length > 0 && images.map((el, i) => {
                     
-                return <tr>
+                return <tr key={el.id}>
                     <th scope="row">{ i + 1 }</th>
                     <td><img style={{ width: '30px' }} src={ el.photoUrl } alt="" /></td>
                     

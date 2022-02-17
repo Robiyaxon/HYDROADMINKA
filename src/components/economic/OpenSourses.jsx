@@ -4,36 +4,37 @@ import { useSelector, useDispatch } from 'react-redux'
 import BorderColorIcon from '@mui/icons-material/BorderColor'
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
 
-import { getAboutImageDelete, getAboutImages, getAboutImageUpdate, getAboutImageCreate } from '../../redux/home-reducer'
-import { Button, Input, Modal, ModalBody, ModalFooter, ModalHeader, Table } from 'reactstrap'
+import { Button, Input, Modal, ModalBody, ModalHeader, Table } from 'reactstrap'
+import { getOpenSoursesUpdate, getOpenSoursesImageCreate, getEconomicOpenSourses, getOpenSoursesDelete } from './../../redux/economic-reducer';
 
-const HomeAbout = () => {
+export const OpenSourses = () => {
     const [modalOpen, setModalOpen] = useState(false);
     const [selectedImage,setSelectedImage] = useState(false);
     const [selectedI,setSelectedI] = useState(false);
     const [imageId, setImageId] = useState(false)
     let images = null;
-    images = useSelector(state => state.home.about ? state.home.about : null);
+    images = useSelector(state => state.economicPage ? state.economicPage : null);
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(getAboutImages())
+        dispatch(getEconomicOpenSourses())
     }, []);
     const toggle = () => {
         setModalOpen(!modalOpen);
         setImageId(null)
     }
     const onSubmit = (data) => {
-        !imageId ? dispatch(getAboutImageCreate({ selectedImage, title_uz: data.title, description_uz: data.description })) : 
-        dispatch(getAboutImageUpdate({ selectedImage, title_uz: data.title, description_uz: data.description, id: imageId.id, originalPath: imageId.photoUrl, selectedI }));
+        !imageId ? dispatch(getOpenSoursesImageCreate({ selectedImage, title_uz: data.title, description_uz: data.description, })) : 
+        dispatch(getOpenSoursesUpdate({ selectedImage, title_uz: data.title, description_uz: data.description, id: imageId.id, originalPath: imageId.photoUrl, selectedI }));
         setImageId(null)
         setSelectedI(false);
         setModalOpen(false);
     }
     const deleteHandler = (id) => {
-        dispatch(getAboutImageDelete(id))
+        dispatch(getOpenSoursesDelete(id))
     }
-    return images && images.length > 0 && (
+    debugger
+    return images && images.openSourses && images.openSourses.length > 0 && (
         <div>
             <Modal isOpen={modalOpen} toggle={toggle} >
                 <ModalHeader toggle={toggle}>Modal title</ModalHeader>
@@ -51,11 +52,11 @@ const HomeAbout = () => {
                     }
                     return errors
                 }}
-                render={({ handleSubmit, form, submitting }) => (
+                render={({ handleSubmit, submitting }) => (
                 <form onSubmit={handleSubmit}>
                     <div>
                         <Field name="image" >
-                            {({ input, meta }) => (
+                            {({ meta }) => (
                             <div>
                                 <label>Image</label>
                                 <Input
@@ -109,20 +110,22 @@ const HomeAbout = () => {
                     <th>Images</th>
                     <th>Title</th>
                     <th>Description</th>
+
                     <th><Button onClick={ () =>{
                         setModalOpen(true)
                     } }>Create</Button></th>
                 </tr>
                 </thead>
                 <tbody>
-                { images && images.length > 0 && images.map((el, i) => {
+                { images && images.openSourses.length > 0 && images.openSourses.map((el, i) => {
                     
-                return <tr key={el.id}>
+                return <tr key={el.photoUrl}>
                     <th scope="row">{ i + 1 }</th>
                     <td><img style={{ width: '30px' }} src={ el.photoUrl } alt="" /></td>
                     
                     <td>{ el.title_uz }</td>
-                    <td>{ el.description_uz }</td>
+                    <td>{ el.description_uz || '-----' }</td>
+
                     <td><Button onClick={ () => {
                         setImageId(el)
                         setModalOpen(true)
@@ -133,5 +136,3 @@ const HomeAbout = () => {
         </div>
     )
 }
-
-export default HomeAbout

@@ -82,6 +82,7 @@ li a.dropdown-toggle::after {
 .side-menu {
   height: calc(100vh - 130px);
   overflow-y: scroll;
+  overflow-x: hidden;
 }
 
 .side-menu::-webkit-scrollbar {

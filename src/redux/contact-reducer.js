@@ -1,4 +1,4 @@
-import { globalAPI, homeApi } from "../api/api";
+import { globalAPI } from "../api/api";
 import { contactAPI } from './../api/contactApi';
 
 const SET_CONTACT_IMAGES = '/contact/SET_CONTACT_IMAGES';
@@ -46,9 +46,6 @@ export const getContactImageUpdate = (data) => async (dispatch) => {
         .then(res => {
             return res;
         });
-
-    console.log(data.selectedImage);
-    debugger
 
     let path = image.dbPath && 'http://softcity.uz:9999' + image.dbPath;
     data.photoUrl = path;

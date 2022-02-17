@@ -33,7 +33,6 @@ const Home = () => {
     const deleteHandler = (id) => {
         dispatch(getCarouselImageDelete(id))
     }
-    // debugger
     return images && images.images && images.images.length > 0 && (
         <div>
             <Modal isOpen={modalOpen} toggle={toggle} >
@@ -65,7 +64,6 @@ const Home = () => {
                                     onChange={(event) => {
                                         const formData = new FormData();
                                         formData.append("selectedFile", event.target.files[0]);
-                                        console.log(formData);
                                         setSelectedImage(formData);
                                         setSelectedI(true)
                                     }}
@@ -119,7 +117,7 @@ const Home = () => {
                 <tbody>
                 { images && images.images.length > 0 && images.images.map((el, i) => {
                     
-                return <tr>
+                return <tr key={el.id}>
                     <th scope="row">{ i + 1 }</th>
                     <td><img style={{ width: '30px' }} src={ el.photoUrl } alt="" /></td>
                     

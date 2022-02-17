@@ -6,7 +6,7 @@ import {
   faPaperPlane,
   faQuestion,
   faImage,
-  faCopy,
+  faChartGantt,
 } from "@fortawesome/free-solid-svg-icons";
 import { NavItem, NavLink, Nav } from "reactstrap";
 import classNames from "classnames";
@@ -20,7 +20,7 @@ const SideBar = ({ isOpen, toggle }) => (
       <span color="info" onClick={toggle} style={{ color: "#fff" }}>
         &times;
       </span>
-      <h3>Bootstrap Sidebar</h3>
+      <h3>Hydro  Adminka</h3>
     </div>
     <div className="side-menu">
       <Nav vertical className="list-unstyled pb-3">
@@ -32,7 +32,7 @@ const SideBar = ({ isOpen, toggle }) => (
             About
           </NavLink>
         </NavItem>
-        <SubMenu title="Pages" icon={faCopy} items={submenus[1]} />
+        <SubMenu title="Econimic" icon={faChartGantt} items={submenus[1]} id={'longTitles'}/>
         <NavItem>
           <NavLink tag={Link} to={"/pages"}>
             <FontAwesomeIcon icon={faImage} className="mr-2" />
@@ -85,13 +85,22 @@ const submenus = [
   ],
   [
     {
-      title: "Page 1",
-      target: "Page-1",
+      title: "Header Sahifa",
+      target: "economic",
     },
     {
-      title: "Page 2",
-      target: "Page-2",
+      title: "Shartnomalar",
+      target: "agreements",
     },
+    {
+      title: "Diagramma",
+      target: "chart",
+    },
+    {
+      title: "Ochiq Muloqot",
+      target: "openSourses",
+    },
+    
   ],
 ];
 
