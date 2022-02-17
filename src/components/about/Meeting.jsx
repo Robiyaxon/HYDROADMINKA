@@ -5,35 +5,35 @@ import BorderColorIcon from '@mui/icons-material/BorderColor'
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
 
 import { Button, Input, Modal, ModalBody, ModalHeader, Table } from 'reactstrap'
-import { getOpenSoursesUpdate, getOpenSoursesImageCreate, getEconomicOpenSourses, getOpenSoursesDelete } from './../../redux/economic-reducer';
+import { getAboutMeeting, getAboutMeetingCreate, getAboutMeetingUpdate, getAboutMeetingDelete } from './../../redux/about-reducer';
 
-export const OpenSourses = () => {
+export const Meeting = () => {
     const [modalOpen, setModalOpen] = useState(false);
     const [selectedImage,setSelectedImage] = useState(false);
     const [selectedI,setSelectedI] = useState(false);
     const [imageId, setImageId] = useState(false)
     let images = null;
-    images = useSelector(state => state.economicPage ? state.economicPage : null);
+    images = useSelector(state => state.aboutPage ? state.aboutPage : null);
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(getEconomicOpenSourses())
+        dispatch(getAboutMeeting())
     }, []);
     const toggle = () => {
         setModalOpen(!modalOpen);
         setImageId(null)
     }
     const onSubmit = (data) => {
-        !imageId ? dispatch(getOpenSoursesImageCreate({ selectedImage, title_uz: data.title, description_uz: data.description, })) : 
-        dispatch(getOpenSoursesUpdate({ selectedImage, title_uz: data.title, description_uz: data.description, id: imageId.id, originalPath: imageId.photoUrl, selectedI }));
+        !imageId ? dispatch(getAboutMeetingCreate({ selectedImage, title_uz: data.title, description_uz: data.description })) : 
+        dispatch(getAboutMeetingUpdate({ selectedImage, title_uz: data.title, description_uz: data.description, id: imageId.id, originalPath: imageId.photoUrl, selectedI }));
         setImageId(null)
         setSelectedI(false);
         setModalOpen(false);
     }
     const deleteHandler = (id) => {
-        dispatch(getOpenSoursesDelete(id))
+        dispatch(getAboutMeetingDelete(id))
     }
-    return images && images.openSourses && images.openSourses.length > 0 && (
+    return images && images.meeting && images.meeting.length > 0 && (
         <div>
             <Modal isOpen={modalOpen} toggle={toggle} >
                 <ModalHeader toggle={toggle}>Modal title</ModalHeader>
@@ -51,11 +51,11 @@ export const OpenSourses = () => {
                     }
                     return errors
                 }}
-                render={({ handleSubmit, submitting }) => (
+                render={({ handleSubmit, form, submitting }) => (
                 <form onSubmit={handleSubmit}>
                     <div>
                         <Field name="image" >
-                            {({ meta }) => (
+                            {({ input, meta }) => (
                             <div>
                                 <label>Image</label>
                                 <Input
@@ -109,29 +109,28 @@ export const OpenSourses = () => {
                     <th>Images</th>
                     <th>Title</th>
                     <th>Description</th>
-
                     <th><Button onClick={ () =>{
                         setModalOpen(true)
                     } }>Create</Button></th>
                 </tr>
                 </thead>
                 <tbody>
-                { images && images.openSourses.length > 0 && images.openSourses.map((el, i) => {
-                    
-                return <tr key={el.photoUrl}>
+                { images && images.meeting.length > 0 && images.meeting.map((el, i) => {
+                return <tr key={el.id}>
                     <th scope="row">{ i + 1 }</th>
                     <td><img style={{ width: '30px' }} src={ el.photoUrl } alt="" /></td>
                     
                     <td>{ el.title_uz }</td>
-                    <td>{ el.description_uz || '-----' }</td>
-
+                    <td>{ el.description_uz }</td>
                     <td><Button onClick={ () => {
                         setImageId(el)
                         setModalOpen(true)
-                    } }><BorderColorIcon/></Button> <Button onClick={ () => deleteHandler(el.id) }><DeleteForeverIcon/></Button></td>
+                    } }><BorderColorIcon/></Button> 
+                    <Button onClick={ () => deleteHandler(el.id) }><DeleteForeverIcon/></Button>
+                    </td>
                 </tr>}) }
                 </tbody>
             </Table>
         </div>
-    )
+    ) || null
 }

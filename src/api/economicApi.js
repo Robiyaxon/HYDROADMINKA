@@ -25,7 +25,6 @@ export const economicAPI = {
     },
     setUpdateEconomic(data) {
         const { id, title_uz, photoUrl, originalPath } = data;
-        debugger
         return instance.put(`economyAgreementsAPI/${id}`, { id, title_uz, photoUrl: photoUrl ? photoUrl : originalPath })
             .then(async (response) => {
                 return await response.data;

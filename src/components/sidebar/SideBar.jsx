@@ -26,12 +26,7 @@ const SideBar = ({ isOpen, toggle }) => (
       <Nav vertical className="list-unstyled pb-3">
         <p>Dummy Heading</p>
         <SubMenu title="Home" icon={faHome} items={submenus[0]} />
-        <NavItem>
-          <NavLink tag={Link} to={"/about"}>
-            <FontAwesomeIcon icon={faBriefcase} className="mr-2" />
-            About
-          </NavLink>
-        </NavItem>
+        <SubMenu title="About" icon={faBriefcase} items={submenus[2]} />
         <SubMenu title="Econimic" icon={faChartGantt} items={submenus[1]} id={'longTitles'}/>
         <NavItem>
           <NavLink tag={Link} to={"/pages"}>
@@ -99,6 +94,25 @@ const submenus = [
     {
       title: "Ochiq Muloqot",
       target: "openSourses",
+    },
+    
+  ],
+  [
+    {
+      title: "About Sahifa",
+      target: "aboutHeader",
+    },
+    {
+      title: "Tashkilot tarixi",
+      target: "organizationHistory ",
+    },
+    {
+      title: "Meeting",
+      target: "meeting",
+    },
+    {
+      title: "Boshqaruv tuzilmasi",
+      target: "teamMembers",
     },
     
   ],

@@ -16,6 +16,10 @@ import { Economic } from './../economic/Economic';
 import { EconomicChart } from './../economic/EconomicChart';
 import { EconomicHeader } from './../economic/EconomicHeader';
 import { OpenSourses } from './../economic/OpenSourses';
+import { About } from './../about/About';
+import { OrganizationHistory } from './../about/OrganizationHistory';
+import { Meeting } from './../about/Meeting';
+import { TeamMembers } from './../about/TeamMembers';
 
 const Content = ({ sidebarIsOpen, toggleSidebar }) => {
   return <Container
@@ -36,6 +40,10 @@ const Content = ({ sidebarIsOpen, toggleSidebar }) => {
       <Route exact path="/agreements" element={<PrivateRoute><Economic /></PrivateRoute>} />
       <Route exact path="/chart" element={<PrivateRoute><EconomicChart /></PrivateRoute>} />
       <Route exact path="/openSourses" element={<PrivateRoute><OpenSourses /></PrivateRoute>} />
+      <Route exact path="/aboutHeader" element={<PrivateRoute><About /></PrivateRoute>} />
+      <Route exact path="/organizationHistory" element={<PrivateRoute><OrganizationHistory /></PrivateRoute>} />
+      <Route exact path="/meeting" element={<PrivateRoute><Meeting /></PrivateRoute>} />
+      <Route exact path="/teamMembers" element={<PrivateRoute><TeamMembers /></PrivateRoute>} />
 
     </Routes>
   </Container>
