@@ -214,3 +214,38 @@ export const homeApi = {
 
     //home8Region
 }
+
+export const aboutAPI = {
+    setAboutCompanies() {
+        return instance.get(`aboutCompaniesAPI`)
+            .then(async(response) => {
+                return await response.data;
+            });
+    },
+    setCreateAboutCompanie(data) {
+        const { title_uz, description_uz, phone, email, address, telegramLink, instagramLink, youtubeLink,
+        faceBookLink, footerText, photoUrl } = data;
+        return instance.post(`aboutCompaniesAPI`, { title_uz, description_uz,
+        phone, email, address, telegramLink, instagramLink, youtubeLink,
+        faceBookLink, footerText, photoUrl
+        })
+        .then(async(response) => {
+            return await response.data;
+        });
+    },
+    setUpdateAboutCompanie(data) {
+        const { id, title_uz, description_uz, phone, email, address, telegramLink, instagramLink, youtubeLink,
+            faceBookLink, footerText, photoUrl  } = data;
+        return instance.put(`aboutCompaniesAPI/${id}`, { id, title_uz, description_uz, phone, email, address, telegramLink, instagramLink, youtubeLink,
+            faceBookLink, footerText, photoUrl })
+        .then(async(response) => {
+            return await response.data;
+        });
+    },
+    setDeleteAboutCompanie(id) {
+        return instance.delete(`aboutCompaniesAPI/${id}`)
+        .then(async(response) => {
+            return await response.data;
+        });
+    },
+}
