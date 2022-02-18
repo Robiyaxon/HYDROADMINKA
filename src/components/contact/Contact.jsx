@@ -100,7 +100,7 @@ export const Contact = () => {
                 </thead>
                 <tbody>
                 { images && images.images.length > 0 && images.images.map((el, i) => {
-                return <tr>
+                return <tr key={el.id}>
                     <th scope="row">{ i + 1 }</th>
                     <td><img style={{ width: '30px' }} src={ el.photoUrl } alt="" /></td>
                     

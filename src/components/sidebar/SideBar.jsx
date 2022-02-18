@@ -28,6 +28,8 @@ const SideBar = ({ isOpen, toggle }) => (
         <SubMenu title="Home" icon={faHome} items={submenus[0]} />
         <SubMenu title="About" icon={faBriefcase} items={submenus[2]} />
         <SubMenu title="Econimic" icon={faChartGantt} items={submenus[1]} id={'longTitles'}/>
+        <SubMenu title="Corporative" icon={faBriefcase} items={submenus[3]} />
+
         <NavItem>
           <NavLink tag={Link} to={"/pages"}>
             <FontAwesomeIcon icon={faImage} className="mr-2" />
@@ -115,6 +117,16 @@ const submenus = [
       target: "teamMembers",
     },
     
+  ],
+  [
+    {
+      title: "Corporative Sahifa",
+      target: "corporativeHeader",
+    },
+    {
+      title: "Hamkorlar",
+      target: "mainPartners",
+    }
   ],
 ];
 

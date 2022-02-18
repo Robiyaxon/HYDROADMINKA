@@ -3,21 +3,21 @@ import { instance } from './api'
 export const aboutAPI = {
     // header
     setAboutHeader() {
-        return instance.get(`aboutPanel3API`)
+        return instance.get(`aboutHeadersAPI`)
             .then(async (response) => {
                 return await response.data;
             });
     },
     setCreateAboutHeader(data) {
         const { title_uz, photoUrl } = data;
-        return instance.post(`aboutPanel3API`, { title_uz, photoUrl })
+        return instance.post(`aboutHeadersAPI`, { title_uz, photoUrl })
             .then(async (response) => {
                 return await response.data;
             });
     },
     setUpdateAboutHeader(data) {
         const { id, title_uz, photoUrl, originalPath } = data;
-        return instance.put(`aboutPanel3API/1`, { id, title_uz, photoUrl: photoUrl ? photoUrl : originalPath })
+        return instance.put(`aboutHeadersAPI/1`, { id, title_uz, photoUrl: photoUrl ? photoUrl : originalPath })
             .then(async (response) => {
                 return await response.data;
             });

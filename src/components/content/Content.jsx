@@ -20,6 +20,8 @@ import { About } from './../about/About';
 import { OrganizationHistory } from './../about/OrganizationHistory';
 import { Meeting } from './../about/Meeting';
 import { TeamMembers } from './../about/TeamMembers';
+import { Corporative } from './../corporative/Corporative';
+import { MainPartners } from './../corporative/MainPartners';
 
 const Content = ({ sidebarIsOpen, toggleSidebar }) => {
   return <Container
@@ -44,6 +46,8 @@ const Content = ({ sidebarIsOpen, toggleSidebar }) => {
       <Route exact path="/organizationHistory" element={<PrivateRoute><OrganizationHistory /></PrivateRoute>} />
       <Route exact path="/meeting" element={<PrivateRoute><Meeting /></PrivateRoute>} />
       <Route exact path="/teamMembers" element={<PrivateRoute><TeamMembers /></PrivateRoute>} />
+      <Route exact path="/corporativeHeader" element={<PrivateRoute><Corporative /></PrivateRoute>} />
+      <Route exact path="/mainPartners" element={<PrivateRoute><MainPartners /></PrivateRoute>} />
 
     </Routes>
   </Container>

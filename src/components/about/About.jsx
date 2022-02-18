@@ -104,7 +104,7 @@ export const About = () => {
                 </thead>
                 <tbody>
                 { images && images.aboutData.length > 0 && images.aboutData.map((el, i) => {
-                return <tr>
+                return <tr key={el.id}>
                     <th scope="row">{ i + 1 }</th>
                     <td><img style={{ width: '30px' }} src={ el.photoUrl } alt="" /></td>
                     

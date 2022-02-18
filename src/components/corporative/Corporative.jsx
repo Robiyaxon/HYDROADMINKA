@@ -3,36 +3,40 @@ import { Field, Form } from 'react-final-form'
 import { useSelector, useDispatch } from 'react-redux'
 import BorderColorIcon from '@mui/icons-material/BorderColor'
 
-import { Button, Input, Modal, ModalBody, ModalHeader, Table } from 'reactstrap'
-import { getEconomicHeader, getEconomicHeaderImageCreate, getEconomicHeaderImageUpdate } from '../../redux/economic-reducer'
+import { Button, Input, Modal, ModalBody, ModalFooter, ModalHeader, Table } from 'reactstrap'
+import { getContactImageCreate, getContactImages, getContactImageUpdate } from './../../redux/contact-reducer';
+import { getAboutHeader, getAboutHeaderUpdate } from '../../redux/about-reducer'
+import { getAboutHeaderCreate } from './../../redux/about-reducer';
+import { getAboutImageUpdate } from './../../redux/home-reducer';
+import { getCorporativeHeader, getCorporativeHeaderCreate } from '../../redux/corporative-reducer'
+import { getCorporativeHeaderUpdate } from './../../redux/corporative-reducer';
 
-export const EconomicHeader = () => {
+export const Corporative = () => {
     const [modalOpen, setModalOpen] = useState(false);
     const [selectedImage,setSelectedImage] = useState(false);
     const [selectedI,setSelectedI] = useState(false);
     const [imageId, setImageId] = useState(false)
     let images = null;
-    images = useSelector(state => state.economicPage ? state.economicPage : null);
+    images = useSelector(state => state.corporativePage ? state.corporativePage : null);
 
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(getEconomicHeader())
+        dispatch(getCorporativeHeader())
     }, []);
     const toggle = () => {
         setModalOpen(!modalOpen);
         setImageId(null)
     }
     const onSubmit = (data) => {
-
-        !imageId ? dispatch(getEconomicHeaderImageCreate({ selectedImage, title_uz: data.title })) : 
-        dispatch(getEconomicHeaderImageUpdate({ selectedImage, title_uz: data.title, id: imageId.id, originalPath: imageId.photoUrl, selectedI }));
+        console.log(data);
+        !imageId ? dispatch(getCorporativeHeaderCreate({ selectedImage, title_uz: data.title })) : 
+        dispatch(getCorporativeHeaderUpdate({ selectedImage, title_uz: data.title, id: imageId.id, originalPath: imageId.photoUrl, selectedI }));
         setImageId(null)
         setSelectedI(false);
         setModalOpen(false);
     }
-
-    return images && images.header && images.header.length > 0  && (
+    return images && images.header && images.header.length > 0 && (
         <div>
             <Modal isOpen={modalOpen} toggle={toggle} >
                 <ModalHeader toggle={toggle}>Modal title</ModalHeader>
@@ -115,5 +119,5 @@ export const EconomicHeader = () => {
                 </tbody>
             </Table>
         </div>
-    )
+    ) ||  null
 }

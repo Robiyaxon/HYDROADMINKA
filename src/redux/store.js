@@ -5,6 +5,7 @@ import homeReducer from "./home-reducer";
 import { contactReducer } from './contact-reducer';
 import { economicReducer } from './economic-reducer';
 import { aboutReducer } from './about-reducer';
+import { corporativeReducer } from './corporative-reducer';
 
 let reducers = combineReducers({
     auth: authReducer,
@@ -12,6 +13,7 @@ let reducers = combineReducers({
     home: homeReducer,
     economicPage: economicReducer,
     aboutPage: aboutReducer,
+    corporativePage: corporativeReducer,
 });
 
 let store = createStore(reducers, applyMiddleware(thunkMiddleware));
