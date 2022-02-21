@@ -4,12 +4,10 @@ import {
   faHome,
   faBriefcase,
   faPaperPlane,
-  faQuestion,
-  faImage,
   faChartGantt,
   faTransgender,
   faNewspaper,
-  faTools
+  faTools,
 } from "@fortawesome/free-solid-svg-icons";
 
 import { NavItem, NavLink, Nav } from "reactstrap";
@@ -24,7 +22,7 @@ const SideBar = ({ isOpen, toggle }) => (
       <span color="info" onClick={toggle} style={{ color: "#fff" }}>
         &times;
       </span>
-      <h3>Hydro  Adminka</h3>
+      <h3>Hydro Adminka</h3>
     </div>
     <div className="side-menu">
       <Nav vertical className="list-unstyled pb-3">
@@ -91,7 +89,6 @@ const submenus = [
       title: "Ochiq Muloqot",
       target: "openSourses",
     },
-
   ],
   [
     {
@@ -114,7 +111,6 @@ const submenus = [
       title: "Kompaniya haqida",
       target: "aboutCompany",
     },
-
   ],
   [
     {
@@ -124,7 +120,7 @@ const submenus = [
     {
       title: "Hamkorlar",
       target: "mainPartners",
-    }
+    },
   ],
   [
     {
@@ -134,7 +130,7 @@ const submenus = [
     {
       title: "Hamkorlar",
       target: "mainPartners",
-    }
+    },
   ],
   [
     {
@@ -144,13 +140,13 @@ const submenus = [
     {
       title: "Video Url Youtube",
       target: "videoUrlYoutube",
-    }
+    },
   ],
   [
     {
       title: "Header",
       target: "news",
-    }
+    },
   ],
 ];
 
