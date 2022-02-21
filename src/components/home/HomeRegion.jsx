@@ -211,7 +211,7 @@ const HomeRegion = () => {
                 </tbody>
             </Table>
         </div>
-    )
+    ) || <div class="spinner"></div>
 }
 
 export default HomeRegion

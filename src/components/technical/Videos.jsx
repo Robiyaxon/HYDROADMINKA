@@ -80,17 +80,9 @@ export const Videos = () => {
                 </thead>
                 <tbody>
                     {images && images.videos.length > 0 && images.videos.map((el, i) => {
-                        debugger
                         return <tr key={el.id}>
                             <th scope="row">{i + 1}</th>
-                            {/* <video width="320" height="240" controls>
-                                <source src={el.videoUrlYoutube} type="video/mp4">
-                                    <source src={el.videoUrlYoutube} type="video/ogg">
-                                        Your browser does not support the video tag.
-                                    </source>
-                                </source>
-                            </video> */}
-                            <td>{el.videoUrlYoutube}</td>
+                            <iframe src={el.videoUrlYoutube} title="YouTube video player" frameBorder="0" allowFullScreen></iframe>
                             <td><Button onClick={() => {
                                 setImageId(el)
                                 setModalOpen(true)
@@ -100,5 +92,5 @@ export const Videos = () => {
                 </tbody>
             </Table>
         </div>
-    )
+    ) || <div class="spinner"></div>
 }

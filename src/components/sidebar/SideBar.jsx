@@ -7,7 +7,9 @@ import {
   faQuestion,
   faImage,
   faChartGantt,
-  faTransgender
+  faTransgender,
+  faNewspaper,
+  faTools
 } from "@fortawesome/free-solid-svg-icons";
 
 import { NavItem, NavLink, Nav } from "reactstrap";
@@ -29,24 +31,11 @@ const SideBar = ({ isOpen, toggle }) => (
         <p>Dummy Heading</p>
         <SubMenu title="Home" icon={faHome} items={submenus[0]} />
         <SubMenu title="About" icon={faBriefcase} items={submenus[2]} />
-        <SubMenu title="Econimic" icon={faChartGantt} items={submenus[1]} id={'longTitles'}/>
+        <SubMenu title="Econimic" icon={faChartGantt} items={submenus[1]} />
         <SubMenu title="Corporative" icon={faBriefcase} items={submenus[3]} />
-        <SubMenu title="Faoliyatlar" icon={faTransgender} items={submenus[4]} />
-        <SubMenu title="Texnik" icon={faTransgender} items={submenus[5]} />
-
-
-        <NavItem>
-          <NavLink tag={Link} to={"/pages"}>
-            <FontAwesomeIcon icon={faImage} className="mr-2" />
-            Portfolio
-          </NavLink>
-        </NavItem>
-        <NavItem>
-          <NavLink tag={Link} to={"/faq"}>
-            <FontAwesomeIcon icon={faQuestion} className="mr-2" />
-            FAQ
-          </NavLink>
-        </NavItem>
+        <SubMenu title="Activities" icon={faTransgender} items={submenus[4]} />
+        <SubMenu title="Tecnical" icon={faTools} items={submenus[5]} />
+        <SubMenu title="News" icon={faNewspaper} items={submenus[6]} />
         <NavItem>
           <NavLink tag={Link} to={"/contact"}>
             <FontAwesomeIcon icon={faPaperPlane} className="mr-2" />
@@ -102,7 +91,7 @@ const submenus = [
       title: "Ochiq Muloqot",
       target: "openSourses",
     },
-    
+
   ],
   [
     {
@@ -125,7 +114,7 @@ const submenus = [
       title: "Kompaniya haqida",
       target: "aboutCompany",
     },
-    
+
   ],
   [
     {
@@ -155,6 +144,12 @@ const submenus = [
     {
       title: "Video Url Youtube",
       target: "videoUrlYoutube",
+    }
+  ],
+  [
+    {
+      title: "Header",
+      target: "news",
     }
   ],
 ];

@@ -164,5 +164,5 @@ export const Economic = () => {
                 </tbody>
             </Table>
         </div>
-    )
+    ) || <div class="spinner"></div>
 }

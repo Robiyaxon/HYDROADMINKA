@@ -30,7 +30,6 @@ export const corporativeAPI = {
             });
     },
     setMainPartnersCreate(data) {
-        debugger
         const { name, description_uz, description_ru, description_en, description_krl, photoUrl, urlLink } = data;
         return instance.post(`mainPartnersAPI`, { name, description_uz, description_ru, description_en, description_krl, photoUrl, urlLink })
             .then(async (response) => {

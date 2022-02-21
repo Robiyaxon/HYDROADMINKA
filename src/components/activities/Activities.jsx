@@ -259,5 +259,5 @@ export const Activities = () => {
                 </tbody>
             </Table>
         </div>
-    )
+    ) || <div class="spinner"></div>
 }

@@ -17,7 +17,7 @@ export const technicalAPI = {
     },
     setTechnicalUpdate(data) {
         const { id, title_uz, title_ru, title_en, title_krl, photoUrl, originalPath } = data;
-        return instance.put(`technicalHeadersAPI/1`, { id, title_uz, title_ru, title_en, title_krl, photoUrl: photoUrl ? photoUrl : originalPath })
+        return instance.put(`technicalHeadersAPI/${id}`, { id, title_uz, title_ru, title_en, title_krl, photoUrl: photoUrl ? photoUrl : originalPath })
             .then(async (response) => {
                 return await response.data;
             });

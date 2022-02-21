@@ -26,6 +26,7 @@ import { Activities } from "../activities/Activities";
 import { AboutCompany } from "../about/AboutCompany";
 import { Technical } from './../technical/Technical';
 import { Videos } from './../technical/Videos';
+import { News } from './../news/News';
 
 const Content = ({ sidebarIsOpen, toggleSidebar }) => {
   return <Container
@@ -56,6 +57,7 @@ const Content = ({ sidebarIsOpen, toggleSidebar }) => {
       <Route exact path="/aboutCompany" element={<PrivateRoute><AboutCompany /></PrivateRoute>} />
       <Route exact path="/technical" element={<PrivateRoute><Technical /></PrivateRoute>} />
       <Route exact path="/videoUrlYoutube" element={<PrivateRoute><Videos /></PrivateRoute>} />
+      <Route exact path="/news" element={<PrivateRoute><News /></PrivateRoute>} />
 
     </Routes>
   </Container>

@@ -94,10 +94,10 @@ export const aboutAPI = {
                 return await response.data;
             });
     },
+
     setTeamMembersCreate(data) {
         const { id, fullName, photoUrl, originalPath, veterans = true, staffPosition = { name_uz: "string", }, staffType = { name_uz: "string", } } = data;
 
-        debugger
         return instance.post(`mainStaffsAPI`, { fullName, photoUrl: photoUrl ? photoUrl : originalPath, veterans, staffType, staffPosition })
             .then(async (response) => {
                 return await response.data;
@@ -122,11 +122,9 @@ export const aboutAPI = {
     */
     setTeamMembersUpdate(data) {
         const { id, fullName, photoUrl, originalPath, veterans = true, name_uz, staffTypeID = 1, staffPositionID = 1, } = data;
-        debugger
 
         return instance.put(`mainStaffsAPI/${id}`, { id, fullName, photoUrl: photoUrl ? photoUrl : originalPath, veterans, staffType: { name_uz }, staffPosition: { name_uz }, staffTypeID, staffPositionID })
             .then(async (response) => {
-                debugger
                 return await response.data;
             });
     },

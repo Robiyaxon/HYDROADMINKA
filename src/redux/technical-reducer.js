@@ -104,7 +104,7 @@ export const getTechnicalVideoCreate = (data) => async (dispatch) => {
     });
 }
 export const getTechnicalVideoUpdate = (data) => async (dispatch) => {
-    return await technicalAPI.setTechnicalUpdate(data).then(res => {
+    return await technicalAPI.setTechnicalVideosUpdate(data).then(res => {
         dispatch(getTechnicalVideo());
     });
 }

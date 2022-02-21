@@ -43,7 +43,6 @@ export const getActivitiesCreate = (data) => async (dispatch) => {
     });
 }
 export const getActivitiesUpdate = (data) => async (dispatch) => {
-    debugger
     let image = data.selectedI && await globalAPI.uploadImage(data.activityData.selectedImage)
         .then(res => {
             return res;
@@ -53,7 +52,6 @@ export const getActivitiesUpdate = (data) => async (dispatch) => {
     data.activityData.photoUrl = path;
 
     return await activitiesAPI.setActivitiesUpdate(data.activityData).then(res => {
-        debugger
         dispatch(getActivities());
     });
 }

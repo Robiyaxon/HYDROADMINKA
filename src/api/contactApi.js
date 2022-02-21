@@ -15,8 +15,8 @@ export const contactAPI = {
         });
     },
     setUpdateContact(data) {
-        const { id, title_uz, photoUrl, originalPath } = data;
-        return instance.put(`contactHeadersAPI/1`, { id, title_uz, photoUrl: photoUrl ? photoUrl :  originalPath })
+        const { id, title_uz, title_ru, title_en, title_krl, photoUrl, originalPath } = data;
+        return instance.put(`contactHeadersAPI/1`, { id, title_uz, title_ru, title_en, title_krl, photoUrl: photoUrl ? photoUrl :  originalPath })
         .then(async(response) => {
             return await response.data;
         });

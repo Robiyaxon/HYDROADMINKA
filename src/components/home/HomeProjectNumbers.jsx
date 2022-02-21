@@ -163,7 +163,7 @@ const HomeProjectNumbers = () => {
                 </tbody>
             </Table>
         </div>
-    )
+    ) || <div class="spinner"></div>
 }
 
 export default HomeProjectNumbers

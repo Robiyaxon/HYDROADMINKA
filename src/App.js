@@ -16,6 +16,7 @@ import Home from "./components/home/Home";
 function App() {
   const [sidebarIsOpen, setSidebarOpen] = useState(true);
   const toggleSidebar = () => setSidebarOpen(!sidebarIsOpen);
+  
   return (
     <div className="App">
       <SideBar toggle={toggleSidebar} isOpen={sidebarIsOpen} />

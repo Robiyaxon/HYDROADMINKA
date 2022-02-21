@@ -164,5 +164,5 @@ export const Corporative = () => {
                 </tbody>
             </Table>
         </div>
-    ) ||  null
+    ) || <div class="spinner"></div>
 }

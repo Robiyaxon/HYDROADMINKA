@@ -165,5 +165,5 @@ export const About = () => {
                 </tbody>
             </Table>
         </div>
-    ) ||  null
+    ) || <div class="spinner"></div>
 }

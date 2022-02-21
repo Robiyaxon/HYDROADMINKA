@@ -26,7 +26,6 @@ export const MainPartners = () => {
         setImageId(null)
     }
     const onSubmit = (data) => {
-        debugger
         !imageId ? dispatch(getMainPartnersCreate({
             selectedImage, name: data.name,
             description_uz: data.description_uz,
@@ -219,5 +218,5 @@ export const MainPartners = () => {
                 </tbody>
             </Table>
         </div>
-    )
+    ) || <div class="spinner"></div>
 }

@@ -249,5 +249,5 @@ export const Meeting = () => {
                 </tbody>
             </Table>
         </div>
-    ) || null
+    ) || <div class="spinner"></div>
 }

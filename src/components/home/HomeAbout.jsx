@@ -228,7 +228,7 @@ const HomeAbout = () => {
                 </tbody>
             </Table>
         </div>
-    )
+    ) || <div class="spinner"></div>
 }
 
 export default HomeAbout

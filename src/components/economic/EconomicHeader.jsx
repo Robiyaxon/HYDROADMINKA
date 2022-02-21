@@ -121,5 +121,5 @@ export const EconomicHeader = () => {
                 </tbody>
             </Table>
         </div>
-    )
+    ) || <div class="spinner"></div>
 }

@@ -91,5 +91,5 @@ export const EconomicChart = () => {
                 </tbody>
             </Table>
         </div>
-    ) || null
+    ) || <div class="spinner"></div>
 }

@@ -209,7 +209,6 @@ const HomePanel2 = () => {
                             <td style={{ width: '12%', height: '100px', overflowX: 'auto' }}>{el.description_krl}</td>
                             <td><Button onClick={() => {
                                 setImageId(el)
-                                debugger
                                 setModalOpen(true)
                             }}><BorderColorIcon /></Button> <Button onClick={() => deleteHandler(el.id)}><DeleteForeverIcon /></Button></td>
                         </tr>
@@ -217,7 +216,7 @@ const HomePanel2 = () => {
                 </tbody>
             </Table>
         </div>
-    )
+    ) || <div class="spinner"></div>
 }
 
 export default HomePanel2;

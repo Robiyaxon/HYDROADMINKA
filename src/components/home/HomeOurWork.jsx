@@ -165,7 +165,7 @@ const HomeOurWork = () => {
                 </tbody>
             </Table>
         </div>
-    )
+    ) || <div class="spinner"></div>
 }
 
 export default HomeOurWork

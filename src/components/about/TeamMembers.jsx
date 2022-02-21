@@ -174,5 +174,5 @@ export const TeamMembers = () => {
                 </tbody>
             </Table>
         </div>
-    ) || null
+    ) || <div class="spinner"></div>
 }
