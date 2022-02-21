@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react'
 import { Field, Form } from 'react-final-form'
 import { useSelector, useDispatch } from 'react-redux'
 import BorderColorIcon from '@mui/icons-material/BorderColor'
-import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
 
 import { getCarouselImageDelete, getCarouselImages, getCarouselImageUpdate, getCarouselImageCreate } from '../../redux/home-reducer'
-import { Button, Input, Modal, ModalBody, ModalFooter, ModalHeader, Table } from 'reactstrap'
+import { Button, Input, Modal, ModalBody, ModalHeader, Table } from 'reactstrap'
+import { DeleteBtn } from '../../utils/utils'
 
 const Home = () => {
     const [modalOpen, setModalOpen] = useState(false);
@@ -24,6 +24,8 @@ const Home = () => {
         setImageId(null)
     }
 
+    
+
     const onSubmit = (data) => {
         !imageId ? dispatch(getCarouselImageCreate({ selectedImage, title_uz: data.title_uz, title_ru: data.title_ru, title_en: data.title_en, title_krl: data.title_krl, description_uz: data.description_uz, description_ru: data.description_ru, description_en: data.description_en, description_krl: data.description_krl })) :
             dispatch(getCarouselImageUpdate({ selectedImage, title_uz: data.title_uz, title_uz: data.title_uz, title_ru: data.title_ru, title_en: data.title_en, title_krl: data.title_krl, description_uz: data.description_uz, description_ru: data.description_ru, description_en: data.description_en, description_krl: data.description_krl, id: imageId.id, originalPath: imageId.photoUrl, selectedI }));
@@ -31,9 +33,7 @@ const Home = () => {
         setSelectedI(false);
         setModalOpen(false);
     }
-    const deleteHandler = (id) => {
-        dispatch(getCarouselImageDelete(id))
-    }
+
     return images && images.images && images.images.length > 0 && (
         <div>
             <Modal isOpen={modalOpen} toggle={toggle} >
@@ -210,7 +210,7 @@ const Home = () => {
                             <td><Button onClick={() => {
                                 setImageId(el)
                                 setModalOpen(true)
-                            }}><BorderColorIcon /></Button> <Button onClick={() => deleteHandler(el.id)}><DeleteForeverIcon /></Button></td>
+                            }}><BorderColorIcon /></Button><DeleteBtn handleAdd={()=> dispatch(getCarouselImageDelete(el.id))} /></td>
                         </tr>
                     })}
                 </tbody>

@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react'
 import { Field, Form } from 'react-final-form'
 import { useSelector, useDispatch } from 'react-redux'
 import BorderColorIcon from '@mui/icons-material/BorderColor'
-import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
 
 import { Button, Input, Modal, ModalBody, ModalHeader, Table } from 'reactstrap'
 import { getEconomicImages, geEconomicImageCreate, getEconomicDelete, getEconomicUpdate } from './../../redux/economic-reducer';
 import style from './Economic.module.css'
+import { DeleteBtn } from './../../utils/utils';
 
 export const Economic = () => {
     const [modalOpen, setModalOpen] = useState(false);
@@ -31,9 +31,7 @@ export const Economic = () => {
         setSelectedI(false);
         setModalOpen(false);
     }
-    const deleteHandler = (id) => {
-        dispatch(getEconomicDelete(id))
-    }
+
     return images && images.images && images.images.length > 0 && (
         <div>
             <Modal isOpen={modalOpen} toggle={toggle} >
@@ -159,7 +157,7 @@ export const Economic = () => {
                     <td><Button onClick={ () => {
                         setImageId(el)
                         setModalOpen(true)
-                    } }><BorderColorIcon/></Button> <Button onClick={ () => deleteHandler(el.id) }><DeleteForeverIcon/></Button></td>
+                    } }><BorderColorIcon/></Button><DeleteBtn handleAdd={()=> dispatch(getEconomicDelete(el.id))} /></td>
                 </tr>}) }
                 </tbody>
             </Table>

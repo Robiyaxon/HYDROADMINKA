@@ -8,14 +8,17 @@ import {
   Collapse,
   Nav,
   NavItem,
-  NavLink,
 } from "reactstrap";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 
 const Topbar = ({ toggleSidebar }) => {
   const [topbarIsOpen, setTopbarOpen] = useState(true);
   const toggleTopbar = () => setTopbarOpen(!topbarIsOpen);
-
+  const LogOut = () => {
+    window.localStorage.clear()
+    window.location.reload(true);
+    return <Navigate to={'/login'} />
+  }
   return (
     <Navbar
       color="light"
@@ -27,7 +30,16 @@ const Topbar = ({ toggleSidebar }) => {
         <FontAwesomeIcon icon={faAlignLeft} />
       </Button>
       <NavbarToggler onClick={toggleTopbar} />
-      <Collapse isOpen={topbarIsOpen} navbar></Collapse>
+
+      <Collapse isOpen={topbarIsOpen} navbar>
+        <Nav className="ml-auto" navbar>
+          <NavItem>
+            <Button color={'danger'} onClick={LogOut}>
+              Log Out
+            </Button>
+          </NavItem>
+        </Nav>
+      </Collapse>
     </Navbar>
   );
 };

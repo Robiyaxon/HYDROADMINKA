@@ -6,6 +6,7 @@ import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
 
 import { Button, Input, Modal, ModalBody, ModalHeader, Table } from 'reactstrap'
 import { getAboutTeamMembars, getAboutTeamMembersCreate, getAboutTeamMembersUpdate, getAboutTeamMembersDelete } from './../../redux/about-reducer';
+import { DeleteBtn } from './../../utils/utils';
 
 export const TeamMembers = () => {
     const [modalOpen, setModalOpen] = useState(false);
@@ -34,9 +35,7 @@ export const TeamMembers = () => {
         setSelectedI(false)
         setModalOpen(false)
     }
-    const deleteHandler = (id) => {
-        dispatch(getAboutTeamMembersDelete(id))
-    }
+
     console.log(imageId);
     // const staffPositionCopy = imageId.staffPosition && [...imageId.staffPosition] || null
     return images && images.team && images.team.length > 0 && (
@@ -47,8 +46,8 @@ export const TeamMembers = () => {
                     <Form
                         onSubmit={onSubmit}
                         initialValues={imageId && {
-                             fullName: imageId.fullName, name_uz:  imageId.staffPosition &&  imageId.staffPosition.name_uz 
-                            }}
+                            fullName: imageId.fullName, name_uz: imageId.staffPosition && imageId.staffPosition.name_uz
+                        }}
                         validate={values => {
                             const errors = {}
                             if (!values.fullName) {
@@ -96,12 +95,12 @@ export const TeamMembers = () => {
                                 <div>
                                     <Field name="name_uz">
                                         {({ input, meta }) => (
-                                                <div>
-                                                    <label>Title</label>
-                                                    <Input type='text' {...input} placeholder='Postion name uz' />
-                                                    {meta.error && meta.touched && <span style={{ color: '#fd4444' }}>{meta.error}</span>}
-                                                </div>
-                                            )
+                                            <div>
+                                                <label>Title</label>
+                                                <Input type='text' {...input} placeholder='Postion name uz' />
+                                                {meta.error && meta.touched && <span style={{ color: '#fd4444' }}>{meta.error}</span>}
+                                            </div>
+                                        )
                                         }
                                     </Field>
                                 </div>
@@ -167,12 +166,12 @@ export const TeamMembers = () => {
                                 setImageId(el)
                                 setModalOpen(true)
                             }}><BorderColorIcon /></Button>
-                                <Button onClick={() => deleteHandler(el.id)}><DeleteForeverIcon /></Button>
+                                <DeleteBtn handleAdd={() => dispatch(getAboutTeamMembersDelete(el.id))} />
                             </td>
                         </tr>
                     })}
                 </tbody>
             </Table>
         </div>
-    ) || <div class="spinner"></div>
+    ) || <div className="spinner"></div>
 }

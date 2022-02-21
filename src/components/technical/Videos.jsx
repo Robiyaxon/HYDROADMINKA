@@ -2,11 +2,10 @@ import React, { useEffect, useState } from 'react'
 import { Field, Form } from 'react-final-form'
 import { useSelector, useDispatch } from 'react-redux'
 import BorderColorIcon from '@mui/icons-material/BorderColor'
-import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
 
-import { getAboutImageDelete, getAboutImages, getAboutImageUpdate, getAboutImageCreate } from '../../redux/home-reducer'
 import { Button, Input, Modal, ModalBody, ModalFooter, ModalHeader, Table } from 'reactstrap'
 import { getTechnicalVideo, getTechnicalVideoUpdate, getTechnicalVideoDelete, getTechnicalVideoCreate } from './../../redux/technical-reducer';
+import { DeleteBtn } from './../../utils/utils';
 
 export const Videos = () => {
     const [modalOpen, setModalOpen] = useState(false);
@@ -31,9 +30,7 @@ export const Videos = () => {
         setSelectedI(false);
         setModalOpen(false);
     }
-    const deleteHandler = (id) => {
-        dispatch(getTechnicalVideoDelete(id))
-    }
+
     return images && images.videos && images.videos.length > 0 && (
         <div>
             <Modal isOpen={modalOpen} toggle={toggle} >
@@ -86,7 +83,7 @@ export const Videos = () => {
                             <td><Button onClick={() => {
                                 setImageId(el)
                                 setModalOpen(true)
-                            }}><BorderColorIcon /></Button> <Button onClick={() => deleteHandler(el.id)}><DeleteForeverIcon /></Button></td>
+                            }}><BorderColorIcon /></Button><DeleteBtn handleAdd={()=> dispatch(getTechnicalVideoDelete(el.id))} /></td>
                         </tr>
                     })}
                 </tbody>

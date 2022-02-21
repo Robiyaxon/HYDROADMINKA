@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react'
 import { Field, Form } from 'react-final-form'
 import { useSelector, useDispatch } from 'react-redux'
 import BorderColorIcon from '@mui/icons-material/BorderColor'
-import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
 
 import { getHomePanel2Delete, getHomePanel2Data, getHomePanel2Update, getHomePanel2Create } from '../../redux/home-reducer'
 import { Button, Input, Modal, ModalBody, ModalFooter, ModalHeader, Table } from 'reactstrap'
+import { DeleteBtn } from './../../utils/utils';
 
 const HomePanel2 = () => {
     const [modalOpen, setModalOpen] = useState(false);
@@ -29,9 +29,6 @@ const HomePanel2 = () => {
         setImageId(null)
         setSelectedI(false);
         setModalOpen(false);
-    }
-    const deleteHandler = (id) => {
-        dispatch(getHomePanel2Delete(id))
     }
     return images && images.length > 0 && (
         <div>
@@ -210,7 +207,7 @@ const HomePanel2 = () => {
                             <td><Button onClick={() => {
                                 setImageId(el)
                                 setModalOpen(true)
-                            }}><BorderColorIcon /></Button> <Button onClick={() => deleteHandler(el.id)}><DeleteForeverIcon /></Button></td>
+                            }}><BorderColorIcon /></Button> <DeleteBtn handleAdd={()=> dispatch(getHomePanel2Delete(el.id))} /></td>
                         </tr>
                     })}
                 </tbody>

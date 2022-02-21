@@ -8,6 +8,7 @@ import { Button, Input, Modal, ModalBody, ModalHeader, Table } from 'reactstrap'
 import { getEconomicImages, geEconomicImageCreate, getEconomicDelete, getEconomicUpdate } from './../../redux/economic-reducer';
 import { getAboutOrganizationHistory, getAboutOrganizationHistoryCreate, getAboutOrganizationHistoryDelete } from '../../redux/about-reducer'
 import { getAboutOrganizationHistoryUpdate } from './../../redux/about-reducer';
+import { DeleteBtn } from './../../utils/utils';
 
 export const OrganizationHistory = () => {
     const [modalOpen, setModalOpen] = useState(false);
@@ -32,9 +33,7 @@ export const OrganizationHistory = () => {
         setSelectedI(false);
         setModalOpen(false);
     }
-    const deleteHandler = (id) => {
-        dispatch(getAboutOrganizationHistoryDelete(id))
-    }
+
     return images && images.organizationHistoryData && images.organizationHistoryData.length > 0 && (
         <div>
             <Modal isOpen={modalOpen} toggle={toggle} >
@@ -98,10 +97,10 @@ export const OrganizationHistory = () => {
                     <td><Button onClick={ () => {
                         setImageId(el)
                         setModalOpen(true)
-                    } }><BorderColorIcon/></Button> <Button onClick={ () => deleteHandler(el.id) }><DeleteForeverIcon/></Button></td>
+                    } }><BorderColorIcon/></Button><DeleteBtn handleAdd={()=> dispatch(getAboutOrganizationHistoryDelete(el.id))} /></td>
                 </tr>}) }
                 </tbody>
             </Table>
         </div>
-    ) || <div class="spinner"></div>
+    ) || <div className="spinner"></div>
 }

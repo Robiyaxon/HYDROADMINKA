@@ -2,12 +2,12 @@ import React, { useEffect, useState } from 'react'
 import { Field, Form } from 'react-final-form'
 import { useSelector, useDispatch } from 'react-redux'
 import BorderColorIcon from '@mui/icons-material/BorderColor'
-import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
 
 import { getCarouselImageDelete, getCarouselImages, getCarouselImageUpdate, getCarouselImageCreate } from '../../redux/home-reducer'
 import { Button, Input, Modal, ModalBody, ModalFooter, ModalHeader, Table } from 'reactstrap'
 import { getMainPartners, getMainPartnersUpdate } from '../../redux/corporative-reducer'
 import { getMainPartnersCreate, getMainPartnersDelete } from './../../redux/corporative-reducer';
+import { DeleteBtn } from './../../utils/utils';
 
 export const MainPartners = () => {
     const [modalOpen, setModalOpen] = useState(false);
@@ -46,9 +46,7 @@ export const MainPartners = () => {
         setSelectedI(false);
         setModalOpen(false);
     }
-    const deleteHandler = (id) => {
-        dispatch(getMainPartnersDelete(id))
-    }
+
     return images && images.partners && images.partners.length > 0 && (
         <div>
             <Modal isOpen={modalOpen} toggle={toggle} >
@@ -212,7 +210,7 @@ export const MainPartners = () => {
                             <td><Button onClick={() => {
                                 setImageId(el)
                                 setModalOpen(true)
-                            }}><BorderColorIcon /></Button> <Button onClick={() => deleteHandler(el.id)}><DeleteForeverIcon /></Button></td>
+                            }}><BorderColorIcon /></Button> <DeleteBtn handleAdd={()=> dispatch(getMainPartnersDelete(el.id))} /></td>
                         </tr>
                     })}
                 </tbody>

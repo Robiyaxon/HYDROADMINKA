@@ -421,5 +421,5 @@ export const AboutCompany = () => {
                 </Table>
             </div>
         </>
-    ) || <div class="spinner"></div>
+    ) || <div className="spinner"></div>
 }

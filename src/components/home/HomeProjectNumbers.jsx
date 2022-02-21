@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react'
 import { Field, Form } from 'react-final-form'
 import { useSelector, useDispatch } from 'react-redux'
 import BorderColorIcon from '@mui/icons-material/BorderColor'
-import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
 
 import { getProjectNumbersImageDelete, getProjectNumbersImages, getProjectNumbersImageUpdate, getProjectNumbersImageCreate } from '../../redux/home-reducer'
 import { Button, Input, Modal, ModalBody, ModalFooter, ModalHeader, Table } from 'reactstrap'
+import { DeleteBtn } from './../../utils/utils';
 
 const HomeProjectNumbers = () => {
     const [modalOpen, setModalOpen] = useState(false);
@@ -29,9 +29,6 @@ const HomeProjectNumbers = () => {
         setImageId(null)
         setSelectedI(false);
         setModalOpen(false);
-    }
-    const deleteHandler = (id) => {
-        dispatch(getProjectNumbersImageDelete(id))
     }
     return images && images.length > 0 && (
         <div>
@@ -158,7 +155,7 @@ const HomeProjectNumbers = () => {
                     <td><Button onClick={ () => {
                         setImageId(el)
                         setModalOpen(true)
-                    } }><BorderColorIcon/></Button> <Button onClick={ () => deleteHandler(el.id) }><DeleteForeverIcon/></Button></td>
+                    } }><BorderColorIcon/></Button> <DeleteBtn handleAdd={()=> dispatch(getProjectNumbersImageDelete(el.id))} /></td>
                 </tr>}) }
                 </tbody>
             </Table>

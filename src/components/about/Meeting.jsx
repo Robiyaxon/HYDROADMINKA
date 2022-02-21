@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react'
 import { Field, Form } from 'react-final-form'
 import { useSelector, useDispatch } from 'react-redux'
 import BorderColorIcon from '@mui/icons-material/BorderColor'
-import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
 
 import { Button, Input, Modal, ModalBody, ModalHeader, Table } from 'reactstrap'
 import { getAboutMeeting, getAboutMeetingCreate, getAboutMeetingUpdate, getAboutMeetingDelete } from './../../redux/about-reducer';
+import { DeleteBtn } from './../../utils/utils';
 
 export const Meeting = () => {
     const [modalOpen, setModalOpen] = useState(false);
@@ -41,9 +41,7 @@ export const Meeting = () => {
         setSelectedI(false);
         setModalOpen(false);
     }
-    const deleteHandler = (id) => {
-        dispatch(getAboutMeetingDelete(id))
-    }
+
     return images && images.meeting && images.meeting.length > 0 && (
         <div>
             <Modal isOpen={modalOpen} toggle={toggle} >
@@ -242,12 +240,12 @@ export const Meeting = () => {
                                 setImageId(el)
                                 setModalOpen(true)
                             }}><BorderColorIcon /></Button>
-                                <Button onClick={() => deleteHandler(el.id)}><DeleteForeverIcon /></Button>
+                                <DeleteBtn handleAdd={()=> dispatch(getAboutMeetingDelete(el.id))} />
                             </td>
                         </tr>
                     })}
                 </tbody>
             </Table>
         </div>
-    ) || <div class="spinner"></div>
+    ) || <div className="spinner"></div>
 }

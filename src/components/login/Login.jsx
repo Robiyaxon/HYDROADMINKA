@@ -59,8 +59,6 @@ const Login = () => {
                                     )}
                                 </Field>
                             </div>
-
-
                             <Button style={{ width: '100%' }} type='submit' disabled={submitting}>Sign in</Button>
                         </form>
                     )} />

@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react'
 import { Field, Form } from 'react-final-form'
 import { useSelector, useDispatch } from 'react-redux'
 import BorderColorIcon from '@mui/icons-material/BorderColor'
-import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
 
 import { getAboutImageDelete, getAboutImages, getAboutImageUpdate, getAboutImageCreate } from '../../redux/home-reducer'
 import { Button, Input, Modal, ModalBody, ModalFooter, ModalHeader, Table } from 'reactstrap'
+import { DeleteBtn } from './../../utils/utils';
 
 const HomeAbout = () => {
     const [modalOpen, setModalOpen] = useState(false);
@@ -24,14 +24,11 @@ const HomeAbout = () => {
         setImageId(null)
     }
     const onSubmit = (data) => {
-        !imageId ? dispatch(getAboutImageCreate({ selectedImage, title_uz: data.title_uz, description_uz: data.description_uz })) : 
+        !imageId ? dispatch(getAboutImageCreate({ selectedImage,  title_uz: data.title_uz, title_ru: data.title_ru, title_en: data.title_en,  title_krl: data.title_krl, description_uz: data.description_uz, description_ru: data.description_ru, description_en: data.description_en, description_krl: data.description_krl, })) : 
         dispatch(getAboutImageUpdate({ selectedImage, title_uz: data.title_uz, title_ru: data.title_ru, title_en: data.title_en,  title_krl: data.title_krl, description_uz: data.description_uz, description_ru: data.description_ru, description_en: data.description_en, description_krl: data.description_krl, id: imageId.id, originalPath: imageId.photoUrl, selectedI }));
         setImageId(null)
         setSelectedI(false);
         setModalOpen(false);
-    }
-    const deleteHandler = (id) => {
-        dispatch(getAboutImageDelete(id))
     }
     return images && images.length > 0 && (
         <div>
@@ -223,7 +220,7 @@ const HomeAbout = () => {
                     <td><Button onClick={ () => {
                         setImageId(el)
                         setModalOpen(true)
-                    } }><BorderColorIcon/></Button> <Button onClick={ () => deleteHandler(el.id) }><DeleteForeverIcon/></Button></td>
+                    } }><BorderColorIcon/></Button> <DeleteBtn handleAdd={()=> dispatch(getAboutImageDelete(el.id))} /></td>
                 </tr>}) }
                 </tbody>
             </Table>

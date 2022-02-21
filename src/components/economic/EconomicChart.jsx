@@ -6,6 +6,7 @@ import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
 
 import { Button, Input, Modal, ModalBody, ModalHeader, Table } from 'reactstrap'
 import { getChart, getChartCreate, getChartUpdate, getChartDelete } from '../../redux/economic-reducer';
+import { DeleteBtn } from './../../utils/utils';
 
 export const EconomicChart = () => {
     const [modalOpen, setModalOpen] = useState(false);
@@ -27,9 +28,7 @@ export const EconomicChart = () => {
         setImageId(null)
         setModalOpen(false);
     }
-    const deleteHandler = (id) => {
-        dispatch(getChartDelete(id))
-    }
+
     return images && images.amount && images.amount.length > 0 && (
         <div>
             <Modal isOpen={modalOpen} toggle={toggle} >
@@ -84,7 +83,7 @@ export const EconomicChart = () => {
                             <td><Button onClick={() => {
                                 setImageId(el)
                                 setModalOpen(true)
-                            }}><BorderColorIcon /></Button> <Button onClick={() => deleteHandler(el.id)}><DeleteForeverIcon /></Button></td>
+                            }}><BorderColorIcon /></Button><DeleteBtn handleAdd={()=> dispatch(getChartDelete(el.id))} /></td>
                         </tr>
                     })
                     }

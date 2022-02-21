@@ -6,6 +6,7 @@ import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
 
 import { Button, Input, Modal, ModalBody, ModalHeader, Table } from 'reactstrap'
 import { getOpenSoursesUpdate, getOpenSoursesImageCreate, getEconomicOpenSourses, getOpenSoursesDelete } from './../../redux/economic-reducer';
+import { DeleteBtn } from './../../utils/utils';
 
 export const OpenSourses = () => {
     const [modalOpen, setModalOpen] = useState(false);
@@ -34,9 +35,7 @@ export const OpenSourses = () => {
         setSelectedI(false);
         setModalOpen(false);
     }
-    const deleteHandler = (id) => {
-        dispatch(getOpenSoursesDelete(id))
-    }
+
     return images && images.openSourses && images.openSourses.length > 0 && (
         <div>
             <Modal isOpen={modalOpen} toggle={toggle} >
@@ -237,7 +236,7 @@ export const OpenSourses = () => {
                     <td><Button onClick={ () => {
                         setImageId(el)
                         setModalOpen(true)
-                    } }><BorderColorIcon/></Button> <Button onClick={ () => deleteHandler(el.id) }><DeleteForeverIcon/></Button></td>
+                    } }><BorderColorIcon/></Button><DeleteBtn handleAdd={()=> dispatch(getOpenSoursesDelete(el.id))} /></td>
                 </tr>}) }
                 </tbody>
             </Table>
