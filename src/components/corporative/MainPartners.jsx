@@ -26,9 +26,10 @@ export const MainPartners = () => {
         setImageId(null)
     }
     const onSubmit = (data) => {
+        debugger
         !imageId ? dispatch(getMainPartnersCreate({
             selectedImage, name: data.name,
-            description_uz: data.description,
+            description_uz: data.description_uz,
             description_ru: data.description_ru,
             description_en: data.description_en,
             description_krl: data.description_krl,
