@@ -4,6 +4,8 @@ import { aboutAPI } from './../api/aboutApi';
 
 const SET_ABOUT_API_DATA = '/about/SET_ABOUT_API_DATA';
 
+const SET_ABOUT_COMPANY_DATA = '/about/SET_ABOUT_COMPANY_DATA';
+
 const SET_ABOUT_MEETING_DATA = '/about/SET_ABOUT_MEETING_DATA';
 const SET_ABOUT_MEETING_DELETE = '/about/SET_ABOUT_MEETING_DELETE';
 
@@ -17,7 +19,8 @@ let initialState = {
     aboutData: null,
     organizationHistoryData: null,
     meeting: null,
-    team: null
+    team: null,
+    company: null
 };
 
 
@@ -52,9 +55,9 @@ export const aboutReducer = (state = initialState, action) => {
                 meeting: action.meeting
             }
         case SET_ABOUT_MEETING_DELETE:
-            let meeting = [ ...state.meeting ];
+            let meeting = [...state.meeting];
             meeting = meeting.filter(el => {
-                if(el.id !== action.id) {
+                if (el.id !== action.id) {
                     return el;
                 }
             })
@@ -65,16 +68,25 @@ export const aboutReducer = (state = initialState, action) => {
                 team: action.team
             }
         case SET_ABOUT_TEAM_MEMBERS_DATA:
-            let team = [ ...state.team ];
+            let team = [...state.team];
             team = team.filter(el => {
-                if(el.id !== action.id) {
+                if (el.id !== action.id) {
                     return el;
                 }
             })
+
+        // about company
+        case SET_ABOUT_COMPANY_DATA:
+            return {
+                ...state,
+                company: action.company
+            }
         default:
             return state;
     }
 }
+
+
 
 // action creator
 
@@ -82,10 +94,14 @@ export const aboutReducer = (state = initialState, action) => {
 
 export const setAboutHeaderData = (aboutData) => ({ type: SET_ABOUT_API_DATA, aboutData });
 
+// about company
+
+export const setAboutCompanyData = (company) => ({ type: SET_ABOUT_COMPANY_DATA, company });
+
 // organization history
 
 export const setAboutOrganizationHistoryData = (organizationHistoryData) => ({ type: SET_ABOUT_ORGANIZATION_HISTORY_DATA, organizationHistoryData });
-export const setAboutOrganizationHistoryDelete = (aboutData) => ({ type: SET_ABOUT_ORGANIZATION_HISTORY_DELETE, aboutData });
+export const setAboutOrganizationHistoryDelete = (id) => ({ type: SET_ABOUT_ORGANIZATION_HISTORY_DELETE, id });
 
 // meeting
 
@@ -96,6 +112,8 @@ export const setAboutMeetingDelete = (id) => ({ type: SET_ABOUT_MEETING_DELETE, 
 
 export const setAboutTeamMembersData = (team) => ({ type: SET_ABOUT_TEAM_MEMBERS_DATA, team });
 export const setAboutTeamMembarsDelete = (id) => ({ type: SET_ABOUT_TEAM_MEMBERS_DELETE, id });
+
+
 
 // thunk
 
@@ -177,7 +195,6 @@ export const getAboutOrganizationHistoryUpdate = (data) => async (dispatch) => {
         dispatch(getAboutOrganizationHistory());
     });
 }
-
 
 export const getAboutOrganizationHistoryDelete = (id) => (dispatch) => {
     return aboutAPI.setOrganizationHistoryDelete(id)
@@ -277,4 +294,45 @@ export const getAboutTeamMembersDelete = (id) => (dispatch) => {
             dispatch(getAboutTeamMembars());
             dispatch(setAboutTeamMembarsDelete(id));
         });
+}
+
+// about company
+
+export const getAboutCompany = () => (dispatch) => {
+
+    return aboutAPI.setAboutCompany()
+        .then(res => {
+            console.log(res);
+
+            dispatch(setAboutCompanyData(res));
+        });
+}
+export const getAboutCompanyCreate = (data) => async (dispatch) => {
+    console.log(data);
+
+    let image = await globalAPI.uploadImage(data.selectedImage)
+        .then(res => {
+            return res;
+        });
+
+    let path = image.dbPath && 'http://softcity.uz:9999' + image.dbPath;
+    data.photoUrl = path;
+
+    return await aboutAPI.setAboutCompanyCreate(data).then(res => {
+        dispatch(getAboutCompany());
+    });
+}
+export const getAboutCompanyUpdate = (data) => async (dispatch) => {
+    console.log(data);
+    let image = data.selectedI && await globalAPI.uploadImage(data.selectedImage)
+        .then(res => {
+            return res;
+        });
+
+    let path = image.dbPath && 'http://softcity.uz:9999' + image.dbPath;
+    data.photoUrl = path
+
+    return await aboutAPI.setAboutCompanyUpdate(data).then(res => {
+        dispatch(getAboutCompany());
+    });
 }

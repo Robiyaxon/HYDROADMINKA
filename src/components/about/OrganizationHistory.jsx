@@ -103,5 +103,5 @@ export const OrganizationHistory = () => {
                 </tbody>
             </Table>
         </div>
-    ) || null
+    ) || <div class="spinner"></div>
 }

@@ -27,9 +27,8 @@ export const About = () => {
         setImageId(null)
     }
     const onSubmit = (data) => {
-        console.log(data);
-        !imageId ? dispatch(getAboutHeaderCreate({ selectedImage, title_uz: data.title })) : 
-        dispatch(getAboutHeaderUpdate({ selectedImage, title_uz: data.title, id: imageId.id, originalPath: imageId.photoUrl, selectedI }));
+        !imageId ? dispatch(getAboutHeaderCreate({ selectedImage, title_uz: data.title_uz, title_ru: data.title_ru, title_en: data.title_en, title_krl: data.title_krl })) : 
+        dispatch(getAboutHeaderUpdate({ selectedImage, title_uz: data.title_uz, title_ru: data.title_ru, title_en: data.title_en, title_krl: data.title_krl, id: imageId.id, originalPath: imageId.photoUrl, selectedI }));
         setImageId(null)
         setSelectedI(false);
         setModalOpen(false);
@@ -41,11 +40,21 @@ export const About = () => {
                 <ModalBody>
                 <Form
                 onSubmit={onSubmit}
-                initialValues={imageId && { title: imageId && imageId.title_uz }}
+                initialValues={imageId && { title_uz: imageId && imageId.title_uz, title_ru: imageId && imageId.title_ru,
+                    title_en: imageId && imageId.title_en, title_krl: imageId && imageId.title_krl, }}
                 validate={values => {
                     const errors = {}
-                    if (!values.title) {
-                        if (!values.title) { errors.title = 'Invalid title address' }
+                    if (!values.title_uz) {
+                        if (!values.title_uz) { errors.title_uz = 'Invalid title Uz address' }
+                    }
+                    if (!values.title_ru) {
+                        if (!values.title_ru) { errors.title_ru = 'Invalid title Ru address' }
+                    }
+                    if (!values.title_en) {
+                        if (!values.title_en) { errors.title_en = 'Invalid title En address' }
+                    }
+                    if (!values.title_krl) {
+                        if (!values.title_krl) { errors.title_krl = 'Invalid title Krl address' }
                     }
                     return errors
                 }}
@@ -72,10 +81,43 @@ export const About = () => {
                         </Field>
                     </div>
                     <div>
-                        <Field name="title">
+                        <Field name="title_uz">
                             {({ input, meta }) => (
                             <div>
-                                <label>Title</label>
+                                <label>Title Uz</label>
+                                <Input type='text' {...input} placeholder='Title'  />
+                                {meta.error && meta.touched && <span style={{ color: '#fd4444' }}>{meta.error}</span>}
+                            </div>
+                            )}
+                        </Field>
+                    </div>
+                    <div>
+                        <Field name="title_ru">
+                            {({ input, meta }) => (
+                            <div>
+                                <label>Title Ru</label>
+                                <Input type='text' {...input} placeholder='Title'  />
+                                {meta.error && meta.touched && <span style={{ color: '#fd4444' }}>{meta.error}</span>}
+                            </div>
+                            )}
+                        </Field>
+                    </div>
+                    <div>
+                        <Field name="title_en">
+                            {({ input, meta }) => (
+                            <div>
+                                <label>Title En</label>
+                                <Input type='text' {...input} placeholder='Title'  />
+                                {meta.error && meta.touched && <span style={{ color: '#fd4444' }}>{meta.error}</span>}
+                            </div>
+                            )}
+                        </Field>
+                    </div>
+                    <div>
+                        <Field name="title_krl">
+                            {({ input, meta }) => (
+                            <div>
+                                <label>Title Krl</label>
                                 <Input type='text' {...input} placeholder='Title'  />
                                 {meta.error && meta.touched && <span style={{ color: '#fd4444' }}>{meta.error}</span>}
                             </div>
@@ -98,7 +140,10 @@ export const About = () => {
                 <tr>
                     <th>#</th>
                     <th>Images</th>
-                    <th>Title</th>
+                    <th>Title Uz</th>
+                    <th>Title Ru</th>
+                    <th>Title En</th>
+                    <th>Title Krl</th>
                     <th>-----</th>
                 </tr>
                 </thead>
@@ -109,6 +154,9 @@ export const About = () => {
                     <td><img style={{ width: '30px' }} src={ el.photoUrl } alt="" /></td>
                     
                     <td>{ el.title_uz }</td>
+                    <td>{ el.title_ru }</td>
+                    <td>{ el.title_en }</td>
+                    <td>{ el.title_krl }</td>
                     <td><Button onClick={ () => {
                         setImageId(el)
                         setModalOpen(true)
@@ -117,5 +165,5 @@ export const About = () => {
                 </tbody>
             </Table>
         </div>
-    ) ||  null
+    ) || <div class="spinner"></div>
 }

@@ -4,16 +4,16 @@ export const economicAPI = {
     // header
     setEconomicHeader() {
         return instance.get(`economyHeadersAPI`)
-            .then(async(response) => {
+            .then(async (response) => {
                 return await response.data;
             });
     },
     setUpdateEconomicHeader(data) {
         const { id, title_uz, photoUrl, originalPath } = data;
-        return instance.put(`economyHeadersAPI/1`, { id, title_uz, photoUrl: photoUrl ? photoUrl :  originalPath })
-        .then(async(response) => {
-            return await response.data;
-        });
+        return instance.put(`economyHeadersAPI/1`, { id, title_uz, photoUrl: photoUrl ? photoUrl : originalPath })
+            .then(async (response) => {
+                return await response.data;
+            });
     },
 
 
@@ -24,15 +24,15 @@ export const economicAPI = {
             });
     },
     setUpdateEconomic(data) {
-        const { id, title_uz, photoUrl, originalPath } = data;
-        return instance.put(`economyAgreementsAPI/${id}`, { id, title_uz, photoUrl: photoUrl ? photoUrl : originalPath })
+        const { id, title_uz, title_ru, title_en, title_krl, photoUrl, originalPath } = data;
+        return instance.put(`economyAgreementsAPI/${id}`, { id, title_uz, title_ru, title_en, title_krl, photoUrl: photoUrl ? photoUrl : originalPath })
             .then(async (response) => {
                 return await response.data;
             });
     },
     setEconomicCreate(data) {
-        const { title_uz, photoUrl } = data;
-        return instance.post(`economyAgreementsAPI`, { title_uz, photoUrl })
+        const { title_uz, title_ru, title_en, title_krl, photoUrl } = data;
+        return instance.post(`economyAgreementsAPI`, { title_uz, title_ru, title_en, title_krl, photoUrl })
             .then(async (response) => {
                 return await response.data;
             });
@@ -81,15 +81,15 @@ export const economicAPI = {
             });
     },
     setUpdateOpenSourses(data) {
-        const { id, title_uz, photoUrl, originalPath,  description_uz } = data;
-        return instance.put(`economyOpenSoursesAPI/${id}`, { id, title_uz, photoUrl: photoUrl ? photoUrl : originalPath, description_uz })
+        const { id, title_uz, title_ru, title_en, title_krl, description_uz, description_ru, description_en, description_krl, originalPath  } = data;
+        return instance.put(`economyOpenSoursesAPI/${id}`, { id, title_uz, title_ru, title_en, title_krl, description_uz, description_ru, description_en, description_krl, originalPath  })
             .then(async (response) => {
                 return await response.data;
             });
     },
     setOpenSoursesCreate(data) {
-        const { title_uz, photoUrl, description_uz } = data;
-        return instance.post(`economyOpenSoursesAPI`, { title_uz, photoUrl, description_uz })
+        const { title_uz, title_ru, title_en, title_krl, photoUrl, description_uz, description_ru, description_en, description_krl } = data;
+        return instance.post(`economyOpenSoursesAPI`, { title_uz, title_ru, title_en, title_krl, photoUrl, description_uz, description_ru, description_en, description_krl })
             .then(async (response) => {
                 return await response.data;
             });

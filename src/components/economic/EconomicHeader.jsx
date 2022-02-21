@@ -96,7 +96,10 @@ export const EconomicHeader = () => {
                 <tr>
                     <th>#</th>
                     <th>Images</th>
-                    <th>Title</th>
+                    <th>Title Uz</th>
+                    <th>Title Ru</th>
+                    <th>Title En</th>
+                    <th>Title Krl</th>
                     <th>-----</th>
                 </tr>
                 </thead>
@@ -107,6 +110,9 @@ export const EconomicHeader = () => {
                     <td><img style={{ width: '30px' }} src={ el.photoUrl } alt="" /></td>
                     
                     <td>{ el.title_uz }</td>
+                    <td>{ el.title_ru }</td>
+                    <td>{ el.title_en }</td>
+                    <td>{ el.title_krl }</td>
                     <td><Button onClick={ () => {
                         setImageId(el)
                         setModalOpen(true)
@@ -115,5 +121,5 @@ export const EconomicHeader = () => {
                 </tbody>
             </Table>
         </div>
-    )
+    ) || <div class="spinner"></div>
 }

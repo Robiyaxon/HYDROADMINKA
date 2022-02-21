@@ -10,6 +10,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 function App() {
   const [sidebarIsOpen, setSidebarOpen] = useState(true);
   const toggleSidebar = () => setSidebarOpen(!sidebarIsOpen);
+  
   return (
     <div className="App">
       <SideBar toggle={toggleSidebar} isOpen={sidebarIsOpen} />

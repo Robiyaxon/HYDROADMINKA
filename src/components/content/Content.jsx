@@ -1,9 +1,4 @@
 import React from "react";
-import classNames from "classnames";
-import { Container } from "reactstrap";
-import { Route, Routes } from "react-router-dom";
-
-import { PrivateRoute } from "../../utils/PrivateRoute";
 import Topbar from "./../sidebar/TopBar";
 import Home from "./../home/Home";
 import HomePanel2 from "../home/HomePanel2";
@@ -22,6 +17,15 @@ import { Meeting } from "./../about/Meeting";
 import { TeamMembers } from "./../about/TeamMembers";
 import { Corporative } from "./../corporative/Corporative";
 import { MainPartners } from "./../corporative/MainPartners";
+import { Activities } from "../activities/Activities";
+import { AboutCompany } from "../about/AboutCompany";
+import { Technical } from "./../technical/Technical";
+import { Videos } from "./../technical/Videos";
+import { News } from "./../news/News";
+import classNames from "classnames";
+import { Container } from "reactstrap";
+import { Route, Routes } from "react-router-dom";
+import { PrivateRoute } from "../../utils/PrivateRoute";
 
 const Content = ({ sidebarIsOpen, toggleSidebar }) => {
   return (
@@ -190,6 +194,51 @@ const Content = ({ sidebarIsOpen, toggleSidebar }) => {
           element={
             <PrivateRoute>
               <MainPartners />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          exact
+          path="/activitiesHeader"
+          element={
+            <PrivateRoute>
+              <Activities />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          exact
+          path="/aboutCompany"
+          element={
+            <PrivateRoute>
+              <AboutCompany />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          exact
+          path="/technical"
+          element={
+            <PrivateRoute>
+              <Technical />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          exact
+          path="/videoUrlYoutube"
+          element={
+            <PrivateRoute>
+              <Videos />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          exact
+          path="/news"
+          element={
+            <PrivateRoute>
+              <News />
             </PrivateRoute>
           }
         />

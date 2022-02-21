@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAlignLeft } from "@fortawesome/free-solid-svg-icons";
-import { Navbar, Button, NavbarToggler } from "reactstrap";
+import { Navbar, Button, NavbarToggler, Collapse } from "reactstrap";
 
 const Topbar = ({ toggleSidebar }) => {
   const [topbarIsOpen, setTopbarOpen] = useState(true);
@@ -18,6 +18,7 @@ const Topbar = ({ toggleSidebar }) => {
         <FontAwesomeIcon icon={faAlignLeft} />
       </Button>
       <NavbarToggler onClick={toggleTopbar} />
+      <Collapse isOpen={topbarIsOpen} navbar></Collapse>
     </Navbar>
   );
 };

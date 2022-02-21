@@ -3,39 +3,34 @@ import { Field, Form } from 'react-final-form'
 import { useSelector, useDispatch } from 'react-redux'
 import BorderColorIcon from '@mui/icons-material/BorderColor'
 
-import { Button, Input, Modal, ModalBody, ModalFooter, ModalHeader, Table } from 'reactstrap'
-import { getContactImageCreate, getContactImages, getContactImageUpdate } from './../../redux/contact-reducer';
+import { Button, Input, Modal, ModalBody, ModalHeader, Table } from 'reactstrap'
+import { getNewsUpdate, getNewsHeader, getNewsCreate } from './../../redux/news-reducer';
 
-export const Contact = () => {
+export const News = () => {
     const [modalOpen, setModalOpen] = useState(false);
     const [selectedImage, setSelectedImage] = useState(false);
     const [selectedI, setSelectedI] = useState(false);
     const [imageId, setImageId] = useState(false)
     let images = null;
-    images = useSelector(state => state.contactPage ? state.contactPage : null);
+    images = useSelector(state => state.newsPage ? state.newsPage : null);
 
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(getContactImages())
+        dispatch(getNewsHeader())
     }, []);
     const toggle = () => {
         setModalOpen(!modalOpen);
         setImageId(null)
     }
     const onSubmit = (data) => {
-        !imageId ? dispatch(getContactImageCreate({ selectedImage, title_uz: data.title_uz })) :
-            dispatch(getContactImageUpdate({
-                selectedImage,
-                title_uz: data.title_uz, title_ru: data.title_ru,
-                title_en: data.title_en, title_krl: data.title_krl,
-                id: imageId.id, originalPath: imageId.photoUrl, selectedI
-            }));
+        !imageId ? dispatch(getNewsCreate({ selectedImage, title_uz: data.title_uz, fileUrl: data.image })) :
+            dispatch(getNewsUpdate({ selectedImage, fileUrl: data.image, title_uz: data.title_uz, title_ru: data.title_ru, title_en: data.title_en, title_krl: data.title_krl, id: imageId.id, originalPath: imageId.photoUrl, selectedI }));
         setImageId(null)
         setSelectedI(false);
         setModalOpen(false);
     }
-    return images && images.images && images.images.length > 0 && (
+    return images && images.news && images.news.length > 0 && (
         <div>
             <Modal isOpen={modalOpen} toggle={toggle} >
                 <ModalHeader toggle={toggle}>Modal title</ModalHeader>
@@ -49,16 +44,16 @@ export const Contact = () => {
                         validate={values => {
                             const errors = {}
                             if (!values.title_uz) {
-                                if (!values.title_uz) { errors.title_uz = 'Invalid title uz address' }
+                                if (!values.title_uz) { errors.title_uz = 'Invalid title Uz address' }
                             }
                             if (!values.title_ru) {
-                                if (!values.title_ru) { errors.title_ru = 'Invalid title ru address' }
+                                if (!values.title_ru) { errors.title_ru = 'Invalid title Ru address' }
                             }
                             if (!values.title_en) {
-                                if (!values.title_en) { errors.title_en = 'Invalid title en address' }
+                                if (!values.title_en) { errors.title_en = 'Invalid title En address' }
                             }
                             if (!values.title_krl) {
-                                if (!values.title_krl) { errors.title_krl = 'Invalid title krl address' }
+                                if (!values.title_krl) { errors.title_krl = 'Invalid title Krl address' }
                             }
                             return errors
                         }}
@@ -152,10 +147,10 @@ export const Contact = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {images && images.images.length > 0 && images.images.map((el, i) => {
+                    {images && images.news.length > 0 && images.news.map((el, i) => {
                         return <tr key={el.id}>
                             <th scope="row">{i + 1}</th>
-                            <td><img style={{ width: '30px' }} src={el.photoUrl} alt="" /></td>
+                            <td><img style={{ width: '30px' }} src={el.fileUrl} alt="" /></td>
 
                             <td>{el.title_uz}</td>
                             <td>{el.title_ru}</td>

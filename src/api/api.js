@@ -37,15 +37,15 @@ export const homeApi = {
             });
     },
     setCreateImage(data) {
-        const { title_uz, description_uz, photoUrl } = data;
-        return instance.post(`homePanel1CarouselAPI`, { title_uz, description_uz, photoUrl })
+        const { title_uz,  title_ru, title_en, title_krl, description_uz, description_ru, description_en, description_krl,photoUrl } = data;
+        return instance.post(`homePanel1CarouselAPI`, { title_uz,  title_ru, title_en, title_krl, description_uz, description_ru, description_en, description_krl, photoUrl })
         .then(async(response) => {
             return await response.data;
         });
     },
     setUpdateImage(data) {
-        const { id, title_uz, description_uz, photoUrl, originalPath } = data;
-        return instance.put(`homePanel1CarouselAPI/${id}`, { id, title_uz, description_uz, photoUrl: photoUrl ? photoUrl :  originalPath })
+        const { id, title_uz, title_ru, title_en, title_krl, description_uz, description_ru, description_en, description_krl, photoUrl, originalPath } = data;
+        return instance.put(`homePanel1CarouselAPI/${id}`, { id, title_uz, title_ru, title_en, title_krl, description_uz, description_ru, description_en, description_krl, photoUrl: photoUrl ? photoUrl :  originalPath })
         .then(async(response) => {
             return await response.data;
         });
@@ -68,15 +68,15 @@ export const homeApi = {
     },
     setCreateHomePanel2(data) {
 
-        const { title_uz, description_uz, photoUrl } = data;
-        return instance.post(`homePanel2API`, { title_uz, description_uz, iconLinkName: photoUrl })
+        const { title_uz, title_ru, title_en, title_krl, description_uz, description_ru,  description_en,  description_krl, photoUrl } = data;
+        return instance.post(`homePanel2API`, { title_uz, title_ru, title_en, title_krl, description_uz, description_ru,  description_en,  description_krl, iconLinkName: photoUrl })
         .then(async(response) => {
             return await response.data;
         });
     },
     setUpdateHomePanel2(data) {
-        const { id, title_uz, description_uz, photoUrl, originalPath } = data;
-        return instance.put(`homePanel2API/${id}`, { id, title_uz, description_uz, iconLinkName: photoUrl ? photoUrl :  originalPath })
+        const { id, title_uz, title_ru, title_en, title_krl, description_uz,  description_ru,  description_en,  description_krl, photoUrl, originalPath } = data;
+        return instance.put(`homePanel2API/${id}`, { id, title_uz, title_ru, title_en, title_krl, description_uz, description_ru,  description_en,  description_krl, iconLinkName: photoUrl ? photoUrl :  originalPath })
         .then(async(response) => {
             return await response.data;
         });
@@ -99,15 +99,15 @@ export const homeApi = {
             });
     },
     setCreateAbout(data) {
-        const { title_uz, description_uz, photoUrl } = data;
-        return instance.post(`homePanel3AboutAPI`, { title_uz, description_uz, photoUrl })
+        const { title_uz, title_ru, title_en, title_krl, description_uz, description_ru, description_en, description_krl, photoUrl } = data;
+        return instance.post(`homePanel3AboutAPI`, { title_uz, title_ru, title_en, title_krl, description_uz, description_ru, description_en, description_krl, photoUrl })
         .then(async(response) => {
             return await response.data;
         });
     },
     setUpdateAbout(data) {
-        const { id, title_uz, description_uz, photoUrl, originalPath } = data;
-        return instance.put(`homePanel3AboutAPI/${id}`, { id, title_uz, description_uz, photoUrl: photoUrl ? photoUrl :  originalPath })
+        const { id, title_uz, title_ru, title_en, title_krl, description_uz, description_ru, description_en, description_krl, photoUrl, originalPath } = data;
+        return instance.put(`homePanel3AboutAPI/${id}`, { id, title_uz,  title_ru, title_en, title_krl, description_uz, description_ru, description_en, description_krl, photoUrl: photoUrl ? photoUrl :  originalPath })
         .then(async(response) => {
             return await response.data;
         });
@@ -130,15 +130,15 @@ export const homeApi = {
             });
     },
     setCreateOurWork(data) {
-        const { title_uz, photoUrl } = data;
-        return instance.post(`homePanel4OurWorkAPI`, { title_uz, photoUrl })
+        const { title_uz, title_ru, title_en, title_krl, photoUrl } = data;
+        return instance.post(`homePanel4OurWorkAPI`, { title_uz, title_ru, title_en, title_krl, photoUrl })
         .then(async(response) => {
             return await response.data;
         });
     },
     setUpdateOurWork(data) {
-        const { id, title_uz, photoUrl, originalPath } = data;
-        return instance.put(`homePanel4OurWorkAPI/${id}`, { id, title_uz, photoUrl: photoUrl ? photoUrl :  originalPath })
+        const { id, title_uz, title_ru, title_en, title_krl, photoUrl, originalPath } = data;
+        return instance.put(`homePanel4OurWorkAPI/${id}`, { id, title_uz, title_ru, title_en, title_krl, photoUrl: photoUrl ? photoUrl :  originalPath })
         .then(async(response) => {
             return await response.data;
         });
@@ -161,15 +161,15 @@ export const homeApi = {
             });
     },
     setCreateProjectNumbers(data) {
-        const { title_uz, photoUrl } = data;
-        return instance.post(`homePanel6ProjectNumbersAPI`, { title_uz, photoUrl })
+        const { title_uz, title_ru, title_en, title_krl, photoUrl } = data;
+        return instance.post(`homePanel6ProjectNumbersAPI`, { title_uz, title_ru, title_en, title_krl, photoUrl })
         .then(async(response) => {
             return await response.data;
         });
     },
     setUpdateProjectNumbers(data) {
-        const { id, title_uz, photoUrl, originalPath } = data;
-        return instance.put(`homePanel6ProjectNumbersAPI/${id}`, { id, title_uz, photoUrl: photoUrl ? photoUrl :  originalPath })
+        const { id, title_uz, title_ru, title_en, title_krl, photoUrl, originalPath } = data;
+        return instance.put(`homePanel6ProjectNumbersAPI/${id}`, { id, title_uz, title_ru, title_en, title_krl, photoUrl: photoUrl ? photoUrl :  originalPath })
         .then(async(response) => {
             return await response.data;
         });
@@ -192,15 +192,15 @@ export const homeApi = {
             });
     },
     setCreateHomePanel8Region(data) {
-        const { title_uz, description_uz } = data;
-        return instance.post(`homePanel8RegionAPI`, { title_uz, description_uz })
+        const { title_uz, title_ru, title_en, title_krl, description_uz, description_ru, description_en, description_krl } = data;
+        return instance.post(`homePanel8RegionAPI`, { title_uz, title_ru, title_en, title_krl, description_uz, description_ru, description_en, description_krl })
         .then(async(response) => {
             return await response.data;
         });
     },
     setUpdateHomePanel8Region(data) {
-        const { id, title_uz, description_uz } = data;
-        return instance.put(`homePanel8RegionAPI/${id}`, { id, title_uz, description_uz })
+        const { id, title_uz, title_ru, title_en, title_krl, description_uz, description_ru, description_en, description_krl} = data;
+        return instance.put(`homePanel8RegionAPI/${id}`, { id, title_uz, title_ru, title_en, title_krl, description_uz, description_ru, description_en, description_krl })
         .then(async(response) => {
             return await response.data;
         });

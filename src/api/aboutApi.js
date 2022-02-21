@@ -9,15 +9,15 @@ export const aboutAPI = {
             });
     },
     setCreateAboutHeader(data) {
-        const { title_uz, photoUrl } = data;
-        return instance.post(`aboutHeadersAPI`, { title_uz, photoUrl })
+        const { title_uz, title_ru, title_en, title_krl, photoUrl } = data;
+        return instance.post(`aboutHeadersAPI`, { title_uz, title_ru, title_en, title_krl, photoUrl })
             .then(async (response) => {
                 return await response.data;
             });
     },
     setUpdateAboutHeader(data) {
-        const { id, title_uz, photoUrl, originalPath } = data;
-        return instance.put(`aboutHeadersAPI/1`, { id, title_uz, photoUrl: photoUrl ? photoUrl : originalPath })
+        const { id, title_uz, title_ru, title_en, title_krl, photoUrl, originalPath } = data;
+        return instance.put(`aboutHeadersAPI/1`, { id, title_uz, title_ru, title_en, title_krl, photoUrl: photoUrl ? photoUrl : originalPath })
             .then(async (response) => {
                 return await response.data;
             });
@@ -61,15 +61,22 @@ export const aboutAPI = {
             });
     },
     setMeetingCreate(data) {
-        const { title_uz, description_uz, photoUrl } = data;
-        return instance.post(`aboutPanel6API`, { title_uz, description_uz, photoUrl })
+        const { title_uz, title_ru, title_en, title_krl,
+            description_uz, description_ru, description_en, description_krl,photoUrl } = data;
+        return instance.post(`aboutPanel6API`, { title_uz, title_ru, title_en, title_krl,
+            description_uz, description_ru, description_en, description_krl, photoUrl })
             .then(async (response) => {
                 return await response.data;
             });
     },
     setMeetingUpdate(data) {
-        const { id, title_uz, description_uz, photoUrl, originalPath } = data;
-        return instance.put(`aboutPanel6API/${id}`, { id, title_uz, description_uz, photoUrl: photoUrl ? photoUrl : originalPath })
+        const { id, title_uz, title_ru, title_en, title_krl, description_uz, description_ru, description_en, description_krl, photoUrl, originalPath } = data;
+        return instance.put(`aboutPanel6API/${id}`, {
+            id,
+            title_uz, title_ru, title_en, title_krl,
+            description_uz, description_ru, description_en, description_krl,
+            photoUrl: photoUrl ? photoUrl : originalPath
+        })
             .then(async (response) => {
                 return await response.data;
             });
@@ -87,10 +94,10 @@ export const aboutAPI = {
                 return await response.data;
             });
     },
-    setTeamMembersCreate(data) {
-        const { id, fullName, photoUrl, originalPath, veterans = true, staffPosition = {name_uz: "string",}, staffType={  name_uz: "string",} } = data;
 
-        debugger
+    setTeamMembersCreate(data) {
+        const { id, fullName, photoUrl, originalPath, veterans = true, staffPosition = { name_uz: "string", }, staffType = { name_uz: "string", } } = data;
+
         return instance.post(`mainStaffsAPI`, { fullName, photoUrl: photoUrl ? photoUrl : originalPath, veterans, staffType, staffPosition })
             .then(async (response) => {
                 return await response.data;
@@ -114,16 +121,38 @@ export const aboutAPI = {
     }
     */
     setTeamMembersUpdate(data) {
-        const { id, fullName, photoUrl, originalPath, veterans = true, staffPosition = {name_uz: "string",}, staffType={  name_uz: "string",} } = data;
-        debugger
+        const { id, fullName, photoUrl, originalPath, veterans = true, name_uz, staffTypeID = 1, staffPositionID = 1, } = data;
 
-        return instance.put(`mainStaffsAPI/${id}`, { id, fullName, photoUrl: photoUrl ? photoUrl : originalPath, veterans, staffType, staffPosition })
+        return instance.put(`mainStaffsAPI/${id}`, { id, fullName, photoUrl: photoUrl ? photoUrl : originalPath, veterans, staffType: { name_uz }, staffPosition: { name_uz }, staffTypeID, staffPositionID })
             .then(async (response) => {
                 return await response.data;
             });
     },
     setTeamMembersDelete(id) {
         return instance.delete(`mainStaffsAPI/${id}`)
+            .then(async (response) => {
+                return await response.data;
+            });
+    },
+
+    // about company
+
+    setAboutCompany() {
+        return instance.get(`aboutPanel5API`)
+            .then(async (response) => {
+                return await response.data;
+            });
+    },
+    setAboutCompanyCreate(data) {
+        const {title_uz, title_ru, title_en, title_krl, photoUrl1, photoUrl2, photoUrl3, photoUrl4, description_uz, description_ru, description_en, description_krl, amount1Discript, amount2Discript, amount3Discript, amount4Discript, amount1, amount2, amount3, amout4 } = data;
+        return instance.post(`aboutPanel5API`, { title_uz, title_ru, title_en, title_krl, photoUrl1, photoUrl2, photoUrl3, photoUrl4, description_uz, description_ru, description_en, description_krl, amount1Discript, amount2Discript, amount3Discript, amount4Discript, amount1, amount2, amount3, amout4  })
+            .then(async (response) => {
+                return await response.data;
+            });
+    },
+    setAboutCompanyUpdate(data) {
+        const { id, title_uz, title_ru, title_en, title_krl, photoUrl1, originalPath1, photoUrl2, originalPath2, photoUrl3, originalPath3, photoUrl4, originalPath4, description_uz, description_ru, description_en, description_krl, amount1Discript, amount2Discript, amount3Discript, amount4Discript, amount1, amount2, amount3, amout4 } = data;
+        return instance.put(`aboutPanel5API/1`, { id, title_uz, title_ru, title_en, title_krl, photoUrl1: photoUrl1 ? photoUrl1 : originalPath1, photoUrl2: photoUrl2 ? photoUrl2 : originalPath2, photoUrl3: photoUrl3 ? photoUrl3 : originalPath3, photoUrl4: photoUrl4 ? photoUrl4 : originalPath4, description_uz, description_ru, description_en, description_krl, amount1Discript, amount2Discript, amount3Discript, amount4Discript, amount1, amount2, amount3, amout4 })
             .then(async (response) => {
                 return await response.data;
             });

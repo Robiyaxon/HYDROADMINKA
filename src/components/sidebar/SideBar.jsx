@@ -7,7 +7,11 @@ import {
   faQuestion,
   faImage,
   faChartGantt,
+  faTransgender,
+  faNewspaper,
+  faTools
 } from "@fortawesome/free-solid-svg-icons";
+
 import { NavItem, NavLink, Nav } from "reactstrap";
 import classNames from "classnames";
 import { Link } from "react-router-dom";
@@ -27,21 +31,11 @@ const SideBar = ({ isOpen, toggle }) => (
         <p>Dummy Heading</p>
         <SubMenu title="Home" icon={faHome} items={submenus[0]} />
         <SubMenu title="About" icon={faBriefcase} items={submenus[2]} />
-        <SubMenu title="Econimic" icon={faChartGantt} items={submenus[1]} id={'longTitles'}/>
+        <SubMenu title="Econimic" icon={faChartGantt} items={submenus[1]} />
         <SubMenu title="Corporative" icon={faBriefcase} items={submenus[3]} />
-
-        <NavItem>
-          <NavLink tag={Link} to={"/pages"}>
-            <FontAwesomeIcon icon={faImage} className="mr-2" />
-            Portfolio
-          </NavLink>
-        </NavItem>
-        <NavItem>
-          <NavLink tag={Link} to={"/faq"}>
-            <FontAwesomeIcon icon={faQuestion} className="mr-2" />
-            FAQ
-          </NavLink>
-        </NavItem>
+        <SubMenu title="Activities" icon={faTransgender} items={submenus[4]} />
+        <SubMenu title="Tecnical" icon={faTools} items={submenus[5]} />
+        <SubMenu title="News" icon={faNewspaper} items={submenus[6]} />
         <NavItem>
           <NavLink tag={Link} to={"/contact"}>
             <FontAwesomeIcon icon={faPaperPlane} className="mr-2" />
@@ -82,7 +76,7 @@ const submenus = [
   ],
   [
     {
-      title: "Header Sahifa",
+      title: "Header",
       target: "economic",
     },
     {
@@ -97,11 +91,11 @@ const submenus = [
       title: "Ochiq Muloqot",
       target: "openSourses",
     },
-    
+
   ],
   [
     {
-      title: "About Sahifa",
+      title: "Header",
       target: "aboutHeader",
     },
     {
@@ -116,16 +110,46 @@ const submenus = [
       title: "Boshqaruv tuzilmasi",
       target: "teamMembers",
     },
-    
+    {
+      title: "Kompaniya haqida",
+      target: "aboutCompany",
+    },
+
   ],
   [
     {
-      title: "Corporative Sahifa",
+      title: "Header",
       target: "corporativeHeader",
     },
     {
       title: "Hamkorlar",
       target: "mainPartners",
+    }
+  ],
+  [
+    {
+      title: "Header",
+      target: "activitiesHeader",
+    },
+    {
+      title: "Hamkorlar",
+      target: "mainPartners",
+    }
+  ],
+  [
+    {
+      title: "Header",
+      target: "technical",
+    },
+    {
+      title: "Video Url Youtube",
+      target: "videoUrlYoutube",
+    }
+  ],
+  [
+    {
+      title: "Header",
+      target: "news",
     }
   ],
 ];

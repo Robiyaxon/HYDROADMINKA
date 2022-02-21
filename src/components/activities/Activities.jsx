@@ -4,38 +4,69 @@ import { useSelector, useDispatch } from 'react-redux'
 import BorderColorIcon from '@mui/icons-material/BorderColor'
 
 import { Button, Input, Modal, ModalBody, ModalFooter, ModalHeader, Table } from 'reactstrap'
-import { getContactImageCreate, getContactImages, getContactImageUpdate } from './../../redux/contact-reducer';
+import { getActivities, getActivitiesCreate, getActivitiesUpdate } from './../../redux/activities-reducer';
 
-export const Contact = () => {
+export const Activities = () => {
     const [modalOpen, setModalOpen] = useState(false);
     const [selectedImage, setSelectedImage] = useState(false);
     const [selectedI, setSelectedI] = useState(false);
     const [imageId, setImageId] = useState(false)
+    const [activityData, setActivityData] = useState({
+        selectedImage,
+        title_uz: '',
+        title_ru: '',
+        title_en: '',
+        title_krl: '',
+        activityCategory: {
+            name_uz: '',
+            name_ru: '',
+            name_en: '',
+            name_krl: '',
+            id: 0,
+            originalPath: '',
+            selectedI
+        }
+    })
     let images = null;
-    images = useSelector(state => state.contactPage ? state.contactPage : null);
+    images = useSelector(state => state.activityPage ? state.activityPage : null);
 
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(getContactImages())
+        dispatch(getActivities())
     }, []);
     const toggle = () => {
         setModalOpen(!modalOpen);
         setImageId(null)
     }
     const onSubmit = (data) => {
-        !imageId ? dispatch(getContactImageCreate({ selectedImage, title_uz: data.title_uz })) :
-            dispatch(getContactImageUpdate({
-                selectedImage,
-                title_uz: data.title_uz, title_ru: data.title_ru,
-                title_en: data.title_en, title_krl: data.title_krl,
-                id: imageId.id, originalPath: imageId.photoUrl, selectedI
-            }));
+        console.log(data);
+        setActivityData({
+            selectedImage,
+            title_uz: data.title_uz,
+            title_ru: data.title_ru,
+            title_en: data.title_en,
+            title_krl: data.title_krl,
+            activityCategory: {
+                name_uz: data.name_uz,
+                name_ru: data.name_ru,
+                name_en: data.name_en,
+                name_krl: data.name_krl,
+            },
+            id: imageId.id,
+            originalPath: imageId.photoUrl,
+            selectedI
+        }
+        )
+
+        !imageId ? dispatch(getActivitiesCreate({ selectedImage, title_uz: data.title_uz })) :
+            dispatch(getActivitiesUpdate({ activityData }));
         setImageId(null)
         setSelectedI(false);
         setModalOpen(false);
     }
-    return images && images.images && images.images.length > 0 && (
+
+    return images && images.header && images.header.length > 0 && (
         <div>
             <Modal isOpen={modalOpen} toggle={toggle} >
                 <ModalHeader toggle={toggle}>Modal title</ModalHeader>
@@ -43,22 +74,28 @@ export const Contact = () => {
                     <Form
                         onSubmit={onSubmit}
                         initialValues={imageId && {
-                            title_uz: imageId && imageId.title_uz, title_ru: imageId && imageId.title_ru,
-                            title_en: imageId && imageId.title_en, title_krl: imageId && imageId.title_krl,
+                            title_uz: imageId && imageId.title_uz,
+                            title_ru: imageId && imageId.title_ru,
+                            title_en: imageId && imageId.title_en,
+                            title_krl: imageId && imageId.title_krl,
+                            name_uz: imageId && imageId.activityCategory.name_uz,
+                            name_ru: imageId && imageId.activityCategory.name_ru,
+                            name_en: imageId && imageId.activityCategory.name_en,
+                            name_krl: imageId && imageId.activityCategory.name_krl,
                         }}
                         validate={values => {
                             const errors = {}
                             if (!values.title_uz) {
-                                if (!values.title_uz) { errors.title_uz = 'Invalid title uz address' }
+                                if (!values.title_uz) { errors.title_uz = 'Invalid title Uz address' }
                             }
                             if (!values.title_ru) {
-                                if (!values.title_ru) { errors.title_ru = 'Invalid title ru address' }
+                                if (!values.title_ru) { errors.title_ru = 'Invalid title Ru address' }
                             }
                             if (!values.title_en) {
-                                if (!values.title_en) { errors.title_en = 'Invalid title en address' }
+                                if (!values.title_en) { errors.title_en = 'Invalid title En address' }
                             }
                             if (!values.title_krl) {
-                                if (!values.title_krl) { errors.title_krl = 'Invalid title krl address' }
+                                if (!values.title_krl) { errors.title_krl = 'Invalid title Krl address' }
                             }
                             return errors
                         }}
@@ -129,6 +166,50 @@ export const Contact = () => {
                                     </Field>
                                 </div>
                                 <div>
+                                    <Field name="name_uz">
+                                        {({ input, meta }) => (
+                                            <div>
+                                                <label>Name Uz</label>
+                                                <Input type='text' {...input} placeholder='Name Uz' />
+                                                {meta.error && meta.touched && <span style={{ color: '#fd4444' }}>{meta.error}</span>}
+                                            </div>
+                                        )}
+                                    </Field>
+                                </div>
+                                <div>
+                                    <Field name="name_ru">
+                                        {({ input, meta }) => (
+                                            <div>
+                                                <label>Name Ru</label>
+                                                <Input type='text' {...input} placeholder='Name Ru' />
+                                                {meta.error && meta.touched && <span style={{ color: '#fd4444' }}>{meta.error}</span>}
+                                            </div>
+                                        )}
+                                    </Field>
+                                </div>
+                                <div>
+                                    <Field name="name_en">
+                                        {({ input, meta }) => (
+                                            <div>
+                                                <label>Name En</label>
+                                                <Input type='text' {...input} placeholder='Name En' />
+                                                {meta.error && meta.touched && <span style={{ color: '#fd4444' }}>{meta.error}</span>}
+                                            </div>
+                                        )}
+                                    </Field>
+                                </div>
+                                <div>
+                                    <Field name="name_krl">
+                                        {({ input, meta }) => (
+                                            <div>
+                                                <label>Name Krl</label>
+                                                <Input type='text' {...input} placeholder='Name Krl' />
+                                                {meta.error && meta.touched && <span style={{ color: '#fd4444' }}>{meta.error}</span>}
+                                            </div>
+                                        )}
+                                    </Field>
+                                </div>
+                                <div>
                                 </div>
 
                                 <Button style={{ width: '100%', marginTop: '20px' }} type='submit' disabled={submitting}>
@@ -148,11 +229,15 @@ export const Contact = () => {
                         <th>Title Ru</th>
                         <th>Title En</th>
                         <th>Title Krl</th>
+                        <th>ActivityCategory Name Uz</th>
+                        <th>ActivityCategory Name Ru</th>
+                        <th>ActivityCategory Name En</th>
+                        <th>ActivityCategory Name Krl</th>
                         <th>-----</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {images && images.images.length > 0 && images.images.map((el, i) => {
+                    {images && images.header.length > 0 && images.header.map((el, i) => {
                         return <tr key={el.id}>
                             <th scope="row">{i + 1}</th>
                             <td><img style={{ width: '30px' }} src={el.photoUrl} alt="" /></td>
@@ -161,6 +246,10 @@ export const Contact = () => {
                             <td>{el.title_ru}</td>
                             <td>{el.title_en}</td>
                             <td>{el.title_krl}</td>
+                            <td>{el.activityCategory.name_uz}</td>
+                            <td>{el.activityCategory.name_ru}</td>
+                            <td>{el.activityCategory.name_en}</td>
+                            <td>{el.activityCategory.name_krl}</td>
                             <td><Button onClick={() => {
                                 setImageId(el)
                                 setModalOpen(true)
