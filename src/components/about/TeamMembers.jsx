@@ -22,6 +22,7 @@ export const TeamMembers = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [modalType, setModalType] = useState("create");
   const [selectedImage, setSelectedImage] = useState(false);
+  // eslint-disable-next-line
   const [selectedI, setSelectedI] = useState(false);
   const [imageId, setImageId] = useState(false);
   let images = null;
