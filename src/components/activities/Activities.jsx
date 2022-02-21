@@ -2,38 +2,71 @@ import React, { useEffect, useState } from 'react'
 import { Field, Form } from 'react-final-form'
 import { useSelector, useDispatch } from 'react-redux'
 import BorderColorIcon from '@mui/icons-material/BorderColor'
-import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
 
-import { getHomePanel2Delete, getHomePanel2Data, getHomePanel2Update, getHomePanel2Create } from '../../redux/home-reducer'
 import { Button, Input, Modal, ModalBody, ModalFooter, ModalHeader, Table } from 'reactstrap'
+import { getActivities, getActivitiesCreate, getActivitiesUpdate } from './../../redux/activities-reducer';
 
-const HomePanel2 = () => {
+export const Activities = () => {
     const [modalOpen, setModalOpen] = useState(false);
     const [selectedImage, setSelectedImage] = useState(false);
     const [selectedI, setSelectedI] = useState(false);
     const [imageId, setImageId] = useState(false)
+    const [activityData, setActivityData] = useState({
+        selectedImage,
+        title_uz: '',
+        title_ru: '',
+        title_en: '',
+        title_krl: '',
+        activityCategory: {
+            name_uz: '',
+            name_ru: '',
+            name_en: '',
+            name_krl: '',
+            id: 0,
+            originalPath: '',
+            selectedI
+        }
+    })
     let images = null;
-    images = useSelector(state => state.home.homePanel2 ? state.home.homePanel2 : null);
+    images = useSelector(state => state.activityPage ? state.activityPage : null);
+
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(getHomePanel2Data())
+        dispatch(getActivities())
     }, []);
     const toggle = () => {
         setModalOpen(!modalOpen);
         setImageId(null)
     }
     const onSubmit = (data) => {
-        !imageId ? dispatch(getHomePanel2Create({ selectedImage, title_uz: data.title_uz, title_ru: data.title_ru, title_en: data.title_en, title_krl: data.title_krl, description_uz: data.description_uz, description_ru: data.description_ru, description_en: data.description_en, description_krl: data.description_krl })) :
-            dispatch(getHomePanel2Update({ selectedImage, title_uz: data.title_uz, title_ru: data.title_ru, title_en: data.title_en, title_krl: data.title_krl, description_uz: data.description_uz, description_ru: data.description_ru, description_en: data.description_en, description_krl: data.description_krl, id: imageId.id, originalPath: imageId.photoUrl, selectedI }));
+        console.log(data);
+        setActivityData({
+            selectedImage,
+            title_uz: data.title_uz,
+            title_ru: data.title_ru,
+            title_en: data.title_en,
+            title_krl: data.title_krl,
+            activityCategory: {
+                name_uz: data.name_uz,
+                name_ru: data.name_ru,
+                name_en: data.name_en,
+                name_krl: data.name_krl,
+            },
+            id: imageId.id,
+            originalPath: imageId.photoUrl,
+            selectedI
+        }
+        )
+
+        !imageId ? dispatch(getActivitiesCreate({ selectedImage, title_uz: data.title_uz })) :
+            dispatch(getActivitiesUpdate({ activityData }));
         setImageId(null)
         setSelectedI(false);
         setModalOpen(false);
     }
-    const deleteHandler = (id) => {
-        dispatch(getHomePanel2Delete(id))
-    }
-    return images && images.length > 0 && (
+
+    return images && images.header && images.header.length > 0 && (
         <div>
             <Modal isOpen={modalOpen} toggle={toggle} >
                 <ModalHeader toggle={toggle}>Modal title</ModalHeader>
@@ -41,23 +74,32 @@ const HomePanel2 = () => {
                     <Form
                         onSubmit={onSubmit}
                         initialValues={imageId && {
-                            title_uz: imageId && imageId.title_uz, title_ru: imageId && imageId.title_ru, title_en: imageId && imageId.title_en, title_krl: imageId && imageId.title_krl,
-                            description_uz: imageId && imageId.description_uz,
-                            description_ru: imageId && imageId.description_ru,
-                            description_en: imageId && imageId.description_en,
-                            description_krl: imageId && imageId.description_krl
+                            title_uz: imageId && imageId.title_uz,
+                            title_ru: imageId && imageId.title_ru,
+                            title_en: imageId && imageId.title_en,
+                            title_krl: imageId && imageId.title_krl,
+                            name_uz: imageId && imageId.activityCategory.name_uz,
+                            name_ru: imageId && imageId.activityCategory.name_ru,
+                            name_en: imageId && imageId.activityCategory.name_en,
+                            name_krl: imageId && imageId.activityCategory.name_krl,
                         }}
                         validate={values => {
                             const errors = {}
                             if (!values.title_uz) {
-                                if (!values.title) { errors.title_uz = 'Invalid title address' }
+                                if (!values.title_uz) { errors.title_uz = 'Invalid title Uz address' }
                             }
-                            if (!values.description_uz) {
-                                errors.description_uz = 'Invalid description address'
+                            if (!values.title_ru) {
+                                if (!values.title_ru) { errors.title_ru = 'Invalid title Ru address' }
+                            }
+                            if (!values.title_en) {
+                                if (!values.title_en) { errors.title_en = 'Invalid title En address' }
+                            }
+                            if (!values.title_krl) {
+                                if (!values.title_krl) { errors.title_krl = 'Invalid title Krl address' }
                             }
                             return errors
                         }}
-                        render={({ handleSubmit, form, submitting }) => (
+                        render={({ handleSubmit, submitting }) => (
                             <form onSubmit={handleSubmit}>
                                 <div>
                                     <Field name="image" >
@@ -84,7 +126,7 @@ const HomePanel2 = () => {
                                         {({ input, meta }) => (
                                             <div>
                                                 <label>Title Uz</label>
-                                                <Input type='text' {...input} placeholder='Title' />
+                                                <Input type='text' {...input} placeholder='Title Uz' />
                                                 {meta.error && meta.touched && <span style={{ color: '#fd4444' }}>{meta.error}</span>}
                                             </div>
                                         )}
@@ -95,7 +137,7 @@ const HomePanel2 = () => {
                                         {({ input, meta }) => (
                                             <div>
                                                 <label>Title Ru</label>
-                                                <Input type='text' {...input} placeholder='Title' />
+                                                <Input type='text' {...input} placeholder='Title Ru' />
                                                 {meta.error && meta.touched && <span style={{ color: '#fd4444' }}>{meta.error}</span>}
                                             </div>
                                         )}
@@ -106,7 +148,7 @@ const HomePanel2 = () => {
                                         {({ input, meta }) => (
                                             <div>
                                                 <label>Title En</label>
-                                                <Input type='text' {...input} placeholder='Title' />
+                                                <Input type='text' {...input} placeholder='Title En' />
                                                 {meta.error && meta.touched && <span style={{ color: '#fd4444' }}>{meta.error}</span>}
                                             </div>
                                         )}
@@ -116,59 +158,63 @@ const HomePanel2 = () => {
                                     <Field name="title_krl">
                                         {({ input, meta }) => (
                                             <div>
-                                                <label>Title Krill</label>
-                                                <Input type='text' {...input} placeholder='Title' />
+                                                <label>Title Krl</label>
+                                                <Input type='text' {...input} placeholder='Title Krl' />
                                                 {meta.error && meta.touched && <span style={{ color: '#fd4444' }}>{meta.error}</span>}
                                             </div>
                                         )}
                                     </Field>
                                 </div>
                                 <div>
-                                    <Field name="description_uz">
+                                    <Field name="name_uz">
                                         {({ input, meta }) => (
                                             <div>
-                                                <label>Description Uz</label>
-                                                <Input type='text' {...input} placeholder='Description' />
+                                                <label>Name Uz</label>
+                                                <Input type='text' {...input} placeholder='Name Uz' />
                                                 {meta.error && meta.touched && <span style={{ color: '#fd4444' }}>{meta.error}</span>}
                                             </div>
                                         )}
                                     </Field>
                                 </div>
                                 <div>
-                                    <Field name="description_ru">
+                                    <Field name="name_ru">
                                         {({ input, meta }) => (
                                             <div>
-                                                <label>Description Ru</label>
-                                                <Input type='text' {...input} placeholder='Description' />
+                                                <label>Name Ru</label>
+                                                <Input type='text' {...input} placeholder='Name Ru' />
                                                 {meta.error && meta.touched && <span style={{ color: '#fd4444' }}>{meta.error}</span>}
                                             </div>
                                         )}
                                     </Field>
                                 </div>
                                 <div>
-                                    <Field name="description_en">
+                                    <Field name="name_en">
                                         {({ input, meta }) => (
                                             <div>
-                                                <label>Description En</label>
-                                                <Input type='text' {...input} placeholder='Description' />
+                                                <label>Name En</label>
+                                                <Input type='text' {...input} placeholder='Name En' />
                                                 {meta.error && meta.touched && <span style={{ color: '#fd4444' }}>{meta.error}</span>}
                                             </div>
                                         )}
                                     </Field>
                                 </div>
                                 <div>
-                                    <Field name="description_krl">
+                                    <Field name="name_krl">
                                         {({ input, meta }) => (
                                             <div>
-                                                <label>Description Krill</label>
-                                                <Input type='text' {...input} placeholder='Description' />
+                                                <label>Name Krl</label>
+                                                <Input type='text' {...input} placeholder='Name Krl' />
                                                 {meta.error && meta.touched && <span style={{ color: '#fd4444' }}>{meta.error}</span>}
                                             </div>
                                         )}
                                     </Field>
+                                </div>
+                                <div>
                                 </div>
 
-                                <Button style={{ width: '100%', marginTop: '20px' }} type='submit' disabled={submitting}>Send</Button>
+                                <Button style={{ width: '100%', marginTop: '20px' }} type='submit' disabled={submitting}>
+                                    Send
+                                </Button>
                             </form>
                         )} />
 
@@ -183,35 +229,31 @@ const HomePanel2 = () => {
                         <th>Title Ru</th>
                         <th>Title En</th>
                         <th>Title Krl</th>
-                        <th>Description Uz</th>
-                        <th>Description Ru</th>
-                        <th>Description En</th>
-                        <th>Description Krl</th>
-                        <th><Button onClick={() => {
-                            setModalOpen(true)
-                        }}>Create</Button></th>
+                        <th>ActivityCategory Name Uz</th>
+                        <th>ActivityCategory Name Ru</th>
+                        <th>ActivityCategory Name En</th>
+                        <th>ActivityCategory Name Krl</th>
+                        <th>-----</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {images && images.length > 0 && images.map((el, i) => {
-
-                        return <tr key={el.id} >
+                    {images && images.header.length > 0 && images.header.map((el, i) => {
+                        return <tr key={el.id}>
                             <th scope="row">{i + 1}</th>
-                            <td><img style={{ width: '30px' }} src={el.iconLinkName} alt="" /></td>
+                            <td><img style={{ width: '30px' }} src={el.photoUrl} alt="" /></td>
 
                             <td>{el.title_uz}</td>
                             <td>{el.title_ru}</td>
                             <td>{el.title_en}</td>
                             <td>{el.title_krl}</td>
-                            <td style={{ width: '12%', height: '100px', overflowX: 'auto' }}>{el.description_uz}</td>
-                            <td style={{ width: '12%', height: '100px', overflowX: 'auto' }}>{el.description_ru}</td>
-                            <td style={{ width: '12%', height: '100px', overflowX: 'auto' }}>{el.description_en}</td>
-                            <td style={{ width: '12%', height: '100px', overflowX: 'auto' }}>{el.description_krl}</td>
+                            <td>{el.activityCategory.name_uz}</td>
+                            <td>{el.activityCategory.name_ru}</td>
+                            <td>{el.activityCategory.name_en}</td>
+                            <td>{el.activityCategory.name_krl}</td>
                             <td><Button onClick={() => {
                                 setImageId(el)
-                                debugger
                                 setModalOpen(true)
-                            }}><BorderColorIcon /></Button> <Button onClick={() => deleteHandler(el.id)}><DeleteForeverIcon /></Button></td>
+                            }}><BorderColorIcon /></Button></td>
                         </tr>
                     })}
                 </tbody>
@@ -219,5 +261,3 @@ const HomePanel2 = () => {
         </div>
     )
 }
-
-export default HomePanel2;

@@ -22,6 +22,8 @@ import { Meeting } from './../about/Meeting';
 import { TeamMembers } from './../about/TeamMembers';
 import { Corporative } from './../corporative/Corporative';
 import { MainPartners } from './../corporative/MainPartners';
+import { Activities } from "../activities/Activities";
+import { AboutCompany } from "../about/AboutCompany";
 
 const Content = ({ sidebarIsOpen, toggleSidebar }) => {
   return <Container
@@ -48,6 +50,8 @@ const Content = ({ sidebarIsOpen, toggleSidebar }) => {
       <Route exact path="/teamMembers" element={<PrivateRoute><TeamMembers /></PrivateRoute>} />
       <Route exact path="/corporativeHeader" element={<PrivateRoute><Corporative /></PrivateRoute>} />
       <Route exact path="/mainPartners" element={<PrivateRoute><MainPartners /></PrivateRoute>} />
+      <Route exact path="/activitiesHeader" element={<PrivateRoute><Activities /></PrivateRoute>} />
+      <Route exact path="/aboutCompany" element={<PrivateRoute><AboutCompany /></PrivateRoute>} />
 
     </Routes>
   </Container>

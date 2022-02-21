@@ -24,8 +24,8 @@ const HomeAbout = () => {
         setImageId(null)
     }
     const onSubmit = (data) => {
-        !imageId ? dispatch(getAboutImageCreate({ selectedImage, title_uz: data.title, description_uz: data.description })) : 
-        dispatch(getAboutImageUpdate({ selectedImage, title_uz: data.title, description_uz: data.description, id: imageId.id, originalPath: imageId.photoUrl, selectedI }));
+        !imageId ? dispatch(getAboutImageCreate({ selectedImage, title_uz: data.title_uz, description_uz: data.description_uz })) : 
+        dispatch(getAboutImageUpdate({ selectedImage, title_uz: data.title_uz, title_ru: data.title_ru, title_en: data.title_en,  title_krl: data.title_krl, description_uz: data.description_uz, description_ru: data.description_ru, description_en: data.description_en, description_krl: data.description_krl, id: imageId.id, originalPath: imageId.photoUrl, selectedI }));
         setImageId(null)
         setSelectedI(false);
         setModalOpen(false);
@@ -40,14 +40,33 @@ const HomeAbout = () => {
                 <ModalBody>
                 <Form
                 onSubmit={onSubmit}
-                initialValues={imageId && { title: imageId && imageId.title_uz, description: imageId && imageId.description_uz }}
+                initialValues={imageId && { title_uz: imageId && imageId.title_uz,title_ru: imageId && imageId.title_ru, title_en: imageId && imageId.title_en, title_krl: imageId && imageId.title_krl,
+                     description_uz: imageId && imageId.description_uz, description_ru: imageId && imageId.description_ru,  description_en: imageId && imageId.description_en, description_krl: imageId && imageId.description_krl, }}
                 validate={values => {
                     const errors = {}
-                    if (!values.title) {
-                        if (!values.title) { errors.title = 'Invalid title address' }
+                    if (!values.title_uz) {
+                        if (!values.title_uz) { errors.title_uz = 'Invalid title Uz address' }
                     }
-                    if (!values.description) {
-                        errors.description = 'Invalid description address'
+                    if (!values.title_ru) {
+                        if (!values.title_ru) { errors.title_ru = 'Invalid title Ru address' }
+                    }
+                    if (!values.title_en) {
+                        if (!values.title_en) { errors.title_en = 'Invalid title Uz address' }
+                    }
+                    if (!values.title_krl) {
+                        if (!values.title_krl) { errors.title_krl = 'Invalid title Krl address' }
+                    }
+                    if (!values.description_uz) {
+                        errors.description_uz = 'Invalid description Uz address'
+                    }
+                    if (!values.description_ru) {
+                        errors.description_ru = 'Invalid description Ru address'
+                    }
+                    if (!values.description_en) {
+                        errors.description_en = 'Invalid description En address'
+                    }
+                    if (!values.description_krl) {
+                        errors.description_krl = 'Invalid description Krl address'
                     }
                     return errors
                 }}
@@ -74,7 +93,7 @@ const HomeAbout = () => {
                         </Field>
                     </div>
                     <div>
-                        <Field name="title">
+                        <Field name="title_uz">
                             {({ input, meta }) => (
                             <div>
                                 <label>Title</label>
@@ -85,7 +104,73 @@ const HomeAbout = () => {
                         </Field>
                     </div>
                     <div>
-                        <Field name="description">
+                        <Field name="title_ru">
+                            {({ input, meta }) => (
+                            <div>
+                                <label>Title</label>
+                                <Input type='text' {...input} placeholder='Title'  />
+                                {meta.error && meta.touched && <span style={{ color: '#fd4444' }}>{meta.error}</span>}
+                            </div>
+                            )}
+                        </Field>
+                    </div>
+                    <div>
+                        <Field name="title_en">
+                            {({ input, meta }) => (
+                            <div>
+                                <label>Title</label>
+                                <Input type='text' {...input} placeholder='Title'  />
+                                {meta.error && meta.touched && <span style={{ color: '#fd4444' }}>{meta.error}</span>}
+                            </div>
+                            )}
+                        </Field>
+                    </div>
+                    <div>
+                        <Field name="title_krl">
+                            {({ input, meta }) => (
+                            <div>
+                                <label>Title</label>
+                                <Input type='text' {...input} placeholder='Title'  />
+                                {meta.error && meta.touched && <span style={{ color: '#fd4444' }}>{meta.error}</span>}
+                            </div>
+                            )}
+                        </Field>
+                    </div>
+                    <div>
+                        <Field name="description_uz">
+                            {({ input, meta }) => (
+                            <div>
+                                <label>Description</label>
+                                <Input type='text' {...input} placeholder='Description'  />
+                                {meta.error && meta.touched && <span style={{ color: '#fd4444' }}>{meta.error}</span>}
+                            </div>
+                            )}
+                        </Field>
+                    </div>
+                    <div>
+                        <Field name="description_ru">
+                            {({ input, meta }) => (
+                            <div>
+                                <label>Description</label>
+                                <Input type='text' {...input} placeholder='Description'  />
+                                {meta.error && meta.touched && <span style={{ color: '#fd4444' }}>{meta.error}</span>}
+                            </div>
+                            )}
+                        </Field>
+                    </div>
+                    <div>
+                        <Field name="description_en">
+                            {({ input, meta }) => (
+                            <div>
+                                <label>Description</label>
+                                <Input type='text' {...input} placeholder='Description'  />
+                                {meta.error && meta.touched && <span style={{ color: '#fd4444' }}>{meta.error}</span>}
+                            </div>
+                            )}
+                        </Field>
+                    </div>
+                    <div>
+                        <Field name="description_krl">
                             {({ input, meta }) => (
                             <div>
                                 <label>Description</label>
@@ -107,8 +192,14 @@ const HomeAbout = () => {
                 <tr>
                     <th>#</th>
                     <th>Images</th>
-                    <th>Title</th>
-                    <th>Description</th>
+                    <th>Title Uz</th>
+                    <th>Title Ru</th>
+                    <th>Title En</th>
+                    <th>Title Krl</th>
+                    <th>Description Uz</th>
+                    <th>Description Ru</th>
+                    <th>Description En</th>
+                    <th>Description Krl</th>
                     <th><Button onClick={ () =>{
                         setModalOpen(true)
                     } }>Create</Button></th>
@@ -122,7 +213,13 @@ const HomeAbout = () => {
                     <td><img style={{ width: '30px' }} src={ el.photoUrl } alt="" /></td>
                     
                     <td>{ el.title_uz }</td>
+                    <td>{ el.title_ru }</td>
+                    <td>{ el.title_en }</td>
+                    <td>{ el.title_krl }</td>
                     <td>{ el.description_uz }</td>
+                    <td>{ el.description_ru }</td>
+                    <td>{ el.description_en }</td>
+                    <td>{ el.description_krl }</td>
                     <td><Button onClick={ () => {
                         setImageId(el)
                         setModalOpen(true)

@@ -26,8 +26,22 @@ export const MainPartners = () => {
         setImageId(null)
     }
     const onSubmit = (data) => {
-        !imageId ? dispatch(getMainPartnersCreate({ selectedImage, name: data.name, description_uz: data.description, urlLink: data.urlLink })) :
-            dispatch(getMainPartnersUpdate({ selectedImage, name: data.name, description_uz: data.description, id: imageId.id, originalPath: imageId.photoUrl, selectedI, urlLink: data.urlLink }));
+        !imageId ? dispatch(getMainPartnersCreate({
+            selectedImage, name: data.name,
+            description_uz: data.description,
+            description_ru: data.description_ru,
+            description_en: data.description_en,
+            description_krl: data.description_krl,
+            urlLink: data.urlLink
+        })) :
+            dispatch(getMainPartnersUpdate({
+                selectedImage, name: data.name,
+                description_uz: data.description_uz,
+                description_ru: data.description_ru,
+                description_en: data.description_en,
+                description_krl: data.description_krl,
+                id: imageId.id, originalPath: imageId.photoUrl, selectedI, urlLink: data.urlLink
+            }));
         setImageId(null)
         setSelectedI(false);
         setModalOpen(false);
@@ -42,14 +56,30 @@ export const MainPartners = () => {
                 <ModalBody>
                     <Form
                         onSubmit={onSubmit}
-                        initialValues={imageId && { name: imageId && imageId.name, description: imageId && imageId.description_uz, urlLink: imageId && imageId.urlLink }}
+                        initialValues={imageId && {
+                            name: imageId && imageId.name,
+                            description_uz: imageId && imageId.description_uz,
+                            description_ru: imageId && imageId.description_ru,
+                            description_en: imageId && imageId.description_en,
+                            description_krl: imageId && imageId.description_krl,
+                            urlLink: imageId && imageId.urlLink
+                        }}
                         validate={values => {
                             const errors = {}
                             if (!values.name) {
                                 if (!values.name) { errors.name = 'Invalid name address' }
                             }
-                            if (!values.description) {
-                                errors.description = 'Invalid description address'
+                            if (!values.description_uz) {
+                                errors.description_uz = 'Invalid description Uz address'
+                            }
+                            if (!values.description_ru) {
+                                errors.description_ru = 'Invalid description Ru address'
+                            }
+                            if (!values.description_en) {
+                                errors.description_en = 'Invalid description En address'
+                            }
+                            if (!values.description_krl) {
+                                errors.description_krl = 'Invalid description Krl address'
                             }
                             if (!values.urlLink) {
                                 errors.urlLink = 'Invalid urlLink address'
@@ -90,11 +120,44 @@ export const MainPartners = () => {
                                     </Field>
                                 </div>
                                 <div>
-                                    <Field name="description">
+                                    <Field name="description_uz">
                                         {({ input, meta }) => (
                                             <div>
-                                                <label>Description</label>
-                                                <Input type='text' {...input} placeholder='Description' />
+                                                <label>Description Uz</label>
+                                                <Input type='text' {...input} placeholder='Description Uz' />
+                                                {meta.error && meta.touched && <span style={{ color: '#fd4444' }}>{meta.error}</span>}
+                                            </div>
+                                        )}
+                                    </Field>
+                                </div>
+                                <div>
+                                    <Field name="description_ru">
+                                        {({ input, meta }) => (
+                                            <div>
+                                                <label>Description Ru</label>
+                                                <Input type='text' {...input} placeholder='Description Ru' />
+                                                {meta.error && meta.touched && <span style={{ color: '#fd4444' }}>{meta.error}</span>}
+                                            </div>
+                                        )}
+                                    </Field>
+                                </div>
+                                <div>
+                                    <Field name="description_en">
+                                        {({ input, meta }) => (
+                                            <div>
+                                                <label>Description En</label>
+                                                <Input type='text' {...input} placeholder='Description En' />
+                                                {meta.error && meta.touched && <span style={{ color: '#fd4444' }}>{meta.error}</span>}
+                                            </div>
+                                        )}
+                                    </Field>
+                                </div>
+                                <div>
+                                    <Field name="description_krl">
+                                        {({ input, meta }) => (
+                                            <div>
+                                                <label>Description Krl</label>
+                                                <Input type='text' {...input} placeholder='Description Krl' />
                                                 {meta.error && meta.touched && <span style={{ color: '#fd4444' }}>{meta.error}</span>}
                                             </div>
                                         )}
@@ -123,7 +186,10 @@ export const MainPartners = () => {
                         <th>#</th>
                         <th>Images</th>
                         <th>Name</th>
-                        <th>Description</th>
+                        <th>Description Uz</th>
+                        <th>Description Ru</th>
+                        <th>Description En</th>
+                        <th>Description Krl</th>
                         <th>Link url</th>
                         <th><Button onClick={() => {
                             setModalOpen(true)
@@ -139,6 +205,9 @@ export const MainPartners = () => {
 
                             <td>{el.name}</td>
                             <td>{el.description_uz || '-----'}</td>
+                            <td>{el.description_ru || '-----'}</td>
+                            <td>{el.description_en || '-----'}</td>
+                            <td>{el.description_krl || '-----'}</td>
                             <td>{el.urlLink || '-----'}</td>
                             <td><Button onClick={() => {
                                 setImageId(el)

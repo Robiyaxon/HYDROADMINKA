@@ -2,14 +2,10 @@ import React, { useEffect, useState } from 'react'
 import { Field, Form } from 'react-final-form'
 import { useSelector, useDispatch } from 'react-redux'
 import BorderColorIcon from '@mui/icons-material/BorderColor'
+import { Button, Input, Modal, ModalBody, ModalHeader, Table } from 'reactstrap'
 
-import { Button, Input, Modal, ModalBody, ModalFooter, ModalHeader, Table } from 'reactstrap'
-import { getContactImageCreate, getContactImages, getContactImageUpdate } from './../../redux/contact-reducer';
-import { getAboutHeader, getAboutHeaderUpdate } from '../../redux/about-reducer'
-import { getAboutHeaderCreate } from './../../redux/about-reducer';
-import { getAboutImageUpdate } from './../../redux/home-reducer';
 import { getCorporativeHeader, getCorporativeHeaderCreate } from '../../redux/corporative-reducer'
-import { getCorporativeHeaderUpdate } from './../../redux/corporative-reducer';
+import { getCorporativeHeaderUpdate } from './../../redux/corporative-reducer'
 
 export const Corporative = () => {
     const [modalOpen, setModalOpen] = useState(false);
@@ -30,8 +26,8 @@ export const Corporative = () => {
     }
     const onSubmit = (data) => {
         console.log(data);
-        !imageId ? dispatch(getCorporativeHeaderCreate({ selectedImage, title_uz: data.title })) : 
-        dispatch(getCorporativeHeaderUpdate({ selectedImage, title_uz: data.title, id: imageId.id, originalPath: imageId.photoUrl, selectedI }));
+        !imageId ? dispatch(getCorporativeHeaderCreate({ selectedImage, title_uz: data.title_uz, title_ru: data.title_ru, title_en: data.title_en, title_krl: data.title_krl })) : 
+        dispatch(getCorporativeHeaderUpdate({ selectedImage,  title_uz: data.title_uz, title_ru: data.title_ru, title_en: data.title_en, title_krl: data.title_krl, id: imageId.id, originalPath: imageId.photoUrl, selectedI }));
         setImageId(null)
         setSelectedI(false);
         setModalOpen(false);
@@ -43,11 +39,21 @@ export const Corporative = () => {
                 <ModalBody>
                 <Form
                 onSubmit={onSubmit}
-                initialValues={imageId && { title: imageId && imageId.title_uz }}
+                initialValues={imageId && { title_uz: imageId && imageId.title_uz, title_ru: imageId && imageId.title_ru,
+                    title_en: imageId && imageId.title_en, title_krl: imageId && imageId.title_krl }}
                 validate={values => {
                     const errors = {}
-                    if (!values.title) {
-                        if (!values.title) { errors.title = 'Invalid title address' }
+                    if (!values.title_uz) {
+                        if (!values.title_uz) { errors.title_uz = 'Invalid title uz address' }
+                    }
+                    if (!values.title_ru) {
+                        if (!values.title_ru) { errors.title_ru = 'Invalid title ru address' }
+                    }
+                    if (!values.title_en) {
+                        if (!values.title_en) { errors.title_en = 'Invalid title en address' }
+                    }
+                    if (!values.title_krl) {
+                        if (!values.title_krl) { errors.title_krl = 'Invalid title krl address' }
                     }
                     return errors
                 }}
@@ -74,11 +80,44 @@ export const Corporative = () => {
                         </Field>
                     </div>
                     <div>
-                        <Field name="title">
+                        <Field name="title_uz">
                             {({ input, meta }) => (
                             <div>
-                                <label>Title</label>
-                                <Input type='text' {...input} placeholder='Title'  />
+                                <label>Title Uz</label>
+                                <Input type='text' {...input} placeholder='Title Uz'  />
+                                {meta.error && meta.touched && <span style={{ color: '#fd4444' }}>{meta.error}</span>}
+                            </div>
+                            )}
+                        </Field>
+                    </div>
+                    <div>
+                        <Field name="title_ru">
+                            {({ input, meta }) => (
+                            <div>
+                                <label>Title Ru</label>
+                                <Input type='text' {...input} placeholder='Title Ru'  />
+                                {meta.error && meta.touched && <span style={{ color: '#fd4444' }}>{meta.error}</span>}
+                            </div>
+                            )}
+                        </Field>
+                    </div>
+                    <div>
+                        <Field name="title_en">
+                            {({ input, meta }) => (
+                            <div>
+                                <label>Title En</label>
+                                <Input type='text' {...input} placeholder='Title En'  />
+                                {meta.error && meta.touched && <span style={{ color: '#fd4444' }}>{meta.error}</span>}
+                            </div>
+                            )}
+                        </Field>
+                    </div>
+                    <div>
+                        <Field name="title_krl">
+                            {({ input, meta }) => (
+                            <div>
+                                <label>Title Krl</label>
+                                <Input type='text' {...input} placeholder='Title Krl'  />
                                 {meta.error && meta.touched && <span style={{ color: '#fd4444' }}>{meta.error}</span>}
                             </div>
                             )}
@@ -100,7 +139,10 @@ export const Corporative = () => {
                 <tr>
                     <th>#</th>
                     <th>Images</th>
-                    <th>Title</th>
+                    <th>Title Uz</th>
+                    <th>Title Ru</th>
+                    <th>Title En</th>
+                    <th>Title Krl</th>
                     <th>-----</th>
                 </tr>
                 </thead>
@@ -110,7 +152,10 @@ export const Corporative = () => {
                     <th scope="row">{ i + 1 }</th>
                     <td><img style={{ width: '30px' }} src={ el.photoUrl } alt="" /></td>
                     
-                    <td>{ el.title_uz }</td>
+                    <td>{ el.title_uz || '-----' }</td>
+                    <td>{ el.title_ru || '-----' }</td>
+                    <td>{ el.title_en || '-----' }</td>
+                    <td>{ el.title_krl || '-----' }</td>
                     <td><Button onClick={ () => {
                         setImageId(el)
                         setModalOpen(true)

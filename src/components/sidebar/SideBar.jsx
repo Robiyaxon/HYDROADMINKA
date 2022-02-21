@@ -7,7 +7,9 @@ import {
   faQuestion,
   faImage,
   faChartGantt,
+  faTransgender
 } from "@fortawesome/free-solid-svg-icons";
+
 import { NavItem, NavLink, Nav } from "reactstrap";
 import classNames from "classnames";
 import { Link } from "react-router-dom";
@@ -29,6 +31,8 @@ const SideBar = ({ isOpen, toggle }) => (
         <SubMenu title="About" icon={faBriefcase} items={submenus[2]} />
         <SubMenu title="Econimic" icon={faChartGantt} items={submenus[1]} id={'longTitles'}/>
         <SubMenu title="Corporative" icon={faBriefcase} items={submenus[3]} />
+        <SubMenu title="Faoliyatlar" icon={faTransgender} items={submenus[4]} />
+
 
         <NavItem>
           <NavLink tag={Link} to={"/pages"}>
@@ -82,7 +86,7 @@ const submenus = [
   ],
   [
     {
-      title: "Header Sahifa",
+      title: "Header",
       target: "economic",
     },
     {
@@ -101,7 +105,7 @@ const submenus = [
   ],
   [
     {
-      title: "About Sahifa",
+      title: "Header",
       target: "aboutHeader",
     },
     {
@@ -116,12 +120,26 @@ const submenus = [
       title: "Boshqaruv tuzilmasi",
       target: "teamMembers",
     },
+    {
+      title: "Kompaniya haqida",
+      target: "aboutCompany",
+    },
     
   ],
   [
     {
-      title: "Corporative Sahifa",
+      title: "Header",
       target: "corporativeHeader",
+    },
+    {
+      title: "Hamkorlar",
+      target: "mainPartners",
+    }
+  ],
+  [
+    {
+      title: "Header",
+      target: "activitiesHeader",
     },
     {
       title: "Hamkorlar",

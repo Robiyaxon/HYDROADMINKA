@@ -26,6 +26,7 @@ export const setAuthUserData = (user, accessToken) => ({type: SET_USER_DATA, pay
 export const getAuthUser = (email, password) => (dispatch) => {
     return usersAPI.login(email, password)
         .then(response => {
+
             let { user, accessToken } = response;
             localStorage.setItem('user', JSON.stringify(user))
             localStorage.setItem('accessToken', JSON.stringify(accessToken))

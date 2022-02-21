@@ -3,7 +3,7 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
-  -webkit-font-smoothing: antialiased;
+  -webkit-font-smoothing : antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
@@ -14,4 +14,15 @@ code {
 
 #longTitles::after {
   left: 50%;
+}
+
+.table thead th {
+  font-size: 8px;
+  padding  : .2rem
+}
+
+.table td,
+.table th {
+  padding  : .2rem;
+  font-size: 11px;
 }
