@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAlignLeft } from "@fortawesome/free-solid-svg-icons";
-<<<<<<< HEAD
 import {
   Navbar,
   Button,
@@ -11,9 +10,7 @@ import {
   NavItem,
 } from "reactstrap";
 import { Link, Navigate } from "react-router-dom";
-=======
-import { Navbar, Button, NavbarToggler, Collapse } from "reactstrap";
->>>>>>> 2af47e136b3b6c45037518fbc8e3db4656ad97ee
+// import { Navbar, Button, NavbarToggler, Collapse } from "reactstrap";
 
 const Topbar = ({ toggleSidebar }) => {
   const [topbarIsOpen, setTopbarOpen] = useState(true);

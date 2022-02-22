@@ -89,5 +89,5 @@ export const Videos = () => {
                 </tbody>
             </Table>
         </div>
-    ) || <div class="spinner"></div>
+    ) || <div className="spinner"></div>
 }

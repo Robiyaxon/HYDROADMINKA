@@ -170,5 +170,5 @@ export const Contact = () => {
                 </tbody>
             </Table>
         </div>
-    ) || <div class="spinner"></div>
+    ) || <div className="spinner"></div>
 }

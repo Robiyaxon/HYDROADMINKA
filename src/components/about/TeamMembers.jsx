@@ -1,14 +1,3 @@
-<<<<<<< HEAD
-import React, { useEffect, useState } from 'react'
-import { Field, Form } from 'react-final-form'
-import { useSelector, useDispatch } from 'react-redux'
-import BorderColorIcon from '@mui/icons-material/BorderColor'
-import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
-
-import { Button, Input, Modal, ModalBody, ModalHeader, Table } from 'reactstrap'
-import { getAboutTeamMembars, getAboutTeamMembersCreate, getAboutTeamMembersUpdate, getAboutTeamMembersDelete } from './../../redux/about-reducer';
-import { DeleteBtn } from './../../utils/utils';
-=======
 import React, { useEffect, useState } from "react";
 import { Field, Form } from "react-final-form";
 import { useSelector, useDispatch } from "react-redux";
@@ -28,7 +17,6 @@ import {
   getAboutTeamMembersUpdate,
   getAboutTeamMembersDelete,
 } from "./../../redux/about-reducer";
->>>>>>> 2af47e136b3b6c45037518fbc8e3db4656ad97ee
 
 export const TeamMembers = () => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -83,117 +71,6 @@ export const TeamMembers = () => {
             })
           );
     }
-<<<<<<< HEAD
-
-    console.log(imageId);
-    // const staffPositionCopy = imageId.staffPosition && [...imageId.staffPosition] || null
-    return images && images.team && images.team.length > 0 && (
-        <div>
-            <Modal isOpen={modalOpen} toggle={toggle} >
-                <ModalHeader toggle={toggle}>Modal title</ModalHeader>
-                <ModalBody>
-                    <Form
-                        onSubmit={onSubmit}
-                        initialValues={imageId && {
-                            fullName: imageId.fullName, name_uz: imageId.staffPosition && imageId.staffPosition.name_uz
-                        }}
-                        validate={values => {
-                            const errors = {}
-                            if (!values.fullName) {
-                                if (!values.fullName) { errors.fullName = 'Invalid title address' }
-                            }
-                            return errors
-                        }}
-                        render={({ handleSubmit, form, submitting }) => (
-                            <form onSubmit={handleSubmit}>
-                                <div>
-                                    <Field name="image" >
-                                        {({ input, meta }) => (
-                                            <div>
-                                                <label>Image</label>
-                                                <Input
-                                                    type="file"
-                                                    name="myImage"
-                                                    onChange={(event) => {
-                                                        const formData = new FormData();
-                                                        formData.append("selectedFile", event.target.files[0]);
-                                                        setSelectedImage(formData);
-                                                        setSelectedI(true)
-                                                    }}
-                                                />
-                                                {meta.error && meta.touched && <span style={{ color: '#fd4444' }}>{meta.error}</span>}
-                                            </div>
-                                        )}
-                                    </Field>
-                                </div>
-                                <div>
-                                    <Field name="fullName">
-                                        {({ input, meta }) => {
-                                            console.log(input);
-
-                                            return (
-                                                <div>
-                                                    <label>Title</label>
-                                                    <Input type='text' {...input} placeholder='Title' />
-                                                    {meta.error && meta.touched && <span style={{ color: '#fd4444' }}>{meta.error}</span>}
-                                                </div>
-                                            )
-                                        }}
-                                    </Field>
-                                </div>
-                                <div>
-                                    <Field name="name_uz">
-                                        {({ input, meta }) => (
-                                            <div>
-                                                <label>Title</label>
-                                                <Input type='text' {...input} placeholder='Postion name uz' />
-                                                {meta.error && meta.touched && <span style={{ color: '#fd4444' }}>{meta.error}</span>}
-                                            </div>
-                                        )
-                                        }
-                                    </Field>
-                                </div>
-                                {/* <div>
-                                    <Field name="name_ru">
-                                        {({ input, meta }) => {
-                                            console.log(input);
-                                            return (
-                                                <div>
-                                                    <label>Title</label>
-                                                    <Input type='text' {...input} placeholder='Postion name ru' />
-                                                    {meta.error && meta.touched && <span style={{ color: '#fd4444' }}>{meta.error}</span>}
-                                                </div>
-                                            )
-                                        }}
-                                    </Field>
-                                </div>
-                                <div>
-                                    <Field name="name_en">
-                                        {({ input, meta }) => (
-                                            <div>
-                                                <label>Title</label>
-                                                <Input type='text' {...input} placeholder='Postion name en' />
-                                                {meta.error && meta.touched && <span style={{ color: '#fd4444' }}>{meta.error}</span>}
-                                            </div>
-                                        )}
-                                    </Field>
-                                </div> */}
-                                <Button style={{ width: '100%', marginTop: '20px' }} type='submit' disabled={submitting}>Send</Button>
-                            </form>
-                        )} />
-
-                </ModalBody>
-            </Modal>
-            <Table>
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Images</th>
-                        <th>Title</th>
-                        <th>Description</th>
-                        <th>Position Name Uz</th>
-                        {/* <th>Position Name En</th>
-=======
     setImageId(null);
     setSelectedI(false);
     setModalOpen(false);
@@ -308,7 +185,6 @@ export const TeamMembers = () => {
               <th>Description</th>
               <th>Position Name Uz</th>
               {/* <th>Position Name En</th>
->>>>>>> 2af47e136b3b6c45037518fbc8e3db4656ad97ee
                         <th>Position Name Ru</th> */}
               <th>
                 <Button
@@ -338,22 +214,6 @@ export const TeamMembers = () => {
                     <td>{el.staffPosition.name_uz}</td>
                     {/* <td>{el.staffPosition.name_ru}</td>
                             <td>{el.staffPosition.name_en}</td> */}
-<<<<<<< HEAD
-                            {/* <td>{ el.positName_en }</td> */}
-                            <td><Button onClick={() => {
-                                setImageId(el)
-                                setModalOpen(true)
-                            }}><BorderColorIcon /></Button>
-                                <DeleteBtn handleAdd={() => dispatch(getAboutTeamMembersDelete(el.id))} />
-                            </td>
-                        </tr>
-                    })}
-                </tbody>
-            </Table>
-        </div>
-    ) || <div className="spinner"></div>
-}
-=======
                     {/* <td>{ el.positName_en }</td> */}
                     <td>
                       <Button
@@ -375,7 +235,6 @@ export const TeamMembers = () => {
           </tbody>
         </Table>
       </div>
-    )) || <div class="spinner"></div>
+    )) || <div className="spinner"></div>
   );
 };
->>>>>>> 2af47e136b3b6c45037518fbc8e3db4656ad97ee

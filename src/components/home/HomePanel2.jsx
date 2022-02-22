@@ -213,7 +213,7 @@ const HomePanel2 = () => {
                 </tbody>
             </Table>
         </div>
-    ) || <div class="spinner"></div>
+    ) || <div className="spinner"></div>
 }
 
 export default HomePanel2;
