@@ -26,6 +26,11 @@ import classNames from "classnames";
 import { Container } from "reactstrap";
 import { Route, Routes } from "react-router-dom";
 import { PrivateRoute } from "../../utils/PrivateRoute";
+import { Categories } from "../news/Categories";
+import { TechnicalMachine } from "../technical/TechnicalMachine";
+import { Statistics } from './../technical/Statistics';
+import { Machines } from './../technical/Machines';
+import { ActivityCategories } from './../activities/ActivityCategories';
 
 const Content = ({ sidebarIsOpen, toggleSidebar }) => {
   return (
@@ -209,6 +214,15 @@ const Content = ({ sidebarIsOpen, toggleSidebar }) => {
           />
           <Route
             exact
+            path="/activitiesCategories"
+            element={
+              <PrivateRoute>
+                <ActivityCategories />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            exact
             path="/aboutCompany"
             element={
               <PrivateRoute>
@@ -236,10 +250,46 @@ const Content = ({ sidebarIsOpen, toggleSidebar }) => {
           />
           <Route
             exact
+            path="/technicalMachine"
+            element={
+              <PrivateRoute>
+                <Machines />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            exact
+            path="/technicalMachineCategories"
+            element={
+              <PrivateRoute>
+                <TechnicalMachine />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            exact
+            path="/statistics"
+            element={
+              <PrivateRoute>
+                <Statistics />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            exact
             path="/news"
             element={
               <PrivateRoute>
                 <News />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            exact
+            path="/categories"
+            element={
+              <PrivateRoute>
+                <Categories />
               </PrivateRoute>
             }
           />

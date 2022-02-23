@@ -117,10 +117,6 @@ const submenus = [
       title: "Header",
       target: "corporativeHeader",
     },
-    {
-      title: "Hamkorlar",
-      target: "mainPartners",
-    },
   ],
   [
     {
@@ -128,8 +124,8 @@ const submenus = [
       target: "activitiesHeader",
     },
     {
-      title: "Hamkorlar",
-      target: "mainPartners",
+      title: "Categories",
+      target: "activitiesCategories",
     },
   ],
   [
@@ -141,11 +137,27 @@ const submenus = [
       title: "Video Url Youtube",
       target: "videoUrlYoutube",
     },
+    {
+      title: "Technical Machine",
+      target: "technicalMachine",
+    },
+    {
+      title: "Technical Machine Categories",
+      target: "technicalMachineCategories",
+    },
+    {
+      title: "Technical Statistics",
+      target: "statistics",
+    },
   ],
   [
     {
       title: "Header",
       target: "news",
+    },
+    {
+      title: "Categories",
+      target: "categories",
     },
   ],
 ];
