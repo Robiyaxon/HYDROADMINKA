@@ -235,6 +235,10 @@ export const TeamMembers = () => {
           </tbody>
         </Table>
       </div>
-    )) || <div className="spinner"></div>
+    )) || (
+      <div className="dis">
+        <div className="spinner"></div>
+      </div>
+    )
   );
 };
