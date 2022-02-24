@@ -305,7 +305,7 @@ export const Meeting = () => {
             />
           </ModalBody>
         </Modal>
-        <Table>
+        <Table responsive>
           <thead>
             <tr>
               <th>#</th>
