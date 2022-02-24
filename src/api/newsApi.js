@@ -52,7 +52,7 @@ export const newsAPI = {
     });
   },
   setMainNewsCreate(data) {
-    debugger
+    debugger;
     const {
       title_uz,
       title_krl,
@@ -76,8 +76,7 @@ export const newsAPI = {
         description_ru,
         description_en,
         photoUrl,
-        newsCategoryID
-      
+        newsCategoryID,
       })
       .then(async (response) => {
         return await response.data;
@@ -130,83 +129,41 @@ export const newsAPI = {
 
   // Categories
   setCategories() {
-    return instance.get(`mainNewsAPI`).then(async (response) => {
+    return instance.get(`newsCategoriesAPI`).then(async (response) => {
       return await response.data;
     });
   },
   setCategoriesCreate(data) {
-    debugger
-    const {
-      title_uz,
-      title_krl,
-      title_ru,
-      title_en,
-      description_uz,
-      description_krl,
-      description_ru,
-      description_en,
-      photoUrl,
-      newsCategoryID = 1,
-    } = data;
+    const { name_uz, name_ru, name_en, name_krl } = data;
     return instance
-      .post(`mainNewsAPI`, {
-        title_uz,
-        title_krl,
-        title_ru,
-        title_en,
-        description_uz,
-        description_krl,
-        description_ru,
-        description_en,
-        photoUrl,
-        newsCategoryID
-      
+      .post(`newsCategoriesAPI`, {
+        name_uz,
+        name_ru,
+        name_en,
+        name_krl,
+        mainNews: null,
       })
       .then(async (response) => {
         return await response.data;
       });
   },
   setCategoriesUpdate(data) {
-    const {
-      id,
-      title_uz,
-      title_krl,
-      title_ru,
-      title_en,
-      description_uz,
-      description_krl,
-      description_ru,
-      description_en,
-      photoUrl,
-      newsCategoryID,
-      name_uz,
-      name_krl,
-      name_ru,
-      name_en,
-
-      originalPath,
-    } = data;
+    const { id, name_uz, name_ru, name_en, name_krl } = data;
     return instance
-      .put(`mainNewsAPI/${id}`, {
+      .put(`newsCategoriesAPI/${id}`, {
         id,
-        title_uz,
-        title_krl,
-        title_ru,
-        title_en,
-        description_uz,
-        description_krl,
-        description_ru,
-        description_en,
-        photoUrl: photoUrl ? photoUrl : originalPath,
-        newsCategoryID,
-        newsCategory: { name_uz, name_krl, name_ru, name_en },
+        name_uz,
+        name_ru,
+        name_en,
+        name_krl,
+        mainNews: null
       })
       .then(async (response) => {
         return await response.data;
       });
   },
   setCategoriesDelete(id) {
-    return instance.delete(`aboutPanel6API/${id}`).then(async (response) => {
+    return instance.delete(`newsCategoriesAPI/${id}`).then(async (response) => {
       return await response.data;
     });
   },
