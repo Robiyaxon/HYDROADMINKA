@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Field, Form } from 'react-final-form'
 import { useSelector, useDispatch } from 'react-redux'
 import BorderColorIcon from '@mui/icons-material/BorderColor'
-
+import style from "../about/Abou.module.css"
 import { getHomePanel2Delete, getHomePanel2Data, getHomePanel2Update, getHomePanel2Create } from '../../redux/home-reducer'
 import { Button, Input, Modal, ModalBody, ModalFooter, ModalHeader, Table } from 'reactstrap'
 import { DeleteBtn } from './../../utils/utils';
@@ -171,7 +171,7 @@ const HomePanel2 = () => {
 
                 </ModalBody>
             </Modal>
-            <Table>
+            <table>
                 <thead>
                     <tr>
                         <th>#</th>
@@ -192,7 +192,7 @@ const HomePanel2 = () => {
                 <tbody>
                     {images && images.length > 0 && images.map((el, i) => {
 
-                        return <tr key={el.id} >
+                        return <tr key={el.id}>
                             <th scope="row">{i + 1}</th>
                             <td><img style={{ width: '30px' }} src={el.iconLinkName} alt="" /></td>
 
@@ -200,10 +200,22 @@ const HomePanel2 = () => {
                             <td>{el.title_ru}</td>
                             <td>{el.title_en}</td>
                             <td>{el.title_krl}</td>
-                            <td style={{ width: '12%', height: '100px', overflowX: 'auto' }}>{el.description_uz}</td>
-                            <td style={{ width: '12%', height: '100px', overflowX: 'auto' }}>{el.description_ru}</td>
-                            <td style={{ width: '12%', height: '100px', overflowX: 'auto' }}>{el.description_en}</td>
-                            <td style={{ width: '12%', height: '100px', overflowX: 'auto' }}>{el.description_krl}</td>
+                           
+                                <td style={{ width: '12%', height: '100px', overflowX: 'auto' }}>
+                                  <div className={style.robiya}>   
+                                 {el.description_uz}</div>
+                               </td>
+                              
+                                    <td style={{ width: '12%', height: '100px', overflowX: 'auto' }}>
+                                          <div className={style.robiya}>
+                                        {el.description_ru} </div></td> 
+                               
+                         
+                                <td style={{ width: '12%', height: '100px', overflowX: 'auto' }}>   <div className={style.robiya}>
+                                    
+                                    {el.description_en}</div></td>
+                             <div className={style.robiya}><td style={{ width: '12%', height: '100px', overflowX: 'auto' }}>{el.description_krl}</td></div>
+                            
                             <td><Button onClick={() => {
                                 setImageId(el)
                                 setModalOpen(true)
@@ -211,7 +223,7 @@ const HomePanel2 = () => {
                         </tr>
                     })}
                 </tbody>
-            </Table>
+            </table>
         </div>
     ) || <div class="spinner"></div>
 }

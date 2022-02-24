@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { Field, Form } from 'react-final-form'
 import { useSelector, useDispatch } from 'react-redux'
+import style from "./Abou.module.css"
 import BorderColorIcon from '@mui/icons-material/BorderColor'
-
 import { Button, Input, Modal, ModalBody, ModalFooter, ModalHeader, Table } from 'reactstrap'
 import { getContactImageCreate, getContactImages, getContactImageUpdate } from './../../redux/contact-reducer';
 import { getAboutHeader, getAboutHeaderUpdate } from '../../redux/about-reducer'
 import { getAboutHeaderCreate } from './../../redux/about-reducer';
 import { getAboutImageUpdate } from './../../redux/home-reducer';
-
 export const About = () => {
     const [modalOpen, setModalOpen] = useState(false);
     const [selectedImage,setSelectedImage] = useState(false);
@@ -135,9 +134,10 @@ export const About = () => {
                 
                 </ModalBody>
             </Modal>
-            <Table>
+            <div className={style.table_wrapper}>
+                 <table class={style.fl_table}>
                 <thead>
-                <tr>
+                <tr >
                     <th>#</th>
                     <th>Images</th>
                     <th>Title Uz</th>
@@ -163,7 +163,9 @@ export const About = () => {
                     } }><BorderColorIcon/></Button></td>
                 </tr>}) }
                 </tbody>
-            </Table>
+            </table> 
+            </div>
+          
         </div>
     ) || <div className="spinner"></div>
 }

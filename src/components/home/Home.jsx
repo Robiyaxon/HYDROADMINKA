@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Field, Form } from 'react-final-form'
 import { useSelector, useDispatch } from 'react-redux'
 import BorderColorIcon from '@mui/icons-material/BorderColor'
+import style from "../about/Abou.module.css"
 
 import { getCarouselImageDelete, getCarouselImages, getCarouselImageUpdate, getCarouselImageCreate } from '../../redux/home-reducer'
 import { Button, Input, Modal, ModalBody, ModalHeader, Table } from 'reactstrap'
@@ -23,9 +24,6 @@ const Home = () => {
         setModalOpen(!modalOpen);
         setImageId(null)
     }
-
-    
-
     const onSubmit = (data) => {
         !imageId ? dispatch(getCarouselImageCreate({ selectedImage, title_uz: data.title_uz, title_ru: data.title_ru, title_en: data.title_en, title_krl: data.title_krl, description_uz: data.description_uz, description_ru: data.description_ru, description_en: data.description_en, description_krl: data.description_krl })) :
             dispatch(getCarouselImageUpdate({ selectedImage, title_uz: data.title_uz, title_uz: data.title_uz, title_ru: data.title_ru, title_en: data.title_en, title_krl: data.title_krl, description_uz: data.description_uz, description_ru: data.description_ru, description_en: data.description_en, description_krl: data.description_krl, id: imageId.id, originalPath: imageId.photoUrl, selectedI }));
@@ -33,7 +31,6 @@ const Home = () => {
         setSelectedI(false);
         setModalOpen(false);
     }
-
     return images && images.images && images.images.length > 0 && (
         <div>
             <Modal isOpen={modalOpen} toggle={toggle} >
@@ -175,7 +172,8 @@ const Home = () => {
 
                 </ModalBody>
             </Modal>
-            <Table>
+               <div className={style.table_wrapper}>
+                 <table class={style.fl_table}>
                 <thead>
                     <tr>
                         <th>#</th>
@@ -214,7 +212,9 @@ const Home = () => {
                         </tr>
                     })}
                 </tbody>
-            </Table>
+            </table>    
+               </div>
+          
         </div>
     ) || <div class="spinner"></div>
 }
