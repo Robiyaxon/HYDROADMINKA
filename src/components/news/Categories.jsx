@@ -4,35 +4,33 @@ import { useSelector, useDispatch } from "react-redux";
 import BorderColorIcon from "@mui/icons-material/BorderColor";
 
 import {
-  getProjectNumbersImageDelete,
-  getProjectNumbersImages,
-  getProjectNumbersImageUpdate,
-  getProjectNumbersImageCreate,
-} from "../../redux/home-reducer";
-import {
   Button,
   Input,
   Modal,
   ModalBody,
-  ModalFooter,
   ModalHeader,
   Table,
 } from "reactstrap";
 import { DeleteBtn } from "./../../utils/utils";
+import {
+  getCategories,
+  getCategoriesDelete,
+  getCategoriesUpdate,
+} from "../../redux/news-reducer";
+import { getCategoriesCreate } from "./../../redux/news-reducer";
 
-const HomeProjectNumbers = () => {
+export const Categories = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState(false);
   const [selectedI, setSelectedI] = useState(false);
   const [imageId, setImageId] = useState(false);
   let images = null;
-  images = useSelector((state) =>
-    state.home.projectNumbers ? state.home.projectNumbers : null
-  );
+  images = useSelector((state) => (state.newsPage ? state.newsPage : null));
+
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getProjectNumbersImages());
+    dispatch(getCategories());
   }, []);
   const toggle = () => {
     setModalOpen(!modalOpen);
@@ -41,32 +39,29 @@ const HomeProjectNumbers = () => {
   const onSubmit = (data) => {
     !imageId
       ? dispatch(
-          getProjectNumbersImageCreate({
-            selectedImage,
-            title_uz: data.title_uz,
-            title_ru: data.title_ru,
-            title_en: data.title_en,
-            title_krl: data.title_krl,
+          getCategoriesCreate({
+            name_uz: data.name_uz,
+            name_ru: data.name_ru,
+            name_en: data.name_en,
+            name_krl: data.name_krl,
           })
         )
       : dispatch(
-          getProjectNumbersImageUpdate({
-            selectedImage,
-            title_uz: data.title_uz,
-            title_ru: data.title_ru,
-            title_en: data.title_en,
-            title_krl: data.title_krl,
+          getCategoriesUpdate({
+            name_uz: data.name_uz,
+            name_ru: data.name_ru,
+            name_en: data.name_en,
+            name_krl: data.name_krl,
             id: imageId.id,
-            originalPath: imageId.photoUrl,
-            selectedI,
           })
         );
     setImageId(null);
     setSelectedI(false);
     setModalOpen(false);
   };
+
   return (
-    (images && images.length > 0 && (
+    (images && images.categories && images.categories.length > 0 && (
       <div>
         <Modal isOpen={modalOpen} toggle={toggle}>
           <ModalHeader toggle={toggle}>Modal title</ModalHeader>
@@ -75,116 +70,85 @@ const HomeProjectNumbers = () => {
               onSubmit={onSubmit}
               initialValues={
                 imageId && {
-                  title_uz: imageId && imageId.title_uz,
-                  title_ru: imageId && imageId.title_ru,
-                  title_en: imageId && imageId.title_en,
-                  title_krl: imageId && imageId.title_krl,
+                  name_uz: imageId && imageId.name_uz,
+                  name_ru: imageId && imageId.name_ru,
+                  name_en: imageId && imageId.name_en,
+                  name_krl: imageId && imageId.name_krl,
                 }
               }
               validate={(values) => {
                 const errors = {};
-                if (!values.title_uz) {
-                  if (!values.title_uz) {
-                    errors.title_uz = "Invalid title Uz address";
-                  }
+                if (!values.name_uz) {
+                  errors.name_uz = "Invalid name Uz address";
                 }
-                if (!values.title_ru) {
-                  if (!values.title_uz) {
-                    errors.title_uz = "Invalid title Ru address";
-                  }
+                if (!values.name_ru) {
+                  errors.name_ru = "Invalid name Ru address";
                 }
-                if (!values.title_en) {
-                  if (!values.title_uz) {
-                    errors.title_uz = "Invalid title En address";
-                  }
+                if (!values.name_en) {
+                  errors.name_en = "Invalid name En address";
                 }
-                if (!values.title_krl) {
-                  if (!values.title_uz) {
-                    errors.title_uz = "Invalid title Krl address";
-                  }
+                if (!values.name_krl) {
+                  errors.name_krl = "Invalid name Krl address";
                 }
                 return errors;
               }}
               render={({ handleSubmit, form, submitting }) => (
                 <form onSubmit={handleSubmit}>
                   <div>
-                    <Field name="image">
+                    <Field name="name_uz">
                       {({ input, meta }) => (
                         <div>
-                          <label>Image</label>
+                          <label>Name Uz</label>
+                          <Input type="text" {...input} placeholder="Name Uz" />
+                          {meta.error && meta.touched && (
+                            <span style={{ color: "#fd4444" }}>
+                              {meta.error}
+                            </span>
+                          )}
+                        </div>
+                      )}
+                    </Field>
+                  </div>
+                  <div>
+                    <Field name="name_ru">
+                      {({ input, meta }) => (
+                        <div>
+                          <label>Name Ru</label>
+                          <Input type="text" {...input} placeholder="Name Ru" />
+                          {meta.error && meta.touched && (
+                            <span style={{ color: "#fd4444" }}>
+                              {meta.error}
+                            </span>
+                          )}
+                        </div>
+                      )}
+                    </Field>
+                  </div>
+                  <div>
+                    <Field name="name_en">
+                      {({ input, meta }) => (
+                        <div>
+                          <label>Name En</label>
+                          <Input type="text" {...input} placeholder="Name En" />
+                          {meta.error && meta.touched && (
+                            <span style={{ color: "#fd4444" }}>
+                              {meta.error}
+                            </span>
+                          )}
+                        </div>
+                      )}
+                    </Field>
+                  </div>
+                  <div>
+                    <Field name="name_krl">
+                      {({ input, meta }) => (
+                        <div>
+                          <label>Name Krl</label>
                           <Input
-                            type="file"
-                            name="myImage"
-                            onChange={(event) => {
-                              const formData = new FormData();
-                              formData.append(
-                                "selectedFile",
-                                event.target.files[0]
-                              );
-                              setSelectedImage(formData);
-                              setSelectedI(true);
-                            }}
+                            type="text"
+                            {...input}
+                            placeholder="Name Krl"
                           />
-                          {meta.error && meta.touched && (
-                            <span style={{ color: "#fd4444" }}>
-                              {meta.error}
-                            </span>
-                          )}
-                        </div>
-                      )}
-                    </Field>
-                  </div>
-                  <div>
-                    <Field name="title_uz">
-                      {({ input, meta }) => (
-                        <div>
-                          <label>Title Uz</label>
-                          <Input type="text" {...input} placeholder="Title" />
-                          {meta.error && meta.touched && (
-                            <span style={{ color: "#fd4444" }}>
-                              {meta.error}
-                            </span>
-                          )}
-                        </div>
-                      )}
-                    </Field>
-                  </div>
-                  <div>
-                    <Field name="title_ru">
-                      {({ input, meta }) => (
-                        <div>
-                          <label>Title Ru</label>
-                          <Input type="text" {...input} placeholder="Title" />
-                          {meta.error && meta.touched && (
-                            <span style={{ color: "#fd4444" }}>
-                              {meta.error}
-                            </span>
-                          )}
-                        </div>
-                      )}
-                    </Field>
-                  </div>
-                  <div>
-                    <Field name="title_en">
-                      {({ input, meta }) => (
-                        <div>
-                          <label>Title En</label>
-                          <Input type="text" {...input} placeholder="Title" />
-                          {meta.error && meta.touched && (
-                            <span style={{ color: "#fd4444" }}>
-                              {meta.error}
-                            </span>
-                          )}
-                        </div>
-                      )}
-                    </Field>
-                  </div>
-                  <div>
-                    <Field name="title_krl">
-                      {({ input, meta }) => (
-                        <div>
-                          <label>Title Krl</label>
-                          <Input type="text" {...input} placeholder="Title" />
                           {meta.error && meta.touched && (
                             <span style={{ color: "#fd4444" }}>
                               {meta.error}
@@ -211,11 +175,10 @@ const HomeProjectNumbers = () => {
           <thead>
             <tr>
               <th>#</th>
-              <th>Images</th>
-              <th>Title Uz</th>
-              <th>Title Ru</th>
-              <th>Title EN</th>
-              <th>Title Krl</th>
+              <th>Name Uz</th>
+              <th>Name Ru</th>
+              <th>Name En</th>
+              <th>Name Krl</th>
               <th>
                 <Button
                   onClick={() => {
@@ -229,19 +192,24 @@ const HomeProjectNumbers = () => {
           </thead>
           <tbody>
             {images &&
-              images.length > 0 &&
-              images.map((el, i) => {
+              images.categories.length > 0 &&
+              images.categories.map((el, i) => {
+                debugger;
                 return (
                   <tr key={el.id}>
                     <th scope="row">{i + 1}</th>
                     <td>
-                      <img style={{ width: "30px" }} src={el.photoUrl} alt="" />
+                      <h1>{el.name_uz}</h1>
                     </td>
-
-                    <td>{el.title_uz}</td>
-                    <td>{el.title_ru}</td>
-                    <td>{el.title_en}</td>
-                    <td>{el.title_krl}</td>
+                    <td>
+                      <h1>{el.name_ru}</h1>
+                    </td>
+                    <td>
+                      <h1>{el.name_en}</h1>
+                    </td>
+                    <td>
+                      <h1>{el.name_krl}</h1>
+                    </td>
                     <td>
                       <Button
                         onClick={() => {
@@ -252,9 +220,7 @@ const HomeProjectNumbers = () => {
                         <BorderColorIcon />
                       </Button>{" "}
                       <DeleteBtn
-                        handleAdd={() =>
-                          dispatch(getProjectNumbersImageDelete(el.id))
-                        }
+                        handleAdd={() => dispatch(getCategoriesDelete(el.id))}
                       />
                     </td>
                   </tr>
@@ -270,5 +236,3 @@ const HomeProjectNumbers = () => {
     )
   );
 };
-
-export default HomeProjectNumbers;

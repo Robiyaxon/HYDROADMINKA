@@ -10,15 +10,16 @@ import {
   NavItem,
 } from "reactstrap";
 import { Link, Navigate } from "react-router-dom";
+// import { Navbar, Button, NavbarToggler, Collapse } from "reactstrap";
 
 const Topbar = ({ toggleSidebar }) => {
   const [topbarIsOpen, setTopbarOpen] = useState(true);
   const toggleTopbar = () => setTopbarOpen(!topbarIsOpen);
   const LogOut = () => {
-    window.localStorage.clear()
+    window.localStorage.clear();
     window.location.reload(true);
-    return <Navigate to={'/login'} />
-  }
+    return <Navigate to={"/login"} />;
+  };
   return (
     <Navbar
       color="light"
@@ -34,7 +35,7 @@ const Topbar = ({ toggleSidebar }) => {
       <Collapse isOpen={topbarIsOpen} navbar>
         <Nav className="ml-auto" navbar>
           <NavItem>
-            <Button color={'danger'} onClick={LogOut}>
+            <Button color={"danger"} onClick={LogOut}>
               Log Out
             </Button>
           </NavItem>

@@ -4,12 +4,6 @@ import { useSelector, useDispatch } from "react-redux";
 import BorderColorIcon from "@mui/icons-material/BorderColor";
 
 import {
-  getCarouselImageDelete,
-  getCarouselImages,
-  getCarouselImageUpdate,
-  getCarouselImageCreate,
-} from "../../redux/home-reducer";
-import {
   Button,
   Input,
   Modal,
@@ -17,30 +11,39 @@ import {
   ModalHeader,
   Table,
 } from "reactstrap";
-import { DeleteBtn } from "../../utils/utils";
+import { DeleteBtn } from "../../../utils/utils";
+import {
+  getCategories,
+  getCategoriesDelete,
+  getCategoriesUpdate,
+  getMainNews,
+  getMainNewsCreator,
+  getMainNewsDelete,
+  getMainNewsUpdate,
+} from "../../../redux/news-reducer";
+import { NewsObj } from "./newsObj/NewsObj";
 
-const Home = () => {
+export const MainNews = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState(false);
   const [selectedI, setSelectedI] = useState(false);
   const [imageId, setImageId] = useState(false);
   let images = null;
-  images = useSelector((state) => (state.home ? state.home : null));
+  images = useSelector((state) => (state.newsPage ? state.newsPage : null));
+
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getCarouselImages());
+    dispatch(getMainNews());
   }, []);
   const toggle = () => {
     setModalOpen(!modalOpen);
     setImageId(null);
   };
-
   const onSubmit = (data) => {
     !imageId
       ? dispatch(
-          getCarouselImageCreate({
-            selectedImage,
+          getMainNewsCreator({
             title_uz: data.title_uz,
             title_ru: data.title_ru,
             title_en: data.title_en,
@@ -49,12 +52,14 @@ const Home = () => {
             description_ru: data.description_ru,
             description_en: data.description_en,
             description_krl: data.description_krl,
+            selectedImage,
           })
         )
       : dispatch(
-          getCarouselImageUpdate({
+          getMainNewsUpdate({
+            id: imageId.id,
             selectedImage,
-            title_uz: data.title_uz,
+            selectedI,
             title_uz: data.title_uz,
             title_ru: data.title_ru,
             title_en: data.title_en,
@@ -63,9 +68,7 @@ const Home = () => {
             description_ru: data.description_ru,
             description_en: data.description_en,
             description_krl: data.description_krl,
-            id: imageId.id,
             originalPath: imageId.photoUrl,
-            selectedI,
           })
         );
     setImageId(null);
@@ -74,7 +77,7 @@ const Home = () => {
   };
 
   return (
-    (images && images.images && images.images.length > 0 && (
+    (images && images.mainNews && images.mainNews.length > 0 && (
       <div>
         <Modal isOpen={modalOpen} toggle={toggle}>
           <ModalHeader toggle={toggle}>Modal title</ModalHeader>
@@ -97,11 +100,43 @@ const Home = () => {
                 const errors = {};
                 if (!values.title_uz) {
                   if (!values.title_uz) {
-                    errors.title_uz = "Invalid title address";
+                    errors.title_uz = "Invalid title Uz address";
+                  }
+                }
+                if (!values.title_ru) {
+                  if (!values.title_ru) {
+                    errors.title_ru = "Invalid title Ru address";
+                  }
+                }
+                if (!values.title_en) {
+                  if (!values.title_en) {
+                    errors.title_en = "Invalid title En address";
+                  }
+                }
+                if (!values.title_krl) {
+                  if (!values.title_krl) {
+                    errors.title_krl = "Invalid title Krl address";
                   }
                 }
                 if (!values.description_uz) {
-                  errors.description_uz = "Invalid description address";
+                  if (!values.description_uz) {
+                    errors.description_uz = "Invalid description Uz address";
+                  }
+                }
+                if (!values.description_ru) {
+                  if (!values.description_ru) {
+                    errors.description_ru = "Invalid description Ru address";
+                  }
+                }
+                if (!values.description_en) {
+                  if (!values.description_en) {
+                    errors.description_en = "Invalid description En address";
+                  }
+                }
+                if (!values.description_krl) {
+                  if (!values.description_krl) {
+                    errors.description_krl = "Invalid description Krl address";
+                  }
                 }
                 return errors;
               }}
@@ -183,7 +218,7 @@ const Home = () => {
                     <Field name="title_krl">
                       {({ input, meta }) => (
                         <div>
-                          <label>Title Krill</label>
+                          <label>Title Krl</label>
                           <Input type="text" {...input} placeholder="Title" />
                           {meta.error && meta.touched && (
                             <span style={{ color: "#fd4444" }}>
@@ -202,7 +237,7 @@ const Home = () => {
                           <Input
                             type="text"
                             {...input}
-                            placeholder="Description"
+                            placeholder="Description Uz"
                           />
                           {meta.error && meta.touched && (
                             <span style={{ color: "#fd4444" }}>
@@ -221,7 +256,7 @@ const Home = () => {
                           <Input
                             type="text"
                             {...input}
-                            placeholder="Description"
+                            placeholder="Description Ru"
                           />
                           {meta.error && meta.touched && (
                             <span style={{ color: "#fd4444" }}>
@@ -240,7 +275,7 @@ const Home = () => {
                           <Input
                             type="text"
                             {...input}
-                            placeholder="Description"
+                            placeholder="Description En"
                           />
                           {meta.error && meta.touched && (
                             <span style={{ color: "#fd4444" }}>
@@ -255,11 +290,11 @@ const Home = () => {
                     <Field name="description_krl">
                       {({ input, meta }) => (
                         <div>
-                          <label>Description Krill</label>
+                          <label>Description Krl</label>
                           <Input
                             type="text"
                             {...input}
-                            placeholder="Description"
+                            placeholder="Description Krl"
                           />
                           {meta.error && meta.touched && (
                             <span style={{ color: "#fd4444" }}>
@@ -270,7 +305,6 @@ const Home = () => {
                       )}
                     </Field>
                   </div>
-
                   <Button
                     style={{ width: "100%", marginTop: "20px" }}
                     type="submit"
@@ -287,11 +321,14 @@ const Home = () => {
           <thead>
             <tr>
               <th>#</th>
-              <th>Images</th>
-              <th>Title Uz</th>
-              <th>Title Ru</th>
-              <th>Title En</th>
-              <th>Title Krl</th>
+
+              <th>Image</th>
+
+              <th>Name Uz</th>
+              <th>Name Ru</th>
+              <th>Name En</th>
+              <th>Name Krl</th>
+
               <th>Description Uz</th>
               <th>Description Ru</th>
               <th>Description En</th>
@@ -309,23 +346,38 @@ const Home = () => {
           </thead>
           <tbody>
             {images &&
-              images.images.length > 0 &&
-              images.images.map((el, i) => {
+              images.mainNews.length > 0 &&
+              images.mainNews.map((el, i) => {
                 return (
                   <tr key={el.id}>
                     <th scope="row">{i + 1}</th>
                     <td>
                       <img style={{ width: "30px" }} src={el.photoUrl} alt="" />
                     </td>
-
-                    <td>{el.title_uz}</td>
-                    <td>{el.title_ru}</td>
-                    <td>{el.title_en}</td>
-                    <td>{el.title_krl}</td>
-                    <td>{el.description_uz}</td>
-                    <td>{el.description_ru}</td>
-                    <td>{el.description_en}</td>
-                    <td>{el.description_krl}</td>
+                    <td>
+                      <h1>{el.title_uz}</h1>
+                    </td>
+                    <td>
+                      <h1>{el.title_ru}</h1>
+                    </td>
+                    <td>
+                      <h1>{el.title_en}</h1>
+                    </td>
+                    <td>
+                      <h1>{el.title_krl}</h1>
+                    </td>
+                    <td>
+                      <h1>{el.description_uz}</h1>
+                    </td>
+                    <td>
+                      <h1>{el.description_ru}</h1>
+                    </td>
+                    <td>
+                      <h1>{el.description_en}</h1>
+                    </td>
+                    <td>
+                      <h1>{el.description_krl}</h1>
+                    </td>
                     <td>
                       <Button
                         onClick={() => {
@@ -334,11 +386,9 @@ const Home = () => {
                         }}
                       >
                         <BorderColorIcon />
-                      </Button>
+                      </Button>{" "}
                       <DeleteBtn
-                        handleAdd={() =>
-                          dispatch(getCarouselImageDelete(el.id))
-                        }
+                        handleAdd={() => dispatch(getMainNewsDelete(el.id))}
                       />
                     </td>
                   </tr>
@@ -354,5 +404,3 @@ const Home = () => {
     )
   );
 };
-
-export default Home;

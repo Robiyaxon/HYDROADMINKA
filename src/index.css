@@ -39,3 +39,30 @@
   padding  : .2rem;
   font-size: 11px;
 }
+
+.table tbody tr th {
+  width: 10%;
+}
+
+.table tbody tr td {
+  width: 10%;
+}
+
+.table tbody tr td h1 {
+  font-size: 12px;
+}
+
+.dis {
+  width          : 100%;
+  height         : 70vh;
+  display        : flex;
+  justify-content: center;
+  align-items    : center;
+}
+
+.dis .spinner {
+  width : 150px;
+  height: 150px;
+  border: 10px solid #7386d53d;
+  border-top-color: #6d7fcc;
+}

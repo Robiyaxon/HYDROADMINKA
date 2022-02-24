@@ -4,12 +4,10 @@ import {
   faHome,
   faBriefcase,
   faPaperPlane,
-  faQuestion,
-  faImage,
   faChartGantt,
   faTransgender,
   faNewspaper,
-  faTools
+  faTools,
 } from "@fortawesome/free-solid-svg-icons";
 
 import { NavItem, NavLink, Nav } from "reactstrap";
@@ -24,7 +22,7 @@ const SideBar = ({ isOpen, toggle }) => (
       <span color="info" onClick={toggle} style={{ color: "#fff" }}>
         &times;
       </span>
-      <h3>Hydro  Adminka</h3>
+      <h3>Hydro Adminka</h3>
     </div>
     <div className="side-menu">
       <Nav vertical className="list-unstyled pb-3">
@@ -36,12 +34,7 @@ const SideBar = ({ isOpen, toggle }) => (
         <SubMenu title="Activities" icon={faTransgender} items={submenus[4]} />
         <SubMenu title="Tecnical" icon={faTools} items={submenus[5]} />
         <SubMenu title="News" icon={faNewspaper} items={submenus[6]} />
-        <NavItem>
-          <NavLink tag={Link} to={"/contact"}>
-            <FontAwesomeIcon icon={faPaperPlane} className="mr-2" />
-            Contact
-          </NavLink>
-        </NavItem>
+        <SubMenu title="Contact" icon={faPaperPlane} items={submenus[7]} />
       </Nav>
     </div>
   </div>
@@ -91,7 +84,6 @@ const submenus = [
       title: "Ochiq Muloqot",
       target: "openSourses",
     },
-
   ],
   [
     {
@@ -114,17 +106,12 @@ const submenus = [
       title: "Kompaniya haqida",
       target: "aboutCompany",
     },
-
   ],
   [
     {
       title: "Header",
       target: "corporativeHeader",
     },
-    {
-      title: "Hamkorlar",
-      target: "mainPartners",
-    }
   ],
   [
     {
@@ -132,9 +119,9 @@ const submenus = [
       target: "activitiesHeader",
     },
     {
-      title: "Hamkorlar",
-      target: "mainPartners",
-    }
+      title: "Categories",
+      target: "activitiesCategories",
+    },
   ],
   [
     {
@@ -144,12 +131,42 @@ const submenus = [
     {
       title: "Video Url Youtube",
       target: "videoUrlYoutube",
-    }
+    },
+    {
+      title: "Technical Machine",
+      target: "technicalMachine",
+    },
+    {
+      title: "Technical Machine Categories",
+      target: "technicalMachineCategories",
+    },
+    {
+      title: "Technical Statistics",
+      target: "statistics",
+    },
   ],
   [
     {
       title: "Header",
       target: "news",
+    },
+    {
+      title: "Categories",
+      target: "categories",
+    },
+    {
+      title: "Main News",
+      target: "mainNews",
+    },
+  ],
+  [
+    {
+      title: "Header",
+      target: "contact",
+    },
+    {
+      title: "Comments",
+      target: "comments",
     }
   ],
 ];
