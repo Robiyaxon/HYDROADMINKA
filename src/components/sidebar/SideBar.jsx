@@ -34,12 +34,7 @@ const SideBar = ({ isOpen, toggle }) => (
         <SubMenu title="Activities" icon={faTransgender} items={submenus[4]} />
         <SubMenu title="Tecnical" icon={faTools} items={submenus[5]} />
         <SubMenu title="News" icon={faNewspaper} items={submenus[6]} />
-        <NavItem>
-          <NavLink tag={Link} to={"/contact"}>
-            <FontAwesomeIcon icon={faPaperPlane} className="mr-2" />
-            Contact
-          </NavLink>
-        </NavItem>
+        <SubMenu title="Contact" icon={faPaperPlane} items={submenus[7]} />
       </Nav>
     </div>
   </div>
@@ -163,6 +158,16 @@ const submenus = [
       title: "Main News",
       target: "mainNews",
     },
+  ],
+  [
+    {
+      title: "Header",
+      target: "contact",
+    },
+    {
+      title: "Comments",
+      target: "comments",
+    }
   ],
 ];
 

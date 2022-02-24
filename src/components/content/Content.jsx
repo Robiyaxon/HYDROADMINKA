@@ -32,6 +32,7 @@ import { Statistics } from "./../technical/Statistics";
 import { Machines } from "./../technical/Machines";
 import { ActivityCategories } from "./../activities/ActivityCategories";
 import { MainNews } from './../news/mainNews/MainNews';
+import { Comments } from './../contact/Comments';
 
 const Content = ({ sidebarIsOpen, toggleSidebar }) => {
   return (
@@ -110,6 +111,15 @@ const Content = ({ sidebarIsOpen, toggleSidebar }) => {
             element={
               <PrivateRoute>
                 <Contact />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            exact
+            path="/comments"
+            element={
+              <PrivateRoute>
+                <Comments />
               </PrivateRoute>
             }
           />

@@ -20,5 +20,19 @@ export const contactAPI = {
         .then(async(response) => {
             return await response.data;
         });
-    }
+    },
+
+    // comments
+
+    setComments() {
+        return instance.get(`mainContactsAPI`)
+            .then(async(response) => {
+                return await response.data;
+            });
+    },
+    setCommentsDelete(id) {
+        return instance.delete(`mainContactsAPI/${id}`).then(async (response) => {
+          return await response.data;
+        });
+      },
 }

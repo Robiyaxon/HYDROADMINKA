@@ -12,7 +12,11 @@ import {
   Table,
 } from "reactstrap";
 import { DeleteBtn } from "./../../utils/utils";
-import { getCategories, getCategoriesDelete, getCategoriesUpdate } from "../../redux/news-reducer";
+import {
+  getCategories,
+  getCategoriesDelete,
+  getCategoriesUpdate,
+} from "../../redux/news-reducer";
 import { getCategoriesCreate } from "./../../redux/news-reducer";
 
 export const Categories = () => {
@@ -21,7 +25,7 @@ export const Categories = () => {
   const [selectedI, setSelectedI] = useState(false);
   const [imageId, setImageId] = useState(false);
   let images = null;
-  images = useSelector((state) => (state.newsPage ? state.newsPage : null))
+  images = useSelector((state) => (state.newsPage ? state.newsPage : null));
 
   const dispatch = useDispatch();
 
@@ -190,6 +194,7 @@ export const Categories = () => {
             {images &&
               images.categories.length > 0 &&
               images.categories.map((el, i) => {
+                debugger;
                 return (
                   <tr key={el.id}>
                     <th scope="row">{i + 1}</th>

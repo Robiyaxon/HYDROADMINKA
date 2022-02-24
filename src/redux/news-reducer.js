@@ -181,6 +181,7 @@ export const getMainNewsDelete = (id) => (dispatch) => {
 
 export const getCategories = () => (dispatch) => {
   return newsAPI.setCategories().then((response) => {
+    debugger
     dispatch(setCategoriesData(response));
   });
 };

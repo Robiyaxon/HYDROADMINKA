@@ -9,7 +9,16 @@
   position        : absolute;
   margin          : auto
 }
+::-webkit-scrollbar{
+  height: 2px;
+  width: 2px;
+  background-color: #fff;
+}
 
+::-webkit-scrollbar-thumb{
+  background: #00c3ff;
+  border-radius: 1px;
+}
 @keyframes spin {
   to {
     -webkit-transform: rotate(360deg);

@@ -127,4 +127,87 @@ export const newsAPI = {
       return await response.data;
     });
   },
+
+  // Categories
+  setCategories() {
+    return instance.get(`mainNewsAPI`).then(async (response) => {
+      return await response.data;
+    });
+  },
+  setCategoriesCreate(data) {
+    debugger
+    const {
+      title_uz,
+      title_krl,
+      title_ru,
+      title_en,
+      description_uz,
+      description_krl,
+      description_ru,
+      description_en,
+      photoUrl,
+      newsCategoryID = 1,
+    } = data;
+    return instance
+      .post(`mainNewsAPI`, {
+        title_uz,
+        title_krl,
+        title_ru,
+        title_en,
+        description_uz,
+        description_krl,
+        description_ru,
+        description_en,
+        photoUrl,
+        newsCategoryID
+      
+      })
+      .then(async (response) => {
+        return await response.data;
+      });
+  },
+  setCategoriesUpdate(data) {
+    const {
+      id,
+      title_uz,
+      title_krl,
+      title_ru,
+      title_en,
+      description_uz,
+      description_krl,
+      description_ru,
+      description_en,
+      photoUrl,
+      newsCategoryID,
+      name_uz,
+      name_krl,
+      name_ru,
+      name_en,
+
+      originalPath,
+    } = data;
+    return instance
+      .put(`mainNewsAPI/${id}`, {
+        id,
+        title_uz,
+        title_krl,
+        title_ru,
+        title_en,
+        description_uz,
+        description_krl,
+        description_ru,
+        description_en,
+        photoUrl: photoUrl ? photoUrl : originalPath,
+        newsCategoryID,
+        newsCategory: { name_uz, name_krl, name_ru, name_en },
+      })
+      .then(async (response) => {
+        return await response.data;
+      });
+  },
+  setCategoriesDelete(id) {
+    return instance.delete(`aboutPanel6API/${id}`).then(async (response) => {
+      return await response.data;
+    });
+  },
 };
