@@ -21,8 +21,7 @@ import {
   getMainNewsDelete,
   getMainNewsUpdate,
 } from "../../../redux/news-reducer";
-import { NewsObj } from './newsObj/NewsObj';
-
+import { NewsObj } from "./newsObj/NewsObj";
 
 export const MainNews = () => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -350,55 +349,49 @@ export const MainNews = () => {
               images.mainNews.length > 0 &&
               images.mainNews.map((el, i) => {
                 return (
-                  <>
-                    <tr key={el.id}>
-                      <th scope="row">{i + 1}</th>
-                      <td>
-                        <img
-                          style={{ width: "30px" }}
-                          src={el.photoUrl}
-                          alt=""
-                        />
-                      </td>
-                      <td>
-                        <h1>{el.title_uz}</h1>
-                      </td>
-                      <td>
-                        <h1>{el.title_ru}</h1>
-                      </td>
-                      <td>
-                        <h1>{el.title_en}</h1>
-                      </td>
-                      <td>
-                        <h1>{el.title_krl}</h1>
-                      </td>
-                      <td>
-                        <h1>{el.description_uz}</h1>
-                      </td>
-                      <td>
-                        <h1>{el.description_ru}</h1>
-                      </td>
-                      <td>
-                        <h1>{el.description_en}</h1>
-                      </td>
-                      <td>
-                        <h1>{el.description_krl}</h1>
-                      </td>
-                      <td>
-                        <Button
-                          onClick={() => {
-                            setImageId(el);
-                            setModalOpen(true);
-                          }}
-                        >
-                          <BorderColorIcon />
-                        </Button>{" "}
-                        <DeleteBtn
-                          handleAdd={() => dispatch(getMainNewsDelete(el.id))}
-                        />
-                      </td>
-                    </tr>
-                  </>
+                  <tr key={el.id}>
+                    <th scope="row">{i + 1}</th>
+                    <td>
+                      <img style={{ width: "30px" }} src={el.photoUrl} alt="" />
+                    </td>
+                    <td>
+                      <h1>{el.title_uz}</h1>
+                    </td>
+                    <td>
+                      <h1>{el.title_ru}</h1>
+                    </td>
+                    <td>
+                      <h1>{el.title_en}</h1>
+                    </td>
+                    <td>
+                      <h1>{el.title_krl}</h1>
+                    </td>
+                    <td>
+                      <h1>{el.description_uz}</h1>
+                    </td>
+                    <td>
+                      <h1>{el.description_ru}</h1>
+                    </td>
+                    <td>
+                      <h1>{el.description_en}</h1>
+                    </td>
+                    <td>
+                      <h1>{el.description_krl}</h1>
+                    </td>
+                    <td>
+                      <Button
+                        onClick={() => {
+                          setImageId(el);
+                          setModalOpen(true);
+                        }}
+                      >
+                        <BorderColorIcon />
+                      </Button>{" "}
+                      <DeleteBtn
+                        handleAdd={() => dispatch(getMainNewsDelete(el.id))}
+                      />
+                    </td>
+                  </tr>
                 );
               })}
           </tbody>
