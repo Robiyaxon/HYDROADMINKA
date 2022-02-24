@@ -2,7 +2,12 @@ import { globalAPI } from "../api/api";
 import { newsAPI } from "./../api/newsApi";
 
 const SET_NEWS = "/news/SET_NEWS";
+
+// MainNews
+
 const SET_MAIN_NEWS = "/news/SET_MAIN_NEWS";
+const SET_MAIN_NEWS_DELETE = "/news/SET_MAIN_NEWS_DELETE";
+const SET_MAIN_NEWS_OBJ_DELETE = "/news/SET_MAIN_NEWS_OBJ_DELETE";
 
 // categories
 
@@ -12,7 +17,7 @@ const SET_CATEGORIES_DELETE = "/news/SET_CATEGORIES_DELETE";
 let initialState = {
   news: null,
   categories: null,
-  mainNews: null
+  mainNews: null,
 };
 
 export const newsReducer = (state = initialState, action) => {
@@ -22,11 +27,28 @@ export const newsReducer = (state = initialState, action) => {
         ...state,
         news: action.news,
       };
+
     case SET_MAIN_NEWS:
       return {
         ...state,
         mainNews: action.mainNews,
       };
+    case SET_MAIN_NEWS_DELETE:
+      let mainNews = [...state.mainNews];
+      mainNews = mainNews.filter((el) => {
+        if (el.id !== action.id) {
+          return el;
+        }
+      });
+      return {
+        ...state,
+        mainNews,
+      };
+      return {
+        ...state,
+        mainNews
+      };
+
     case SET_CATEGORIES:
       return {
         ...state,
@@ -52,12 +74,29 @@ export const newsReducer = (state = initialState, action) => {
 
 export const setNewsData = (news) => ({ type: SET_NEWS, news });
 
-export const setCategoriesData = (categories) => ({ type: SET_CATEGORIES, categories });
-export const setCategoriesDeleteAC = (id) => ({ type: SET_CATEGORIES_DELETE, id });
+export const setCategoriesData = (categories) => ({
+  type: SET_CATEGORIES,
+  categories,
+});
+export const setCategoriesDeleteAC = (id) => ({
+  type: SET_CATEGORIES_DELETE,
+  id,
+});
+
+// MianNews
 
 export const setMainNewsData = (mainNews) => ({
   type: SET_MAIN_NEWS,
   mainNews,
+});
+
+export const setMainNewsDeleteAC = (id) => ({
+  type: SET_MAIN_NEWS_DELETE,
+  id,
+});
+export const setMainNewsObjDeleteAC = (id) => ({
+  type: SET_MAIN_NEWS_OBJ_DELETE,
+  id,
 });
 
 //thunk
@@ -112,7 +151,7 @@ export const getMainNewsCreator = (data) => async (dispatch) => {
   data.photoUrl = path;
 
   return await newsAPI.setMainNewsCreate(data).then((res) => {
-    dispatch(getNewsHeader());
+    dispatch(getMainNews());
   });
 };
 export const getMainNewsUpdate = (data) => async (dispatch) => {
@@ -123,12 +162,20 @@ export const getMainNewsUpdate = (data) => async (dispatch) => {
     }));
 
   let path = image.dbPath && "http://softcity.uz:9999" + image.dbPath;
-  data.fileUrl = path;
+  data.photoUrl = path;
 
   return await newsAPI.setMainNewsUpdate(data).then((res) => {
-    dispatch(getNewsHeader());
+    dispatch(getMainNews());
   });
 };
+
+export const getMainNewsDelete = (id) => (dispatch) => {
+  return newsAPI.setMainNewsDelete(id).then((response) => {
+    dispatch(getMainNews());
+    dispatch(setMainNewsDeleteAC(id));
+  });
+};
+
 
 // categories
 
@@ -137,14 +184,14 @@ export const getCategories = () => (dispatch) => {
     dispatch(setCategoriesData(response));
   });
 };
-export const getCategoriesCreate = (data) => async (dispatch) => {
 
+export const getCategoriesCreate = (data) => async (dispatch) => {
   return await newsAPI.setCategoriesCreate(data).then((response) => {
     dispatch(getCategories());
   });
 };
+
 export const getCategoriesUpdate = (data) => async (dispatch) => {
-  
   return await newsAPI.setCategoriesUpdate(data).then((response) => {
     dispatch(getCategories());
   });

@@ -159,6 +159,10 @@ const submenus = [
       title: "Categories",
       target: "categories",
     },
+    {
+      title: "Main News",
+      target: "mainNews",
+    },
   ],
 ];
 

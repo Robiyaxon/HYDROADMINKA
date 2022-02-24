@@ -45,13 +45,14 @@ export const newsAPI = {
       });
   },
 
-  // header
+  // MainNews
   setMainNews() {
     return instance.get(`mainNewsAPI`).then(async (response) => {
       return await response.data;
     });
   },
   setMainNewsCreate(data) {
+    debugger
     const {
       title_uz,
       title_krl,
@@ -62,11 +63,7 @@ export const newsAPI = {
       description_ru,
       description_en,
       photoUrl,
-      newsCategoryID = 0,
-      name_uz,
-      name_krl,
-      name_ru,
-      name_en,
+      newsCategoryID = 1,
     } = data;
     return instance
       .post(`mainNewsAPI`, {
@@ -79,8 +76,8 @@ export const newsAPI = {
         description_ru,
         description_en,
         photoUrl,
-        newsCategoryID,
-        newsCategory: { name_uz, name_krl, name_ru, name_en },
+        newsCategoryID
+      
       })
       .then(async (response) => {
         return await response.data;
@@ -98,7 +95,7 @@ export const newsAPI = {
       description_ru,
       description_en,
       photoUrl,
-      newsCategoryID = 0,
+      newsCategoryID,
       name_uz,
       name_krl,
       name_ru,
@@ -110,60 +107,23 @@ export const newsAPI = {
       .put(`mainNewsAPI/${id}`, {
         id,
         title_uz,
+        title_krl,
         title_ru,
         title_en,
-        title_krl,
         description_uz,
         description_krl,
         description_ru,
         description_en,
+        photoUrl: photoUrl ? photoUrl : originalPath,
         newsCategoryID,
         newsCategory: { name_uz, name_krl, name_ru, name_en },
-        photoUrl: photoUrl ? photoUrl : originalPath,
-        mainNews: [],
       })
       .then(async (response) => {
         return await response.data;
       });
   },
-
-  // categories
-
-  setCategories() {
-    return instance.get(`newsCategoriesAPI`).then(async (response) => {
-      return await response.data;
-    });
-  },
-  setCategoriesCreate(data) {
-    const { name_uz, name_krl, name_ru, name_en } = data;
-    return instance
-      .post(`newsCategoriesAPI`, {
-        name_uz,
-        name_krl,
-        name_ru,
-        name_en
-      })
-      .then(async (response) => {
-        return await response.data;
-      });
-  },
-  setCategoriesUpdate(data) {
-    const { name_uz, name_krl, name_ru, name_en, id } = data;
-    return instance
-      .put(`newsCategoriesAPI/${id}`, {
-        id,
-        name_uz,
-        name_krl,
-        name_ru,
-        name_en,
-        mainNews: null
-      })
-      .then(async (response) => {
-        return await response.data;
-      });
-  },
-  setCategoriesDelete(id) {
-    return instance.delete(`newsCategoriesAPI/${id}`).then(async (response) => {
+  setMainNewsDelete(id) {
+    return instance.delete(`aboutPanel6API/${id}`).then(async (response) => {
       return await response.data;
     });
   },

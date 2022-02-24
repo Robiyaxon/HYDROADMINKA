@@ -28,13 +28,13 @@ import { Route, Routes } from "react-router-dom";
 import { PrivateRoute } from "../../utils/PrivateRoute";
 import { Categories } from "../news/Categories";
 import { TechnicalMachine } from "../technical/TechnicalMachine";
-import { Statistics } from './../technical/Statistics';
-import { Machines } from './../technical/Machines';
-import { ActivityCategories } from './../activities/ActivityCategories';
+import { Statistics } from "./../technical/Statistics";
+import { Machines } from "./../technical/Machines";
+import { ActivityCategories } from "./../activities/ActivityCategories";
+import { MainNews } from './../news/mainNews/MainNews';
 
 const Content = ({ sidebarIsOpen, toggleSidebar }) => {
   return (
-    (
       <Container
         fluid
         className={classNames("content", { "is-open": sidebarIsOpen })}
@@ -293,13 +293,21 @@ const Content = ({ sidebarIsOpen, toggleSidebar }) => {
               </PrivateRoute>
             }
           />
+          <Route
+            exact
+            path="/mainNews"
+            element={
+              <PrivateRoute>
+                <MainNews />
+              </PrivateRoute>
+            }
+          />
         </Routes>
       </Container>
-    ) || (
+    )|| (
       <div className="dis">
         <div className="spinner"></div>
       </div>
-    )
   );
 };
 
